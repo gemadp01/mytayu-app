@@ -1,0 +1,224 @@
+* {
+    font-family: "Montserrat", sans-serif;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+section#home {
+    /* padding-top: 128px; */
+    /* position: relative; */
+    background: rgb(0, 180, 170);
+    background: linear-gradient(
+        120deg,
+        rgba(0, 180, 170, 0.22452731092436973) 0%,
+        rgba(0, 180, 170, 0) 30%
+    );
+}
+
+section::before {
+    z-index: -1;
+    content: "";
+    font-size: 48px;
+    color: black;
+    position: absolute;
+    font-weight: 700;
+    top: 50px;
+}
+
+section#about {
+    position: relative;
+    padding-top: 128px;
+}
+
+section#contact {
+    position: relative;
+    padding-top: 128px;
+}
+
+footer#footer {
+    position: relative;
+    padding-top: 250px;
+}
+
+iframe {
+    width: 100%;
+}
+
+/* Icon kubus */
+svg.bi.bi-box.satu {
+    position: absolute;
+    top: -20px;
+    left: 100px;
+    animation: cube-infinitive 3s infinite;
+}
+
+svg.bi.bi-box.dua {
+    position: absolute;
+    right: 100px;
+    animation: cube-infinitive 4s infinite;
+}
+
+svg.bi.bi-box.tiga {
+    position: absolute;
+    top: -100px;
+    right: 150px;
+    animation: cube-infinitive 5s infinite;
+}
+
+/* Button */
+a.outline-button,
+div.outline-button {
+    border: 1px solid #00b4aa;
+    padding: 20px 80px;
+    text-decoration: none;
+    position: relative;
+}
+
+a.outline-button span.fill-button,
+div.outline-button button.fill-button {
+    border: 1px solid #00b4aa;
+    background-color: #00b4aa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    color: white;
+    font-weight: 700;
+    transition: 0.2s;
+}
+
+a.outline-button span.fill-button:hover,
+div.outline-button button.fill-button:hover {
+    transform: translate(-4px, -3px);
+    border: 1px solid #00b4aa;
+}
+
+a.outline-button span {
+    border: none;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    color: #00b4aa;
+    font-weight: 700;
+}
+
+a.outline-button span:hover {
+    transform: translate(-4px, -3px);
+    border: 1px solid #00b4aa;
+}
+
+nav.navbar {
+    /* padding-top: 200px; */
+}
+
+/* Home Section */
+.home .title {
+    font-size: 60px;
+}
+
+.home .title span {
+    color: #00b4aa;
+}
+
+/* About Section */
+section#about::before {
+    content: "About";
+}
+
+.about .primary-feature {
+    /* width: 45%; */
+    height: auto;
+    border: 1px solid #d9d9d9;
+}
+
+.about .primary-feature .icon {
+    width: fit-content;
+}
+
+.about .primary-feature p.icon-description {
+    font-size: 14px;
+}
+
+.about .sub-feature .primary-feature p.icon-description {
+    font-size: 14px;
+    /* display: none; */
+}
+
+/* Contact Section */
+section#contact::before {
+    content: "Contact Us";
+}
+
+@keyframes cube-infinitive {
+    0% {
+        transform: translateY(0);
+        animation-timing-function: ease-in;
+    }
+
+    50% {
+        transform: translateY(10px);
+        animation-timing-function: ease-out;
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@keyframes laravel-button-out {
+    from {
+        top: 0;
+        left: 0;
+        border: 1px solid #00b4aa;
+    }
+    to {
+        top: -5px;
+        left: -5px;
+        border: 1px solid #00b4aa;
+    }
+}
+
+@keyframes laravel-button-in {
+    from {
+        top: -5px;
+        left: -5px;
+        border: 1px solid #00b4aa;
+    }
+    to {
+        top: -1px;
+        left: -1px;
+        border: 1px solid #00b4aa;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    svg.bi.bi-box.satu,
+    svg.bi.bi-box.dua,
+    svg.bi.bi-box.tiga {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    section#about {
+        margin-bottom: 400px;
+    }
+}
+
+/* @media only screen and (min-width: 992px) {
+  nav div.navbar-nav {
+    width: 75%;
+    justify-content: center;
+    gap: 20px;
+  }
+} */
