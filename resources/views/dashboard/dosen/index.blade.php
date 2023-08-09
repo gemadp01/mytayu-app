@@ -1,5 +1,7 @@
 @extends('dashboard.layouts.main')
 
+@include('dashboard.dosen.edit')
+
 @section('page-heading')
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Data Dosen Terdaftar</h1>
@@ -37,11 +39,10 @@
                 </div>
             </div>
             @if (session()->has('success'))
-                <span id="flash">{{ session('success') }}</span>
-                <script>
-                    const flashMessage = document.getElementById('flash');
-                    Swal.fire( flashMessage );
-                </script>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
             @endif
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -76,9 +77,14 @@
                                 <a href="" class="btn btn-success btn-circle btn-sm">
                                     <i class="fas fa-check"></i>
                                 </a>
-                                <a href="/dashboard/daftar-dosen/{{ $dosen->id }}/edit" class="btn btn-warning btn-circle btn-sm">
+
+                                <button type="button" class="btn btn-warning btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#formModal">
                                     <i class="fas fa-edit"></i>
-                                </a>
+                                </button>
+
+                                {{-- <a href="/dashboard/dosen/{{ $dosen->id }}/edit" class="btn btn-warning btn-circle btn-sm">
+                                    <i class="fas fa-edit"></i>
+                                </a> --}}
                                 <form action="/dashboard/dosen/{{ $dosen->id }}" method="POST" class="d-inline">
                                     @method('DELETE')
                                     @csrf
