@@ -41,10 +41,10 @@
             <h1 class="h3 mb-3 fw-normal">Please Login</h1>
 
             <div class="form-floating">
-                <input type="text" class="form-control @error('nomor_induk') is-invalid @enderror" name="nomor_induk"
-                    id="nomor_induk" placeholder="NIDN/NPM" autofocus required value="{{ old('nomor_induk') }}" />
-                <label for="nomor_induk">Nomor Induk</label>
-                @error('nomor_induk')
+                <input type="text" class="form-control @error('username') is-invalid @enderror" name="username"
+                    id="username" placeholder="NIDN/NPM" autofocus required value="{{ old('username') }}" />
+                <label for="username">Username</label>
+                @error('username')
                     <div class="invalid-feedback">
                         {{ $message }}
                     </div>

@@ -42,4 +42,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function scopeFilter($query, $credentials) {
+        
+        return $query->where('username', $credentials['username'])
+                    ->orWhere('nomor_induk', $credentials['username']);
+
+    }
+
+    // public function findForPassport($username) {
+    //     return $this->orWhere('username', $username)->orWhere('nip', $username)->first();
+    // }
+    
 }

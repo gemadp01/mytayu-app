@@ -19,3 +19,4 @@ navbar.addEventListener('click', function (e) {
     removeActive = e.target;
   }
 });
+

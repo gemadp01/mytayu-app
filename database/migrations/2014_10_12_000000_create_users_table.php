@@ -16,7 +16,7 @@ return new class extends Migration
             // $table->foreignId('dosen_id')->nullable();
             $table->boolean('is_koordinator')->default(false);
             // $table->boolean('status_user')->default(false);
-            $table->string('nomor_induk');
+            $table->string('nomor_induk')->unique();
             $table->string('name');
             $table->string('username')->unique();
             // $table->string('email')->unique(); //ori

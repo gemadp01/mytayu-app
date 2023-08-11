@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,18 +13,36 @@ class LoginController extends Controller
     }
     
     public function authenticate(Request $request) {
+        
+        // $credentials = $request->validate([
+        //     'username' => 'required',
+        //     'password' => 'required',
+        // ]);
+
+        // if (Auth::attempt($credentials)) {
+        //     $request->session()->regenerate();
+
+        //     return redirect()->intended('/dashboard');
+        // }
+
+        // return back()->with('loginError', 'Login Failed!');
+
+
         $credentials = $request->validate([
-            'nomor_induk' => 'required|digits_between:8,10',
+            'username' => 'required',
             'password' => 'required',
         ]);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
+        $user = User::filter($credentials)->first();
 
+        if ($user && Auth::attempt(['username' => $user->username, 'password' => $credentials['password']])) {
+            $request->session()->regenerate();
             return redirect()->intended('/dashboard');
         }
 
         return back()->with('loginError', 'Login Failed!');
+
+
     }
 
     public function logout(Request $request) {
@@ -32,4 +51,9 @@ class LoginController extends Controller
         $request->session()->regenerateToken();
         return redirect('/login');
     }
+
+    // public function username()
+    // {
+    //     return 'username';
+    // }
 }

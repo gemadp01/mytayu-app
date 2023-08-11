@@ -69,10 +69,7 @@ class DosenController extends Controller
      */
     public function show(Dosen $dosen)
     {
-        return view('dashboard.dosen.edit', [
-            'dosen' => $dosen,
-            
-        ]);
+        //
     }
 
     /**
@@ -80,7 +77,9 @@ class DosenController extends Controller
      */
     public function edit(Dosen $dosen)
     {
-        //
+        return view('dashboard.dosen.edit', [
+            'dosen' => $dosen,
+        ]);
     }
 
     /**
@@ -88,7 +87,20 @@ class DosenController extends Controller
      */
     public function update(Request $request, Dosen $dosen)
     {
-        //
+        // dd($request->all());
+        $validatedData = $request->validate([
+            'nidn' => 'required|max:10',
+            'nama' => 'required',
+            'singkatan' => 'nullable|max:3',
+            'nomor_telepon' => 'nullable|min:10|max:13',
+            'kuota_pembimbing' => 'nullable|min:1',
+            'keilmuan' => 'nullable',
+        ]);
+
+
+        Dosen::where('id', $dosen->id)->update($validatedData);
+
+        return redirect('dashboard/dosen')->with('success', 'Dosen has been Updated!');
     }
 
     /**
@@ -99,5 +111,14 @@ class DosenController extends Controller
         Dosen::destroy($dosen->id);
 
         return redirect('dashboard/dosen')->with('success', 'Dosen has been deleted!');
+    }
+
+    public function changeStatus(Dosen $dosen) {
+        if($dosen->status_user === 1) {
+            $dosen->update(['status_user' => false]);
+        }else {
+            $dosen->update(['status_user' => true]);
+        }
+        return redirect('dashboard/dosen')->with('success', 'Status user berhasil diubah.');
     }
 }

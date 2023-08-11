@@ -31,4 +31,11 @@ Route::get('/dashboard', function() {
     ]);
 })->middleware('auth');
 
-Route::resource('/dashboard/dosen', DosenController::class)->middleware('is_koordinator');
+
+Route::middleware('is_koordinator')->group(function () {
+    Route::resource('/dashboard/dosen', DosenController::class);
+    Route::post('/dashboard/dosen/{dosen}/change-status', [DosenController::class, 'changeStatus']);
+
+    Route::resource('/dashboard/mahasiswa', MahasiswaController::class);
+});
+

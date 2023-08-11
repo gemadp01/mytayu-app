@@ -1,7 +1,5 @@
 @extends('dashboard.layouts.main')
 
-@include('dashboard.dosen.edit')
-
 @section('page-heading')
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Data Dosen Terdaftar</h1>
@@ -70,17 +68,44 @@
                             <td>{{ $dosen->kuota_pembimbing }}</td>
                             <td>{{ $dosen->keilmuan }}</td>
                             <td>
-                                <span class="badge text-bg-success">Active</span>
-                                <span class="badge text-bg-secondary">Inactive</span>
+                                
+                                @if ($dosen->status_user == 1)
+                                    <span class="badge text-bg-success">Active</span>
+                                @else
+                                    <span class="badge text-bg-secondary">Inactive</span>
+                                @endif
+                                
+                                
                             </td>
                             <td class="text-center">
-                                <a href="" class="btn btn-success btn-circle btn-sm">
-                                    <i class="fas fa-check"></i>
-                                </a>
+                                @if ($dosen->status_user === 1)
+                                    <form method="post" action="/dashboard/dosen/{{ $dosen->id }}/change-status" >
+                                        @csrf
+                                        <button type="submit" class="btn btn-success btn-circle btn-sm">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                        {{-- <a href="/dashboard/dosen/{{ $dosen->id }}/edit" class="btn btn-success btn-circle btn-sm">
+                                            <i class="fas fa-check"></i>
+                                        </a> --}}
+                                        
+                                    </form>
+                                @else
+                                    <form method="post" action="/dashboard/dosen/{{ $dosen->id }}/change-status" >
+                                        @csrf
+                                        <button type="submit" class="btn btn-success btn-circle btn-sm">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                        {{-- <a href="/dashboard/dosen/{{ $dosen->id }}/edit" class="btn btn-success btn-circle btn-sm">
+                                            <i class="fas fa-check"></i>
+                                        </a> --}}
+                                        
+                                    </form>
+                                @endif
+                                
 
-                                <button type="button" class="btn btn-warning btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#formModal">
+                                <a href="/dashboard/dosen/{{ $dosen->id }}/edit" class="btn btn-warning btn-circle btn-sm">
                                     <i class="fas fa-edit"></i>
-                                </button>
+                                </a>
 
                                 {{-- <a href="/dashboard/dosen/{{ $dosen->id }}/edit" class="btn btn-warning btn-circle btn-sm">
                                     <i class="fas fa-edit"></i>
@@ -104,5 +129,6 @@
         </div>
         
     </div>
-    
+
 @endsection
+
