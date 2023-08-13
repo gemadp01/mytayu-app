@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class IsKoordinator
+class CheckUserStatus
 {
     /**
      * Handle an incoming request.
@@ -15,9 +15,13 @@ class IsKoordinator
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // if (!auth()->check() || !auth()->user()->is_koordinator) {
-        //     abort(403);
-        // }
-        return $next($request);
+        $user = $request->user();
+        
+        if ($user && $user->status_user) {
+            return $next($request);
+        }
+        
+        // return $next($request);
+        abort(403, 'Unauthorized');
     }
 }

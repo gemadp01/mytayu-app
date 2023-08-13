@@ -13,9 +13,13 @@ return new class extends Migration
     {
         Schema::create('dosens', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
+            // $table->foreignId('access_id')->default(2);
+            $table->string('level_user')->default('Dospem');
             $table->boolean('status_user')->default(false);
             $table->string('nidn')->unique();
             $table->string('nama')->unique();
+            $table->string('email')->nullable();
             $table->char('singkatan', 3)->unique()->nullable();
             $table->string('nomor_telepon')->nullable();
             $table->integer('kuota_pembimbing')->default(1)->nullable();

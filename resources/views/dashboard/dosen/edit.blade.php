@@ -3,7 +3,7 @@
 @section('page-heading')
 <div class="card shadow mb-4 m-0">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Tambah Dosen</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Edit Dosen</h6>
     </div>
     <div class="card-body">
         <div class="row">
@@ -11,7 +11,7 @@
                 <form method="post" action="/dashboard/dosen/{{ $dosen->id }}" >
                     @method('put')
                     @csrf
-                    <input type="hidden" name="id" value="{{ old('id') }}">
+                    {{-- <input type="hidden" name="id" value="{{ old('id') }}"> --}}
                     <div class="mb-3">
                         <label for="nidn" class="form-label @error('nidn') is-invalid @enderror">NIDN</label>
                         <input type="number" class="form-control" name="nidn" id="nidn" placeholder="NIDN" autofocus required value="{{ old('nidn', $dosen->nidn) }}">
@@ -41,7 +41,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="nomor_telepon" class="form-label @error('nomor_telepon') is-invalid @enderror">Nomor Telepon</label>
-                        <input type="number" class="form-control" name="nomor_telepon" id="nomor_telepon" placeholder="Nomor Telepon" value="{{ old('nomor_telepon', $dosen->nomor_telepon) }}">
+                        <input type="text" class="form-control" name="nomor_telepon" id="nomor_telepon" placeholder="Nomor Telepon" value="{{ old('nomor_telepon', $dosen->nomor_telepon) }}">
                         @error('nomor_telepon')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -59,17 +59,15 @@
                     @enderror
                     <div class="mb-3">
                         <label for="keilmuan" class="form-label @error('keilmuan') is-invalid @enderror">Keilmuan</label>
-                        <input type="text" class="form-control" name="keilmuan" id="keilmuan" placeholder="Keilmuan" value="{{ old('keilmuan', $dosen->keilmuan) }}"">
+                        <input type="text" class="form-control" name="keilmuan" id="keilmuan" placeholder="Keilmuan" value="{{ old('keilmuan', $dosen->keilmuan) }}">
                     </div>
                     @error('keilmuan')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
                     @enderror
-                    <div class="modal-footer">
-                        <div class="d-grid gap-2">
-                            <button class="btn btn-primary" type="submit">Update data</button>
-                        </div>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary" type="submit">Update data</button>
                     </div>
                 </form>
             </div>

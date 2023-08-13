@@ -43,15 +43,23 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function scopeFilter($query, $credentials) {
+    // public function scopeFilter($query, $credentials) {
         
-        return $query->where('username', $credentials['username'])
-                    ->orWhere('nomor_induk', $credentials['username']);
+    //     return $query->where('username', $credentials['username'])
+    //                 ->orWhere('nomor_induk', $credentials['username']);
 
-    }
+    // }
 
     // public function findForPassport($username) {
     //     return $this->orWhere('username', $username)->orWhere('nip', $username)->first();
     // }
+
+    // public function access() {
+    //     return $this->belongsTo(Access::class);
+    // }
+
+    public function dosen() {
+        return $this->hasOne(Dosen::class);
+    }
     
 }

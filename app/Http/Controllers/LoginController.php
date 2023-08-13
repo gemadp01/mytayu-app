@@ -33,10 +33,16 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        $user = User::filter($credentials)->first();
+        // $user = User::filter($credentials)->first();
 
-        if ($user && Auth::attempt(['username' => $user->username, 'password' => $credentials['password']])) {
+        // if ($user && Auth::attempt(['username' => $user->username, 'password' => $credentials['password']])) {
+        //     $request->session()->regenerate();
+        //     return redirect()->intended('/dashboard');
+        // }
+
+        if(Auth::attempt($credentials)) {
             $request->session()->regenerate();
+
             return redirect()->intended('/dashboard');
         }
 

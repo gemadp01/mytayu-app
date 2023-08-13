@@ -78,29 +78,25 @@
                                 
                             </td>
                             <td class="text-center">
+                                <form method="post" action="/dashboard/dosen/{{ $dosen->id }}/toggle-status" >
+                                @csrf
                                 @if ($dosen->status_user === 1)
-                                    <form method="post" action="/dashboard/dosen/{{ $dosen->id }}/change-status" >
-                                        @csrf
-                                        <button type="submit" class="btn btn-success btn-circle btn-sm">
-                                            <i class="fas fa-check"></i>
-                                        </button>
-                                        {{-- <a href="/dashboard/dosen/{{ $dosen->id }}/edit" class="btn btn-success btn-circle btn-sm">
-                                            <i class="fas fa-check"></i>
-                                        </a> --}}
-                                        
-                                    </form>
-                                @else
-                                    <form method="post" action="/dashboard/dosen/{{ $dosen->id }}/change-status" >
-                                        @csrf
-                                        <button type="submit" class="btn btn-success btn-circle btn-sm">
-                                            <i class="fas fa-check"></i>
-                                        </button>
-                                        {{-- <a href="/dashboard/dosen/{{ $dosen->id }}/edit" class="btn btn-success btn-circle btn-sm">
-                                            <i class="fas fa-check"></i>
-                                        </a> --}}
-                                        
-                                    </form>
+                                    <button type="submit" class="btn btn-success btn-circle btn-sm">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                    {{-- <a href="/dashboard/dosen/{{ $dosen->id }}/edit" class="btn btn-success btn-circle btn-sm">
+                                        <i class="fas fa-check"></i>
+                                    </a> --}}
+                                @else 
+                                    <button type="submit" class="btn btn-success btn-circle btn-sm">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                    {{-- <a href="/dashboard/dosen/{{ $dosen->id }}/edit" class="btn btn-success btn-circle btn-sm">
+                                        <i class="fas fa-check"></i>
+                                    </a> --}}
                                 @endif
+                                    
+                                </form>
                                 
 
                                 <a href="/dashboard/dosen/{{ $dosen->id }}/edit" class="btn btn-warning btn-circle btn-sm">

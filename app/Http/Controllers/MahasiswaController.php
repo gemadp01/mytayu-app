@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mahasiswa;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class MahasiswaController extends Controller
@@ -14,7 +15,7 @@ class MahasiswaController extends Controller
     {
         return view('dashboard.mahasiswa.index', [
             'mahasiswas' => Mahasiswa::latest()->paginate(10),
-        ])
+        ]);
     }
 
     /**
@@ -22,7 +23,7 @@ class MahasiswaController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.mahasiswa.create');
     }
 
     /**
@@ -46,7 +47,9 @@ class MahasiswaController extends Controller
      */
     public function edit(Mahasiswa $mahasiswa)
     {
-        //
+        return view('dashboard.mahasiswa.edit', [
+            'mahasiswa' => $mahasiswa,
+        ]);
     }
 
     /**
@@ -62,6 +65,17 @@ class MahasiswaController extends Controller
      */
     public function destroy(Mahasiswa $mahasiswa)
     {
-        //
+        Mahasiswa::destroy($mahasiswa->id);
+
+        return redirect('dashboard/mahasiswa')->with('success', 'Mahasiswa has been deleted!');
+    }
+
+    public function changeStatus(Mahasiswa $mahasiswa) {
+        if($mahasiswa->status_user === 1) {
+            $mahasiswa->update(['status_user' => false]);
+        }else {
+            $mahasiswa->update(['status_user' => true]);
+        }
+        return redirect('dashboard/mahasiswa')->with('success', 'Status user berhasil diubah.');
     }
 }

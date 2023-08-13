@@ -15,5 +15,25 @@ class Dosen extends Model
     // {
     //     return $this->hasOne(User::class);
     // }
+
+    public function toggleStatus()
+    {
+        $this->status_user = !$this->status_user;
+        $this->save();
+
+        // Toggle status user terkait
+        if ($this->user) {
+            $this->user->status_user = $this->status_user;
+            $this->user->save();
+        }
+    }
+
+    public function access() {
+        return $this->belongsTo(Access::class);
+    }
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
     
 }

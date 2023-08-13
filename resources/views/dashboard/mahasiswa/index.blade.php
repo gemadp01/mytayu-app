@@ -10,6 +10,9 @@
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Data Mahasiswa Terdaftar</h6>
         </div>
+        @if(!$mahasiswas->count())
+            <h1 class="h3 my-3 text-gray-800 text-center">Empty table</h1>
+        @else
         <div class="card-body">
             <div class="row">
                 <div class="col">
@@ -51,13 +54,14 @@
                         </tr>
                     </thead>
                     <tbody>
+                        
                         @foreach($mahasiswas as $index => $mahasiswa)
                         <tr>
                             <td>{{ $mahasiswas->firstItem() + $index }}</td>
-                            <td>{{ $mahasiwa->npm }}</td>
-                            <td>{{ $mahasiwa->nama }}</td>
-                            <td>{{ $mahasiwa->kelas }}</td>
-                            <td>{{ $mahasiwa->prodi }}</td>
+                            <td>{{ $mahasiswa->npm }}</td>
+                            <td>{{ $mahasiswa->nama }}</td>
+                            <td>{{ $mahasiswa->kelas }}</td>
+                            <td>{{ $mahasiswa->prodi }}</td>
                             <td>
                                 
                                 @if ($mahasiswa->status_user == 1)
@@ -70,23 +74,23 @@
                             </td>
                             <td class="text-center">
                                 @if ($mahasiswa->status_user === 1)
-                                    <form method="post" action="/dashboard/dosen/{{ $dosen->id }}/change-status" >
+                                    <form method="post" action="/dashboard/mahasiswa/{{ $mahasiswa->id }}/change-status" >
                                         @csrf
                                         <button type="submit" class="btn btn-success btn-circle btn-sm">
                                             <i class="fas fa-check"></i>
                                         </button>
-                                        {{-- <a href="/dashboard/dosen/{{ $dosen->id }}/edit" class="btn btn-success btn-circle btn-sm">
+                                        {{-- <a href="/dashboard/mahasiswa/{{ $mahasiswa->id }}/edit" class="btn btn-success btn-circle btn-sm">
                                             <i class="fas fa-check"></i>
                                         </a> --}}
                                         
                                     </form>
                                 @else
-                                    <form method="post" action="/dashboard/dosen/{{ $dosen->id }}/change-status" >
+                                    <form method="post" action="/dashboard/mahasiswa/{{ $mahasiswa->id }}/change-status" >
                                         @csrf
                                         <button type="submit" class="btn btn-success btn-circle btn-sm">
                                             <i class="fas fa-check"></i>
                                         </button>
-                                        {{-- <a href="/dashboard/dosen/{{ $dosen->id }}/edit" class="btn btn-success btn-circle btn-sm">
+                                        {{-- <a href="/dashboard/mahasiswa/{{ $mahasiswa->id }}/edit" class="btn btn-success btn-circle btn-sm">
                                             <i class="fas fa-check"></i>
                                         </a> --}}
                                         
@@ -94,14 +98,14 @@
                                 @endif
                                 
 
-                                <a href="/dashboard/dosen/{{ $dosen->id }}/edit" class="btn btn-warning btn-circle btn-sm">
+                                <a href="/dashboard/mahasiswa/{{ $mahasiswa->id }}/edit" class="btn btn-warning btn-circle btn-sm">
                                     <i class="fas fa-edit"></i>
                                 </a>
 
-                                {{-- <a href="/dashboard/dosen/{{ $dosen->id }}/edit" class="btn btn-warning btn-circle btn-sm">
+                                {{-- <a href="/dashboard/mahasiswa/{{ $mahasiswa->id }}/edit" class="btn btn-warning btn-circle btn-sm">
                                     <i class="fas fa-edit"></i>
                                 </a> --}}
-                                <form action="/dashboard/dosen/{{ $dosen->id }}" method="POST" class="d-inline">
+                                <form action="/dashboard/mahasiswa/{{ $mahasiswa->id }}" method="POST" class="d-inline">
                                     @method('DELETE')
                                     @csrf
                                     <button type="" class="btn btn-danger btn-circle btn-sm" onclick="return confirm('Yakin?')">
@@ -115,11 +119,12 @@
                 </table>
             </div>
             <div class="d-flex justify-content-end">
-                {{ $dosens->links() }}
+                {{ $mahasiswas->links() }}
             </div>
         </div>
-        
+        @endif
     </div>
+    
 
 @endsection
 
