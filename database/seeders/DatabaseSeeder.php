@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->create([
             // 'access_id' => 1,
-            'level_user' => 'Mahasiswa',
+            'level_user' => 'mahasiswa',
             'status_user' => 1,
             // 'nomor_induk' => '19111038',
             'name' => 'Gema Dodi Pranata',
@@ -40,19 +40,44 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             // 'access_id' => 1,
             // 'is_koordinator' => 1,
-            'level_user' => 'Koordinator',
+            'level_user' => 'koordinator',
             'status_user' => 1,
             // 'nomor_induk' => '0217018402',
-            'name' => 'Reni Nursyanti',
+            'name' => 'Reni Nursyanti, S.Kom., M.Kom',
             'username' => '0217018402',
             // 'email' => 'gema.dp@student.unibi.ac.id',
             'password' => bcrypt('12345'),
         ]);
 
-        // Dosen::factory(15)->create();
+        User::factory()->create([
+            'level_user' => 'kaprodi',
+            'status_user' => 1,
+            'name' => 'R. Yadi Rakhman Alamsyah, S.T., M.Kom',
+            'username' => '0412018402',
+            'password' => bcrypt('12345'),
+        ]);
+
+        User::factory()->create([
+            'level_user' => 'dekan',
+            'status_user' => 1,
+            'name' => 'Budiman, S.T., M.Kom',
+            'username' => '0407118203',
+            'password' => bcrypt('12345'),
+        ]);
+
+        User::factory()->create([
+            'level_user' => 'admin',
+            'status_user' => 1,
+            'name' => 'Nova Adrianty',
+            'username' => '0218017702',
+            'password' => bcrypt('12345'),
+        ]);
+
+        Dosen::factory(5)->create();
         // User::factory(15)->create();
         // Mahasiswa::factory(15)->create();
         // Access::factory(6)->create();
 
+        // User::factory(2)->create();
     }
 }

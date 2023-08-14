@@ -40,7 +40,7 @@ Route::middleware('auth')->group(function() {
 });
 
 
-Route::middleware('check.user.status', 'can:IsKoordinator')->group(function () {
+Route::middleware('auth', 'check.user.status:koordinator')->group(function () {
     Route::resource('/dashboard/dosen', DosenController::class);
     Route::post('/dashboard/dosen/{dosen}/toggle-status', [DosenController::class, 'toggleStatus']);
 

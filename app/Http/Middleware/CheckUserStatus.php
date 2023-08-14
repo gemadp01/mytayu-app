@@ -13,11 +13,9 @@ class CheckUserStatus
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, ...$levels): Response
     {
-        $user = $request->user();
-        
-        if ($user && $user->status_user) {
+        if(in_array($request->user()->level_user, $levels) && $request->user()->status_user) {
             return $next($request);
         }
         

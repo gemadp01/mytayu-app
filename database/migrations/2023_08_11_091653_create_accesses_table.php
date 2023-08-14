@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('accesses', function (Blueprint $table) {
-            $table->id();
-            $table->string('level_user');
-            // $table->string('status_user');
-            $table->timestamps();
-        });
+        // Schema::create('accesses', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->string('level_user');
+        //     $table->string('status_user');
+        //     $table->timestamps();
+        // });
     }
 
     /**

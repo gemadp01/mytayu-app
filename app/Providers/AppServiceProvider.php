@@ -29,31 +29,29 @@ class AppServiceProvider extends ServiceProvider
         // });
 
         Gate::define('IsMahasiswa', function ($user) {
-            return $user->level_user === 'Mahasiswa';
+            return $user->level_user === 'mahasiswa';
         });
         
         Gate::define('IsKoordinator', function ($user) {
-            return $user->level_user === 'Koordinator';
+            return $user->level_user === 'koordinator';
         });
 
         Gate::define('IsKaprodi', function ($user) {
-            return $user->level_user === 'Kaprodi';
+            return $user->level_user === 'kaprodi';
         });
 
         Gate::define('IsDekan', function ($user) {
-            return $user->level_user === 'Dekan';
+            return $user->level_user === 'dekan';
         });
 
         Gate::define('IsAdmin', function ($user) {
-            return $user->level_user === 'Admin';
+            return $user->level_user === 'admin';
         });
 
         Gate::define('IsDospem', function ($user) {
-            return $user->level_user === 'Dospem';
+            return $user->level_user === 'dospem';
         });
 
-        Gate::define('sameAccess', function ($user) {
-            return in_array($user->level_user, ['Mahasiswa', 'Koordinator']);
-        });
+        
     }
 }

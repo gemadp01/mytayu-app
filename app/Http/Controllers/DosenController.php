@@ -53,8 +53,8 @@ class DosenController extends Controller
         $user->level_user = 'Dospem';
         $user->status_user = false;
         $user->name = $validatedData['nama'];
-        $user->username = $request->nidn;
-        // $user->username = $request->nidn . Str::lower($request->singkatan);
+        // $user->username = $request->nidn;
+        $user->username = $request->nidn . Str::lower($validated['singkatan']);
         $user->password = Hash::make($request->nidn);
         // $user->password = Hash::make($request->nidn . Str::lower($request->singkatan));
 

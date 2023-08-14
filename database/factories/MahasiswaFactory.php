@@ -23,7 +23,7 @@ class MahasiswaFactory extends Factory
     public function definition(): array
     {
         return [
-            'level_user' => $this->faker->randomElement['Dospem', 'Mahasiswa'],
+            'level_user' => $this->faker->randomElement['dospem', 'mahasiswa'],
             'npm' => $this->faker->randomNumber(8, false),
             'nama' => $this->faker->name(),
             'kelas' => $this->faker->randomElement($this->kelas),

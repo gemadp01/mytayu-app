@@ -8,40 +8,28 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+
+    protected $levels = ['mahasiswa', 'koordinator', 'kaprodi', 'dekan', 'adminfti', 'dospem'];
+
     public function index() {
         return view('login.index');
     }
     
     public function authenticate(Request $request) {
-        
-        // $credentials = $request->validate([
-        //     'username' => 'required',
-        //     'password' => 'required',
-        // ]);
-
-        // if (Auth::attempt($credentials)) {
-        //     $request->session()->regenerate();
-
-        //     return redirect()->intended('/dashboard');
-        // }
-
-        // return back()->with('loginError', 'Login Failed!');
-
 
         $credentials = $request->validate([
             'username' => 'required',
             'password' => 'required',
         ]);
 
-        // $user = User::filter($credentials)->first();
-
-        // if ($user && Auth::attempt(['username' => $user->username, 'password' => $credentials['password']])) {
-        //     $request->session()->regenerate();
-        //     return redirect()->intended('/dashboard');
-        // }
-
         if(Auth::attempt($credentials)) {
-            $request->session()->regenerate();
+
+            $user = Auth::user();
+
+            if (!$user->status_user && in_array($user->level_user, $this->levels)) {
+                Auth::logout();
+                return back()->with('error', 'Tolong hubungi admin.');
+            }
 
             return redirect()->intended('/dashboard');
         }
