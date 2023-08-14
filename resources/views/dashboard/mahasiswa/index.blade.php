@@ -73,29 +73,19 @@
                                 
                             </td>
                             <td class="text-center">
-                                @if ($mahasiswa->status_user === 1)
-                                    <form method="post" action="/dashboard/mahasiswa/{{ $mahasiswa->id }}/change-status" >
-                                        @csrf
+                                <form method="post" action="/dashboard/mahasiswa/{{ $mahasiswa->id }}/toggle-status" >
+                                @csrf
+                                    @if ($mahasiswa->status_user === 1)
+                                        <button type="submit" class="btn btn-danger btn-circle btn-sm">
+                                            <i class="fa fa-times"></i>
+                                        </button>
+                                    </form>
+                                    @else
                                         <button type="submit" class="btn btn-success btn-circle btn-sm">
                                             <i class="fas fa-check"></i>
                                         </button>
-                                        {{-- <a href="/dashboard/mahasiswa/{{ $mahasiswa->id }}/edit" class="btn btn-success btn-circle btn-sm">
-                                            <i class="fas fa-check"></i>
-                                        </a> --}}
-                                        
-                                    </form>
-                                @else
-                                    <form method="post" action="/dashboard/mahasiswa/{{ $mahasiswa->id }}/change-status" >
-                                        @csrf
-                                        <button type="submit" class="btn btn-success btn-circle btn-sm">
-                                            <i class="fas fa-check"></i>
-                                        </button>
-                                        {{-- <a href="/dashboard/mahasiswa/{{ $mahasiswa->id }}/edit" class="btn btn-success btn-circle btn-sm">
-                                            <i class="fas fa-check"></i>
-                                        </a> --}}
-                                        
-                                    </form>
-                                @endif
+                                    @endif
+                                </form>
                                 
 
                                 <a href="/dashboard/mahasiswa/{{ $mahasiswa->id }}/edit" class="btn btn-warning btn-circle btn-sm">

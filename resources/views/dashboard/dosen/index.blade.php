@@ -81,19 +81,13 @@
                                 <form method="post" action="/dashboard/dosen/{{ $dosen->id }}/toggle-status" >
                                 @csrf
                                 @if ($dosen->status_user === 1)
-                                    <button type="submit" class="btn btn-success btn-circle btn-sm">
-                                        <i class="fas fa-check"></i>
+                                    <button type="submit" class="btn btn-danger btn-circle btn-sm">
+                                        <i class="fa fa-times"></i>
                                     </button>
-                                    {{-- <a href="/dashboard/dosen/{{ $dosen->id }}/edit" class="btn btn-success btn-circle btn-sm">
-                                        <i class="fas fa-check"></i>
-                                    </a> --}}
                                 @else 
                                     <button type="submit" class="btn btn-success btn-circle btn-sm">
                                         <i class="fas fa-check"></i>
                                     </button>
-                                    {{-- <a href="/dashboard/dosen/{{ $dosen->id }}/edit" class="btn btn-success btn-circle btn-sm">
-                                        <i class="fas fa-check"></i>
-                                    </a> --}}
                                 @endif
                                     
                                 </form>

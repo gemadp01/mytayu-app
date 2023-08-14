@@ -11,11 +11,6 @@ class Dosen extends Model
 
     protected $guarded = ['id'];
 
-    // public function user()
-    // {
-    //     return $this->hasOne(User::class);
-    // }
-
     public function toggleStatus()
     {
         $this->status_user = !$this->status_user;
@@ -26,10 +21,6 @@ class Dosen extends Model
             $this->user->status_user = $this->status_user;
             $this->user->save();
         }
-    }
-
-    public function access() {
-        return $this->belongsTo(Access::class);
     }
 
     public function user() {

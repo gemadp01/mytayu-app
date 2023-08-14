@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         // 'is_koordinator' => \App\Http\Middleware\IsKoordinator::class,
         'check.user.status' => \App\Http\Middleware\CheckUserStatus::class,
+        'redirectToDashboardIfLoggedIn' => \App\Http\Middleware\RedirectToDashboardIfLoggedIn::class,
     ];
 }

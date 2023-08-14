@@ -41,7 +41,7 @@ class ProfileController extends Controller
         $validatedData = $request->validate([
             'nidn' => 'required|max:10',
             'nama' => 'required',
-            'email' => 'email:dns',
+            'email' => 'nullable|email:dns',
             'singkatan' => 'nullable|max:3',
             'nomor_telepon' => 'nullable|min:10|max:13',
             'kuota_pembimbing' => 'nullable|min:1',

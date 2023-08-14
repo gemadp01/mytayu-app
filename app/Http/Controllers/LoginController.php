@@ -12,6 +12,9 @@ class LoginController extends Controller
     protected $levels = ['mahasiswa', 'koordinator', 'kaprodi', 'dekan', 'adminfti', 'dospem'];
 
     public function index() {
+        if (Auth::check()) {
+            return redirect('/dashboard'); 
+        }
         return view('login.index');
     }
     

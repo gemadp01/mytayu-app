@@ -4,13 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\Dosen;
 use App\Models\User;
-use App\Models\Access;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class DosenController extends Controller
 {
+    protected $keilmuanDosen = [
+        'Pemrograman', 
+        'Sistem Operasi', 
+        'Jaringan Komputer', 
+        'Pengembangan Web',
+        'Pengembangan Aplikasi Mobile',
+        'Kecerdasan Buatan (AI)',
+        'Pengolahan Citra dan Grafika Komputer',
+        'Keamanan Informasi',
+        'Rekayasa Perangkat Lunak',
+        'Komputasi Awan',
+        'IOT'
+    ];
     /**
      * Display a listing of the resource.
      */
@@ -50,11 +62,11 @@ class DosenController extends Controller
         // $singkatan = Str::lower($request->singkatan);
         
         $user = new User();
-        $user->level_user = 'Dospem';
+        $user->level_user = 'dospem';
         $user->status_user = false;
         $user->name = $validatedData['nama'];
         // $user->username = $request->nidn;
-        $user->username = $request->nidn . Str::lower($validated['singkatan']);
+        $user->username = $request->nidn . Str::lower($validatedData['singkatan']);
         $user->password = Hash::make($request->nidn);
         // $user->password = Hash::make($request->nidn . Str::lower($request->singkatan));
 
@@ -62,7 +74,7 @@ class DosenController extends Controller
         $user->save();
         $dosen = Dosen::create([
             'user_id' => $user->id, // Assign user_id with the newly created user's id
-            'level_user' => 'Dospem',
+            'level_user' => 'dospem',
             'nidn' => $validatedData['nidn'],
             'nama' => $validatedData['nama'],
             'singkatan' => $validatedData['singkatan'],
@@ -93,6 +105,7 @@ class DosenController extends Controller
     {
         return view('dashboard.dosen.edit', [
             'dosen' => $dosen,
+            'keilmuanDosen' => $this->keilmuanDosen,
         ]);
     }
 
@@ -106,13 +119,22 @@ class DosenController extends Controller
             'nidn' => 'required|max:10',
             'nama' => 'required',
             'singkatan' => 'nullable|max:3',
-            'nomor_telepon' => 'numeric|nullable|min:10|max:13',
+            'nomor_telepon' => 'nullable|min:10|max:13',
             'kuota_pembimbing' => 'nullable|min:1',
             'keilmuan' => 'nullable',
         ]);
 
 
-        Dosen::where('id', $dosen->id)->update($validatedData);
+        // Dosen::where('id', $dosen->id)->update($validatedData);
+        $dosen->update($validatedData);
+
+        $user = $dosen->user;
+        if ($user) {
+            $user->name = $validatedData['nama'];
+            $user->username = $validatedData['nidn'] . Str::lower($validatedData['singkatan']);
+            $user->password = Hash::make($validatedData['nidn']);
+            $user->save();
+        }
 
         return redirect('dashboard/dosen')->with('success', 'Dosen has been Updated!');
     }
@@ -122,19 +144,17 @@ class DosenController extends Controller
      */
     public function destroy(Dosen $dosen)
     {
-        Dosen::destroy($dosen->id);
+        // Dosen::destroy($dosen->id);
+        $user = $dosen->user; 
+        if ($user) {
+            $user->delete();
+        }
+        $dosen->delete();
 
-        return redirect('dashboard/dosen')->with('success', 'Dosen has been deleted!');
+        return redirect('dashboard/dosen')->with('success', 'Dosen and associated User have been deleted!');
+        
+        // return redirect('dashboard/dosen')->with('success', 'Dosen has been deleted!');
     }
-
-    // public function changeStatus(Dosen $dosen) {
-    //     if($dosen->status_user === 1) {
-    //         $dosen->update(['status_user' => false]);
-    //     }else {
-    //         $dosen->update(['status_user' => true]);
-    //     }
-    //     return redirect('dashboard/dosen')->with('success', 'Status user berhasil diubah.');
-    // }
 
     public function toggleStatus(Dosen $dosen)
     {

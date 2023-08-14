@@ -23,7 +23,7 @@ Route::get('/', function () {
 });
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware(
-    'guest');
+    'guest', 'redirectToDashboardIfLoggedIn');
 Route::post('/login', [LoginController::class, 'authenticate']);
 
 Route::middleware('auth')->group(function() {

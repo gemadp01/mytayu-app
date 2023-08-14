@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('dosens', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             // $table->foreignId('access_id')->default(2);
             $table->string('level_user')->default('Dospem');
             $table->boolean('status_user')->default(false);

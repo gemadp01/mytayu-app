@@ -38,7 +38,7 @@ class DosenFactory extends Factory
             // ]);
             $user = $dosen->user;
 
-            $dosen->update(['user_id' => $user->id]);
+            // $dosen->update(['user_id' => $user->id]);
             $user->update(['level_user' => $dosen->level_user]);
             $user->update(['name' => $dosen->nama]);
             $user->update(['username' => $dosen->nidn . Str::lower($dosen->singkatan)]);

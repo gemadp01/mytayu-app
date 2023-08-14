@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('mahasiswas', function (Blueprint $table) {
             $table->id();
-            $table->string('level_user')->default('Mahasiswa');
+            $table->foreignId('user_id');
+            $table->string('level_user')->default('mahasiswa');
             $table->boolean('status_user')->default(false);
             $table->string('npm')->unique();
             $table->string('nama')->unique();
             $table->string('email')->nullable();
-            $table->string('kelas');
-            $table->string('prodi');
+            $table->string('kelas')->nullable();
+            $table->string('prodi')->nullable();
             $table->timestamps();
         });
     }

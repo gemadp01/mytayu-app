@@ -59,7 +59,19 @@
                     @enderror
                     <div class="mb-3">
                         <label for="keilmuan" class="form-label @error('keilmuan') is-invalid @enderror">Keilmuan</label>
-                        <input type="text" class="form-control" name="keilmuan" id="keilmuan" placeholder="Keilmuan" value="{{ old('keilmuan', $dosen->keilmuan) }}">
+                        <input type="text" class="form-control" name="keilmuan" id="keilmuan" placeholder="Keilmuan" value="{{ $dosen->keilmuan }}" readonly>
+                        <div class="row">
+                            @foreach ($keilmuanDosen as $keilmuan)
+                            <div class="col">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="keilmuan[]" id="{{ $loop->iteration }}" value="{{ $keilmuan }}" @if(is_array(old('keilmuan')) && in_array($keilmuan, old('keilmuan'))) checked @endif>
+                                    
+                                    <label class="form-check-label" for="{{ $loop->iteration }}">{{ $keilmuan }}</label>
+                                </div>
+                            </div>
+                            @endforeach
+                            
+                        </div>
                     </div>
                     @error('keilmuan')
                         <div class="invalid-feedback">

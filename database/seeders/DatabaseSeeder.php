@@ -24,16 +24,7 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        User::factory()->create([
-            // 'access_id' => 1,
-            'level_user' => 'mahasiswa',
-            'status_user' => 1,
-            // 'nomor_induk' => '19111038',
-            'name' => 'Gema Dodi Pranata',
-            'username' => 'gemadp',
-            // 'email' => 'gema.dp@student.unibi.ac.id',
-            'password' => bcrypt('12345'),
-        ]);
+        
 
         
 
@@ -75,7 +66,13 @@ class DatabaseSeeder extends Seeder
 
         Dosen::factory(5)->create();
         // User::factory(15)->create();
-        // Mahasiswa::factory(15)->create();
+        Mahasiswa::factory(5)->create();
+        Mahasiswa::factory()->create([
+            'npm' => '19111038',
+            'nama' => 'Gema Dodi Pranata',
+            'kelas' => 'Reguler',
+            'prodi' => 'Informatika'
+        ]);
         // Access::factory(6)->create();
 
         // User::factory(2)->create();

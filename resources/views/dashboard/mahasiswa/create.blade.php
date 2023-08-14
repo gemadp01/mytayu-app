@@ -22,7 +22,7 @@
                     @enderror
                     <div class="mb-3">
                         <label for="nama" class="form-label @error('nama') is-invalid @enderror">Nama</label>
-                        <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama" autofocus required value="{{ old('nama') }}">
+                        <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama" required value="{{ old('nama') }}">
                     </div>
                     @error('nama')
                         <div class="invalid-feedback">
@@ -30,8 +30,28 @@
                         </div>
                     @enderror
                     <div class="mb-3">
+                        <label for="email" class="form-label @error('email') is-invalid @enderror">Email</label>
+                        <input type="text" class="form-control" name="email" id="email" placeholder="email" value="{{ old('email') }}">
+                    </div>
+                    @error('email')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                    <div class="mb-3">
                         <label for="kelas" class="form-label @error('kelas') is-invalid @enderror">Kelas</label>
-                        <input type="text" class="form-control" name="kelas" id="kelas" placeholder="Kelas" autofocus required value="{{ old('kelas') }}">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="kelas" id="reguler" value="Reguler">
+                            <label class="form-check-label " for="reguler">
+                              Reguler
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="kelas" id="karyawan" value="Karyawan">
+                            <label class="form-check-label" for="karyawan">
+                              Karyawan
+                            </label>
+                        </div>
                     </div>
                     @error('kelas')
                         <div class="invalid-feedback">
@@ -40,7 +60,18 @@
                     @enderror
                     <div class="mb-3">
                         <label for="prodi" class="form-label @error('prodi') is-invalid @enderror">Prodi</label>
-                        <input type="text" class="form-control" name="prodi" id="prodi" placeholder="Prodi" autofocus required value="{{ old('prodi') }}">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="prodi" id="informatika" value="Informatika">
+                            <label class="form-check-label" for="reguler">
+                              Informatika
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="prodi" id="sistem_informasi" value="Sistem Informasi">
+                            <label class="form-check-label" for="karyawan">
+                              Sistem Informasi
+                            </label>
+                        </div>
                     </div>
                     @error('prodi')
                         <div class="invalid-feedback">
