@@ -26,8 +26,13 @@
                     <form action="/mahasiswa/import" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-2">
+                            @error('excel_file')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                             <input type="file" name="excel_file" class="form-control">
+                            <small class="text-body-secondary">.xlsx(excel)</small>
                         </div>
+
                 </div>
                 <div class="col-12 col-md-6 mt-1">
                     <button type="submit" class="btn btn-primary btn-icon-split btn-sm">

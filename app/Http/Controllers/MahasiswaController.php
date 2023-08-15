@@ -151,6 +151,10 @@ class MahasiswaController extends Controller
 
     public function import(Request $request) 
     {
+        $validatedData = $request->validate([
+            'excel_file' => 'required|mimes:xlsx,xls', // Memeriksa apakah file terlampir dan memiliki ekstensi yang benar
+        ]);
+        
         $file = $request->file('excel_file');
 
         $spreadsheet = IOFactory::load($file);
@@ -169,7 +173,7 @@ class MahasiswaController extends Controller
         
 
         $header = array_shift($data); // Ambil baris pertama sebagai header
-        
+
         // Cari indeks kolom yang sesuai dengan nama-nama header
         $npmIndex = array_search('NPM', $header);
         $namaIndex = array_search('Nama', $header);
@@ -202,6 +206,10 @@ class MahasiswaController extends Controller
                 'email' => $row[$emailIndex],
                 'prodi' => $row[$prodiIndex],
             ]);
+        }
+
+        if ($file->isValid()) {
+            unlink($file->getPathname()); // Menghapus file dari direktori sementara
         }
 
         return redirect('dashboard/mahasiswa')->with('success', 'Data imported successfully.');

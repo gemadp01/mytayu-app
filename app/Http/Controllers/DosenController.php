@@ -7,6 +7,12 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Pdf;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class DosenController extends Controller
 {
@@ -163,7 +169,10 @@ class DosenController extends Controller
         return redirect('dashboard/dosen')->with('success', 'Status user berhasil diubah.');
     }
 
-    public function import() {
+    public function import(Request $request) {
+        $validatedData = $request->validate([
+            'excel_file' => 'required|mimes:xlsx,xls', // Memeriksa apakah file terlampir dan memiliki ekstensi yang benar
+        ]);
         $file = $request->file('excel_file');
 
         $spreadsheet = IOFactory::load($file);
@@ -179,38 +188,101 @@ class DosenController extends Controller
             $data[] = $rowData;
         }
 
-        return $data;
+        
 
-        $user = new User();
-        $user->level_user = 'dospem';
-        $user->status_user = false;
-        $user->name = $validatedData['nama'];
-        // $user->username = $request->nidn;
-        $user->username = $request->nidn . Str::lower($validatedData['singkatan']);
-        $user->password = Hash::make($request->nidn);
-        // $user->password = Hash::make($request->nidn . Str::lower($request->singkatan));
+        $header = array_shift($data); // Ambil baris pertama sebagai header
 
-
-        $user->save();
+        // Cari indeks kolom yang sesuai dengan nama-nama header
+        $nidnIndex = array_search('NIDN', $header);
+        $namaIndex = array_search('Nama', $header);
+        $emailIndex = array_search('Email', $header);
+        $singkatanIndex = array_search('Singkatan', $header);
+        $nomorTeleponIndex = array_search('Nomor Telepon', $header);
+        $kuotaPembimbingIndex = array_search('Kuota Pembimbing', $header);
+        $keilmuanIndex = array_search('Keilmuan', $header);
 
         foreach ($data as $row) {
-            Mahasiswa::create([
-                'npm' => $row[0],
-                'nama' => $row[1],
-                'kelas' => $row[2],
-                'email' => $row[3],
-                'prodi' => $row[4],
+            $user = new User();
+
+            $user->level_user = 'dospem';
+            $user->status_user = false;
+            $user->name = $row[$namaIndex];
+            $user->username = $row[$nidnIndex] . Str::lower($row[$singkatanIndex]);
+            $user->password = Hash::make($row[$nidnIndex]);
+            $user->save();
+
+            $dosen = Dosen::create([
+                'user_id' => $user->id, // Assign user_id with the newly created user's id
+                'level_user' => 'dospem',
+                'nidn' => $row[$nidnIndex],
+                'nama' => $row[$namaIndex],
+                'singkatan' => $row[$singkatanIndex],
+                'nomor_telepon' => $row[$nomorTeleponIndex],
+                'kuota_pembimbing' => $row[$kuotaPembimbingIndex],
+                'keilmuan' => $row[$keilmuanIndex],
             ]);
         }
 
-        return redirect()->route('data-list')->with('success', 'Data imported successfully.');
+        if ($file->isValid()) {
+            unlink($file->getPathname()); // Menghapus file dari direktori sementara
+        }
+
+        return redirect('dashboard/dosen')->with('success', 'Data imported successfully.');
     }
+    
 
     public function exportToPDF() {
+        $dosens = Dosen::all();
 
+        $options = new Options();
+        $options->set('defaultFont', 'Arial'); // Atur font default
+
+        $dompdf = new Dompdf($options);
+
+        $pdfView = view('dashboard.pdf.dosen', compact('dosens')); // Gunakan view PDF khusus
+        $dompdf->loadHtml($pdfView);
+
+        // (Opsional) Atur ukuran kertas dan orientasi
+        $dompdf->setPaper('A4', 'portrait');
+
+        $dompdf->render();
+
+        return $dompdf->stream('dosen_data.pdf');
     }
 
     public function exportToExcel() {
-        
+        $dosens = Dosen::all();
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+
+        // Menambahkan header ke worksheet
+        $worksheet->setCellValue('A1', 'ID');
+        $worksheet->setCellValue('B1', 'NIDN');
+        $worksheet->setCellValue('C1', 'Nama');
+        $worksheet->setCellValue('D1', 'Email');
+        $worksheet->setCellValue('E1', 'Singkatan');
+        $worksheet->setCellValue('F1', 'Nomor Telepon');
+        $worksheet->setCellValue('G1', 'Kuota Pembimbing');
+        $worksheet->setCellValue('H1', 'Keilmuan');
+
+        // Menambahkan data ke worksheet
+        $rowIndex = 2;
+        foreach ($dosens as $dosen) {
+            $worksheet->setCellValue('A' . $rowIndex, $dosen->id);
+            $worksheet->setCellValue('B' . $rowIndex, $dosen->nidn);
+            $worksheet->setCellValue('C' . $rowIndex, $dosen->nama);
+            $worksheet->setCellValue('D' . $rowIndex, $dosen->email);
+            $worksheet->setCellValue('E' . $rowIndex, $dosen->singkatan);
+            $worksheet->setCellValue('F' . $rowIndex, $dosen->nomor_telepon);
+            $worksheet->setCellValue('G' . $rowIndex, $dosen->kuota_pembimbing);
+            $worksheet->setCellValue('H' . $rowIndex, $dosen->keilmuan);
+            $rowIndex++;
+        }
+
+        $xlsxWriter = new Xlsx($spreadsheet);
+        $xlsxWriter->save('dosen_data.xlsx');
+
+        return response()->download('dosen_data.xlsx')->deleteFileAfterSend();
     }
 }

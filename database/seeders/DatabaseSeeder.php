@@ -64,7 +64,7 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('12345'),
         ]);
 
-        Dosen::factory(5)->create();
+        // Dosen::factory(5)->create();
         // User::factory(15)->create();
         // Mahasiswa::factory(5)->create();
         // Mahasiswa::factory()->create([
