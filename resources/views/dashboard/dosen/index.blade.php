@@ -17,7 +17,7 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col">
+                <div class="col mb-1">
                     <a href="/dashboard/dosen/create" class="btn btn-primary btn-icon-split btn-sm">
                         <span class="icon text-white-50">
                             <i class="fa fa-plus" aria-hidden="true"></i>
@@ -27,14 +27,37 @@
                 </div>
             </div>
             <div class="row py-1">
-                <div class="col">
-                    <a href="#" class="btn btn-primary btn-icon-split btn-sm">
+                <div class="col-12 col-md-6">
+                    <form action="/dashboard/dosen/import" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="mb-2">
+                            <input type="file" name="excel_file" class="form-control">
+                        </div>
+                    </div>
+                <div class="col-12 col-md-6 mt-1">
+                    <button type="submit" class="btn btn-primary btn-icon-split btn-sm">
                         <span class="icon text-white-50">
                             <i class="fa fa-upload" aria-hidden="true"></i>
                         </span>
                         <span class="text">Import data dosen</span>
+                    </button>
+                    </form>
+                </div>
+                <div class="col-12 col-md-6">
+                    <a href="/dashboard/dosen/export-to-pdf" class="btn btn-primary btn-icon-split btn-sm">
+                        <span class="icon text-white-50">
+                            <i class="fa fa-download" aria-hidden="true"></i>
+                        </span>
+                        <span class="text">Export to PDF</span>
+                    </a>
+                    <a href="/dashboard/dosen/export-to-excel" class="btn btn-success btn-icon-split btn-sm">
+                        <span class="icon text-white-50">
+                            <i class="fa fa-download" aria-hidden="true"></i>
+                        </span>
+                        <span class="text">Export to Excel</span>
                     </a>
                 </div>
+                
             </div>
             @if (session()->has('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">

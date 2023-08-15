@@ -7,6 +7,12 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Pdf;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class MahasiswaController extends Controller
 {
@@ -141,5 +147,116 @@ class MahasiswaController extends Controller
         $mahasiswa->toggleStatus();
 
         return redirect('dashboard/mahasiswa')->with('success', 'Status user berhasil diubah.');
+    }
+
+    public function import(Request $request) 
+    {
+        $file = $request->file('excel_file');
+
+        $spreadsheet = IOFactory::load($file);
+        $worksheet = $spreadsheet->getActiveSheet();
+
+        $data = [];
+
+        foreach ($worksheet->getRowIterator() as $row) {
+            $rowData = [];
+            foreach ($row->getCellIterator() as $cell) {
+                $rowData[] = $cell->getValue();
+            }
+            $data[] = $rowData;
+        }
+
+        
+
+        $header = array_shift($data); // Ambil baris pertama sebagai header
+        
+        // Cari indeks kolom yang sesuai dengan nama-nama header
+        $npmIndex = array_search('NPM', $header);
+        $namaIndex = array_search('Nama', $header);
+        $kelasIndex = array_search('Kelas', $header);
+        $emailIndex = array_search('Email', $header);
+        $prodiIndex = array_search('Prodi', $header);
+
+        foreach ($data as $row) {
+            $user = new User();
+
+            $fullName = $row[$namaIndex];
+            $nameParts = explode(" ", $fullName);
+
+            $firstName = $nameParts[0];
+            $firstTwoLetters = substr($firstName, 0, 2);
+
+            $user->level_user = 'mahasiswa';
+            $user->status_user = false;
+            $user->name = $row[$namaIndex];
+            $user->username = $row[$npmIndex] . Str::lower($firstTwoLetters);
+            $user->password = Hash::make($row[$npmIndex]);
+            $user->save();
+
+            Mahasiswa::create([
+                'user_id' => $user->id,
+                'level_user' => 'mahasiswa',
+                'npm' => $row[$npmIndex],
+                'nama' => $row[$namaIndex],
+                'kelas' => $row[$kelasIndex],
+                'email' => $row[$emailIndex],
+                'prodi' => $row[$prodiIndex],
+            ]);
+        }
+
+        return redirect('dashboard/mahasiswa')->with('success', 'Data imported successfully.');
+    }
+
+    public function exportToPDF() 
+    {
+        $mahasiswas = Mahasiswa::all();
+
+        $options = new Options();
+        $options->set('defaultFont', 'Arial'); // Atur font default
+
+        $dompdf = new Dompdf($options);
+
+        $pdfView = view('dashboard.pdf.mahasiswa', compact('mahasiswas')); // Gunakan view PDF khusus
+        $dompdf->loadHtml($pdfView);
+
+        // (Opsional) Atur ukuran kertas dan orientasi
+        $dompdf->setPaper('A4', 'portrait');
+
+        $dompdf->render();
+
+        return $dompdf->stream('mahasiswa_data.pdf');
+    }
+
+    public function exportToExcel() 
+    {
+        $mahasiswas = Mahasiswa::all();
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+
+        // Menambahkan header ke worksheet
+        $worksheet->setCellValue('A1', 'ID');
+        $worksheet->setCellValue('B1', 'NPM');
+        $worksheet->setCellValue('C1', 'Nama');
+        $worksheet->setCellValue('D1', 'Email');
+        $worksheet->setCellValue('E1', 'Kelas');
+        $worksheet->setCellValue('F1', 'Prodi');
+
+        // Menambahkan data ke worksheet
+        $rowIndex = 2;
+        foreach ($mahasiswas as $mahasiswa) {
+            $worksheet->setCellValue('A' . $rowIndex, $mahasiswa->id);
+            $worksheet->setCellValue('B' . $rowIndex, $mahasiswa->npm);
+            $worksheet->setCellValue('C' . $rowIndex, $mahasiswa->nama);
+            $worksheet->setCellValue('D' . $rowIndex, $mahasiswa->email);
+            $worksheet->setCellValue('E' . $rowIndex, $mahasiswa->kelas);
+            $worksheet->setCellValue('F' . $rowIndex, $mahasiswa->prodi);
+            $rowIndex++;
+        }
+
+        $xlsxWriter = new Xlsx($spreadsheet);
+        $xlsxWriter->save('mahasiswa_data.xlsx');
+
+        return response()->download('mahasiswa_data.xlsx')->deleteFileAfterSend();
     }
 }

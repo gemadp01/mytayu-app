@@ -162,4 +162,55 @@ class DosenController extends Controller
 
         return redirect('dashboard/dosen')->with('success', 'Status user berhasil diubah.');
     }
+
+    public function import() {
+        $file = $request->file('excel_file');
+
+        $spreadsheet = IOFactory::load($file);
+        $worksheet = $spreadsheet->getActiveSheet();
+
+        $data = [];
+
+        foreach ($worksheet->getRowIterator() as $row) {
+            $rowData = [];
+            foreach ($row->getCellIterator() as $cell) {
+                $rowData[] = $cell->getValue();
+            }
+            $data[] = $rowData;
+        }
+
+        return $data;
+
+        $user = new User();
+        $user->level_user = 'dospem';
+        $user->status_user = false;
+        $user->name = $validatedData['nama'];
+        // $user->username = $request->nidn;
+        $user->username = $request->nidn . Str::lower($validatedData['singkatan']);
+        $user->password = Hash::make($request->nidn);
+        // $user->password = Hash::make($request->nidn . Str::lower($request->singkatan));
+
+
+        $user->save();
+
+        foreach ($data as $row) {
+            Mahasiswa::create([
+                'npm' => $row[0],
+                'nama' => $row[1],
+                'kelas' => $row[2],
+                'email' => $row[3],
+                'prodi' => $row[4],
+            ]);
+        }
+
+        return redirect()->route('data-list')->with('success', 'Data imported successfully.');
+    }
+
+    public function exportToPDF() {
+
+    }
+
+    public function exportToExcel() {
+        
+    }
 }

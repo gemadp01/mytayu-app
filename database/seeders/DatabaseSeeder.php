@@ -66,13 +66,13 @@ class DatabaseSeeder extends Seeder
 
         Dosen::factory(5)->create();
         // User::factory(15)->create();
-        Mahasiswa::factory(5)->create();
-        Mahasiswa::factory()->create([
-            'npm' => '19111038',
-            'nama' => 'Gema Dodi Pranata',
-            'kelas' => 'Reguler',
-            'prodi' => 'Informatika'
-        ]);
+        // Mahasiswa::factory(5)->create();
+        // Mahasiswa::factory()->create([
+        //     'npm' => '19111038',
+        //     'nama' => 'Gema Dodi Pranata',
+        //     'kelas' => 'Reguler',
+        //     'prodi' => 'Informatika'
+        // ]);
         // Access::factory(6)->create();
 
         // User::factory(2)->create();

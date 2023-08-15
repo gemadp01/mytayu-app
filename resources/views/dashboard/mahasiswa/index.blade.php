@@ -10,9 +10,6 @@
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Data Mahasiswa Terdaftar</h6>
         </div>
-        @if(!$mahasiswas->count())
-            <h1 class="h3 my-3 text-gray-800 text-center">Empty table</h1>
-        @else
         <div class="card-body">
             <div class="row">
                 <div class="col">
@@ -25,12 +22,34 @@
                 </div>
             </div>
             <div class="row py-1">
-                <div class="col">
-                    <a href="#" class="btn btn-primary btn-icon-split btn-sm">
+                <div class="col-12 col-md-6">
+                    <form action="/mahasiswa/import" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="mb-2">
+                            <input type="file" name="excel_file" class="form-control">
+                        </div>
+                </div>
+                <div class="col-12 col-md-6 mt-1">
+                    <button type="submit" class="btn btn-primary btn-icon-split btn-sm">
                         <span class="icon text-white-50">
                             <i class="fa fa-upload" aria-hidden="true"></i>
                         </span>
                         <span class="text">Import data mahasiswa</span>
+                    </button>
+                    </form>
+                </div>
+                <div class="col-12 col-md-6">
+                    <a href="/mahasiswa/export-to-pdf" class="btn btn-primary btn-icon-split btn-sm">
+                        <span class="icon text-white-50">
+                            <i class="fa fa-download" aria-hidden="true"></i>
+                        </span>
+                        <span class="text">Export to PDF</span>
+                    </a>
+                    <a href="/mahasiswa/export-to-excel" class="btn btn-success btn-icon-split btn-sm">
+                        <span class="icon text-white-50">
+                            <i class="fa fa-download" aria-hidden="true"></i>
+                        </span>
+                        <span class="text">Export to Excel</span>
                     </a>
                 </div>
             </div>
@@ -79,7 +98,6 @@
                                         <button type="submit" class="btn btn-danger btn-circle btn-sm">
                                             <i class="fa fa-times"></i>
                                         </button>
-                                    </form>
                                     @else
                                         <button type="submit" class="btn btn-success btn-circle btn-sm">
                                             <i class="fas fa-check"></i>
@@ -112,7 +130,6 @@
                 {{ $mahasiswas->links() }}
             </div>
         </div>
-        @endif
     </div>
     
 

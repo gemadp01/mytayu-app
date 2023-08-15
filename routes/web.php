@@ -43,8 +43,14 @@ Route::middleware('auth')->group(function() {
 Route::middleware('auth', 'check.user.status:koordinator')->group(function () {
     Route::resource('/dashboard/dosen', DosenController::class);
     Route::post('/dashboard/dosen/{dosen}/toggle-status', [DosenController::class, 'toggleStatus']);
+    Route::post('/dosen/import', [DosenController::class, 'import']);
+    Route::get('/dosen/export-to-excel', [DosenController::class, 'exportToExcel']);
+    Route::get('/dosen/export-to-pdf', [DosenController::class, 'exportToPDF']);
 
     Route::resource('/dashboard/mahasiswa', MahasiswaController::class);
     Route::post('/dashboard/mahasiswa/{mahasiswa}/toggle-status', [MahasiswaController::class, 'toggleStatus']);
+    Route::post('/mahasiswa/import', [MahasiswaController::class, 'import']);
+    Route::get('/mahasiswa/export-to-excel', [MahasiswaController::class, 'exportToExcel']);
+    Route::get('/mahasiswa/export-to-pdf', [MahasiswaController::class, 'exportToPDF']);
 });
 
