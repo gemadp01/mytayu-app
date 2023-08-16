@@ -52,18 +52,18 @@
     <div class="sidebar-heading">Pendaftaran</div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
+    <li class="nav-item {{ Request::is('dashboard/pengajuan-ta*') ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
             aria-expanded="true" aria-controls="collapseTwo">
             <i class="fa fa-graduation-cap" aria-hidden="true"></i>
             <span>Tugas Akhir</span>
         </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseTwo" class="collapse {{ Request::is('dashboard/pengajuan-ta*') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Pengajuan:</h6>
-                <a class="collapse-item" href="">Pengajuan Tugas Akhir</a>
-                <a class="collapse-item" href="">Pengajuan Seminar TA</a>
-                <a class="collapse-item" href="">Pengajuan Sidang TA</a>
+                <a class="collapse-item {{ Request::is('dashboard/pengajuan-ta*') ? 'active' : '' }}" href="/dashboard/pengajuan-ta">Pengajuan Tugas Akhir</a>
+                <a class="collapse-item {{ Request::is('dashboard/pengajuan-seminar-ta*') ? 'active' : '' }}" href="/dashboard/pengajuan-seminar-ta">Pengajuan Seminar TA</a>
+                <a class="collapse-item {{ Request::is('dashboard/pengajuan-sidang-ta*') ? 'active' : '' }}" href="/dashboard/pengajuan-sidang-ta">Pengajuan Sidang TA</a>
             </div>
         </div>
     </li>

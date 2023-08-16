@@ -27,4 +27,8 @@ class Dosen extends Model
         return $this->belongsTo(User::class);
     }
     
+    public function pengajuantugasakhir() {
+        return $this->hasMany(PengajuanTugasAkhir::class);
+    }
+    
 }
