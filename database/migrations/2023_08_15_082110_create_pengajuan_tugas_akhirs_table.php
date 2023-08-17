@@ -14,23 +14,24 @@ return new class extends Migration
         Schema::create('pengajuan_tugas_akhirs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->foreignId('mahasiswa_id');
+            // $table->foreignId('mahasiswa_id');
             $table->string('nomor_pengajuan')->unique();
-            $table->date('tanggal_pengajuan');
+            $table->string('tanggal_pengajuan');
             $table->string('npm');
             $table->string('nama');
             $table->string('program_studi');
             $table->string('kelas');
-            $table->string('nomor_telepon');
+            $table->string('nomor_telepon')->nullable();
+            $table->string('email')->nullable();
             $table->string('foto_kwitansi');
             $table->string('foto_ktm');
             $table->string('foto_khs');
             $table->string('foto_krs');
             $table->string('topik_penelitian');
             $table->string('proposal_ta');
-            $table->string('usulan_pembimbing_mhs1_id');
-            $table->string('usulan_pembimbing_mhs2_id');
-            $table->string('status_pengajuan');
+            $table->foreignId('usulan_pembimbing_mhs1_id');
+            $table->foreignId('usulan_pembimbing_mhs2_id');
+            $table->unsignedInteger('status_pengajuan')->length(1)->default(0);
             $table->timestamps();
         });
     }

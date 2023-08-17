@@ -23,7 +23,7 @@ class DosenFactory extends Factory
             'level_user' => 'dospem',
             'nidn' => $this->faker->numberBetween(0, 1000000000),
             'nama' => $this->faker->name(),
-            'singkatan' => $this->faker->lexify('???'),
+            'singkatan' => Str::upper($this->faker->lexify('???')),
             'nomor_telepon' => $this->faker->phoneNumber,
             'kuota_pembimbing' => $this->faker->randomNumber(2, true),
             'keilmuan' => $this->faker->sentence(2),

@@ -10,6 +10,8 @@ class Dosen extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+    // protected $with = ['user', 'pengajuantugasakhir'];
+
 
     public function toggleStatus()
     {

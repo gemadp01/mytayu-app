@@ -53,21 +53,21 @@
                             </div>
                             @enderror
                             <div class="mb-3">
-                                <label for="prodi" class="form-label @error('prodi') is-invalid @enderror">Prodi</label>
+                                <label for="program_studi" class="form-label @error('program_studi') is-invalid @enderror">Program Studi</label>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="prodi" id="informatika" value="Informatika">
+                                    <input class="form-check-input" type="radio" name="program_studi" id="informatika" value="Informatika">
                                     <label class="form-check-label" for="informatika">
                                         Informatika
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="prodi" id="sistem_informasi" value="Sistem Informasi">
+                                    <input class="form-check-input" type="radio" name="program_studi" id="sistem_informasi" value="Sistem Informasi">
                                     <label class="form-check-label" for="sistem_informasi">
                                         Sistem Informasi
                                     </label>
                                 </div>
                             </div>
-                            @error('prodi')
+                            @error('program_studi')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
@@ -95,7 +95,7 @@
                                 <label for="pembimbing_satu">Pembimbing 1</label>
                             </div>
                             <div class="input-group mb-3">
-                                <select class="form-select" name="usulan_pembimbing_mhs1" id="pembimbing_satu">
+                                <select class="form-select" name="usulan_pembimbing_mhs1_id" id="pembimbing_satu">
                                   <option selected>Choose...</option>
                                   @foreach ($dospems as $dospem)
                                     <option value="{{ $dospem->id }}">{{  "$dospem->singkatan --- $dospem->nama" }}</option>
@@ -107,7 +107,7 @@
                                 <label for="pembimbing_dua">Pembimbing 2</label>
                             </div>
                             <div class="input-group mb-3">
-                                <select class="form-select" name="usulan_pembimbing_mhs2" id="pembimbing_dua">
+                                <select class="form-select" name="usulan_pembimbing_mhs2_id" id="pembimbing_dua">
                                   <option selected>Choose...</option>
                                   @foreach ($dospems as $dospem)
                                     <option value="{{ $dospem->id }}">{{  "$dospem->singkatan --- $dospem->nama" }}</option>
@@ -130,44 +130,44 @@
                 <div class="row">
                     <div class="col-12">
                             <div class="mb-3">
-                                <label for="kwitansi" class="form-label @error('kwitansi') is-invalid @enderror">Upload Kwitansi Pembayaran TA</label>
-                                <input class="form-control" type="file" name="kwitansi" id="kwitansi" value="{{ old('kwitansi') }}">
-                                <small class="text-body-secondary">.png</small>
+                                <label for="foto_kwitansi" class="form-label @error('foto_kwitansi') is-invalid @enderror">Upload Kwitansi Pembayaran TA</label>
+                                <input class="form-control" type="file" name="foto_kwitansi" id="foto_kwitansi">
+                                <small class="text-body-secondary">.jped, .png, .jpg</small>
                               </div>
-                            @error('kwitansi')
+                            @error('foto_kwitansi')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
                             @enderror
 
                             <div class="mb-3">
-                                <label for="khs" class="form-label @error('khs') is-invalid @enderror">Upload KHS Terakhir</label>
-                                <input class="form-control" type="file" name="khs" id="khs" value="{{ old('khs') }}">
-                                <small class="text-body-secondary">.pdf</small>
+                                <label for="foto_khs" class="form-label @error('foto_khs') is-invalid @enderror">Upload KHS Terakhir</label>
+                                <input class="form-control" type="file" name="foto_khs" id="foto_khs">
+                                <small class="text-body-secondary">.jped, .png, .jpg</small>
                               </div>
-                            @error('khs')
+                            @error('foto_khs')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
                             @enderror
 
                             <div class="mb-3">
-                                <label for="krs" class="form-label @error('krs') is-invalid @enderror">Upload KRS Semester Berjalan</label>
-                                <input class="form-control" type="file" name="krs" id="krs" value="{{ old('krs') }}">
-                                <small class="text-body-secondary">.pdf</small>
+                                <label for="foto_krs" class="form-label @error('foto_krs') is-invalid @enderror">Upload KRS Semester Berjalan</label>
+                                <input class="form-control" type="file" name="foto_krs" id="foto_krs">
+                                <small class="text-body-secondary">.jped, .png, .jpg</small>
                               </div>
-                            @error('krs')
+                            @error('foto_krs')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
                             @enderror
 
                             <div class="mb-3">
-                                <label for="ktm" class="form-label @error('ktm') is-invalid @enderror">Upload KTM</label>
-                                <input class="form-control" type="file" name="ktm" id="ktm" value="{{ old('ktm') }}">
-                                <small class="text-body-secondary">.png</small>
+                                <label for="foto_ktm" class="form-label @error('foto_ktm') is-invalid @enderror">Upload KTM</label>
+                                <input class="form-control" type="file" name="foto_ktm" id="foto_ktm">
+                                <small class="text-body-secondary">.jped, .png, .jpg</small>
                               </div>
-                            @error('ktm')
+                            @error('foto_ktm')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -185,11 +185,11 @@
                             @enderror
                             
                             <div class="mb-3">
-                                <label for="proposal" class="form-label @error('proposal') is-invalid @enderror">Upload Outline Proposal TA/Skripsi</label>
-                                <input class="form-control" type="file" name="proposal" id="proposal" value="{{ old('proposal') }}">
+                                <label for="proposal_ta" class="form-label @error('proposal_ta') is-invalid @enderror">Upload Outline Proposal TA/Skripsi</label>
+                                <input class="form-control" type="file" name="proposal_ta" id="proposal_ta">
                                 <small class="text-body-secondary">.pdf</small>
                               </div>
-                            @error('proposal')
+                            @error('proposal_ta')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>

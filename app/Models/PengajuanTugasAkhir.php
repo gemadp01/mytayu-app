@@ -9,6 +9,9 @@ class PengajuanTugasAkhir extends Model
 {
     use HasFactory;
 
+    protected $guarded = ['id'];
+    // protected $with = ['user', 'usulanDospemPertama', 'usulanDospemKedua'];
+
     public function user() {
         return $this->belongsTo(User::class);
     }
@@ -19,5 +22,17 @@ class PengajuanTugasAkhir extends Model
 
     public function usulanDospemKedua() {
         return $this->belongsTo(Dosen::class, 'usulan_pembimbing_mhs2_id');
+    }
+
+    public function usulanDospemKaprodiPertama() {
+        return $this->belongsTo(Dosen::class, 'usulan_pembimbing_kaprodi1_id');
+    }
+
+    public function usulanDospemKaprodiKedua() {
+        return $this->belongsTo(Dosen::class, 'usulan_pembimbing_kaprodi2_id');
+    }
+
+    public function detailpengajuantugasakhir() {
+        return $this->hasOne(DetailPengajuanTugasAkhir::class);
     }
 }

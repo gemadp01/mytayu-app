@@ -83,7 +83,7 @@ class DosenController extends Controller
             'level_user' => 'dospem',
             'nidn' => $validatedData['nidn'],
             'nama' => $validatedData['nama'],
-            'singkatan' => $validatedData['singkatan'],
+            'singkatan' => Str::upper($validatedData['singkatan']),
             'nomor_telepon' => $validatedData['nomor_telepon'],
             'kuota_pembimbing' => $validatedData['kuota_pembimbing'],
             'keilmuan' => $validatedData['keilmuan'],
@@ -130,7 +130,7 @@ class DosenController extends Controller
             'keilmuan' => 'nullable',
         ]);
 
-
+        $validatedData['singkatan'] = Str::upper($validatedData['singkatan']);
         // Dosen::where('id', $dosen->id)->update($validatedData);
         $dosen->update($validatedData);
 
@@ -216,7 +216,7 @@ class DosenController extends Controller
                 'level_user' => 'dospem',
                 'nidn' => $row[$nidnIndex],
                 'nama' => $row[$namaIndex],
-                'singkatan' => $row[$singkatanIndex],
+                'singkatan' => Str::upper($row[$singkatanIndex]),
                 'nomor_telepon' => $row[$nomorTeleponIndex],
                 'kuota_pembimbing' => $row[$kuotaPembimbingIndex],
                 'keilmuan' => $row[$keilmuanIndex],
