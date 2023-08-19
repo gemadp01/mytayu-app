@@ -1,0 +1,130 @@
+public function update(Request $request, DetailPengajuanTugasAkhir $detail_pengajuan_tum)
+    {
+        // Mendapatkan semua input dari form
+        $inputs = $request->all();
+
+        // Periksa setiap checkbox dan hapus gambar yang tidak dicentang
+        foreach ($inputs as $inputName => $value) {
+            if ($value !== "Diterima") {
+                // Hapus gambar terkait
+                // Misalnya, jika inputName adalah "ket_kwitansi", gambar akan dihapus dengan nama yang sesuai
+                if ($inputName === "ket_kwitansi") {
+                    $detail_pengajuan_tum->$inputName = $value === "Diterima" ? true : null;
+                    $imageName = $detail_pengajuan_tum->pengajuanta->foto_kwitansi; // Ganti ini dengan logika yang sesuai untuk mendapatkan nama gambar dari database
+                    if ($imageName) {
+                        Storage::delete($imageName);
+                    }
+                }
+
+                // Lakukan hal yang sama untuk setiap input lainnya
+                if ($inputName === "ket_ktm") {
+                    $detail_pengajuan_tum->$inputName = $value === "Diterima" ? true : null;
+                    $imageName = $detail_pengajuan_tum->pengajuanta->foto_ktm; // Ganti ini dengan logika yang sesuai untuk mendapatkan nama gambar dari database
+                    if ($imageName) {
+                        Storage::delete($imageName);
+                    }
+                }
+
+                if ($inputName === "ket_khs") {
+                    $detail_pengajuan_tum->$inputName = $value === "Diterima" ? true : null;
+                    $imageName = $detail_pengajuan_tum->pengajuanta->foto_khs; // Ganti ini dengan logika yang sesuai untuk mendapatkan nama gambar dari database
+                    if ($imageName) {
+                        Storage::delete($imageName);
+                    }
+                }
+
+                if ($inputName === "ket_krs") {
+                    $detail_pengajuan_tum->$inputName = $value === "Diterima" ? true : null;
+                    $imageName = $detail_pengajuan_tum->pengajuanta->foto_krs; // Ganti ini dengan logika yang sesuai untuk mendapatkan nama gambar dari database
+                    if ($imageName) {
+                        Storage::delete($imageName);
+                    }
+                }
+            }
+
+            $detail_pengajuan_tum->tanggapan = $inputs['tanggapan_koordinator'];
+
+            if (in_array(false, [
+                $detail_pengajuan_tum->pengajuanta->ket_kwitansi,
+                $detail_pengajuan_tum->pengajuanta->ket_ktm,
+                $detail_pengajuan_tum->pengajuanta->ket_khs,
+                $detail_pengajuan_tum->pengajuanta->ket_krs,
+            ], true)) {
+                // Jika ada setidaknya satu status bernilai false
+                $detail_pengajuan_tum->pengajuanta->status_pengajuan = 0;
+            } else {
+                // Jika semua status bernilai true
+                $detail_pengajuan_tum->pengajuanta->status_pengajuan = 2;
+            }
+            $detail_pengajuan_tum->pengajuanta->save(); // Simpan perubahan pada objek terkait
+            $detail_pengajuan_tum->save(); // Simpan perubahan pada objek DetailPengajuanTugasAkhir
+        } 
+        return redirect('dashboard/pengajuan-ta')->with('success', 'Dosen has been Updated!');
+    }
+
+
+
+
+    pt 2
+
+    // $replacedString = Str::replace('ket_', 'foto_', $request->input('ket_kwitansi'));
+        // Mendapatkan semua input dari form
+        $inputs = $request->all();
+
+        // Periksa setiap checkbox dan hapus gambar yang tidak dicentang
+        foreach ($inputs as $inputName => $value) {
+            if ($value !== "Diterima") {
+                // Hapus gambar terkait
+                // Misalnya, jika inputName adalah "ket_kwitansi", gambar akan dihapus dengan nama yang sesuai
+                if ($inputName === "ket_kwitansi") {       
+                    $imageName = $detail_pengajuan_tum->pengajuanta->foto_kwitansi; // Ganti ini dengan logika yang sesuai untuk mendapatkan nama gambar dari database
+                    if ($imageName) {
+                        Storage::delete($imageName);
+                    }
+                }
+
+                // Lakukan hal yang sama untuk setiap input lainnya
+                if ($inputName === "ket_ktm") {
+                    $imageName = $detail_pengajuan_tum->pengajuanta->foto_ktm; // Ganti ini dengan logika yang sesuai untuk mendapatkan nama gambar dari database
+                    if ($imageName) {
+                        Storage::delete($imageName);
+                    }
+                }
+
+                if ($inputName === "ket_khs") {
+                    $imageName = $detail_pengajuan_tum->pengajuanta->foto_khs; // Ganti ini dengan logika yang sesuai untuk mendapatkan nama gambar dari database
+                    if ($imageName) {
+                        Storage::delete($imageName);
+                    }
+                }
+
+                if ($inputName === "ket_krs") {
+                    $imageName = $detail_pengajuan_tum->pengajuanta->foto_krs; // Ganti ini dengan logika yang sesuai untuk mendapatkan nama gambar dari database
+                    if ($imageName) {
+                        Storage::delete($imageName);
+                    }
+                }
+                $detail_pengajuan_tum->$inputName = false; // Set status menjadi false
+            }else{
+                $detail_pengajuan_tum->$inputName = true;
+            }
+        } 
+
+        $detail_pengajuan_tum->tanggapan = $inputs['tanggapan_koordinator'];
+
+        if (in_array(false, [
+            $detail_pengajuan_tum->pengajuanta->ket_kwitansi,
+            $detail_pengajuan_tum->pengajuanta->ket_ktm,
+            $detail_pengajuan_tum->pengajuanta->ket_khs,
+            $detail_pengajuan_tum->pengajuanta->ket_krs,
+        ], true)) {
+            // Jika ada setidaknya satu status bernilai false
+            $detail_pengajuan_tum->pengajuanta->status_pengajuan = 0;
+        } else {
+            // Jika semua status bernilai true
+            $detail_pengajuan_tum->pengajuanta->status_pengajuan = 2;
+        }
+        $detail_pengajuan_tum->pengajuanta->save(); // Simpan perubahan pada objek terkait
+        $detail_pengajuan_tum->save(); // Simpan perubahan pada objek DetailPengajuanTugasAkhir
+
+        return redirect('dashboard/pengajuan-ta')->with('success', 'Dosen has been Updated!');

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('detail_pengajuan_tugas_akhirs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('pengajuanta_id');
+            $table->foreignId('pengajuan_tugas_akhir_id');
             $table->string('ket_kwitansi')->nullable();
             $table->string('ket_ktm')->nullable();
             $table->string('ket_khs')->nullable();

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PengajuanTugasAkhir;
+use App\Models\DetailPengajuanTugasAkhir;
 use Illuminate\Http\Request;
 use App\Models\Dosen;
 use App\Models\Mahasiswa;
@@ -43,6 +44,7 @@ class PengajuanTugasAkhirController extends Controller
         // $nomorPengajuan = 'TA' . rand(100000, 999999);
         // return $nomorPengajuan;
         // return Carbon::now('Asia/Jakarta')->format('d-m-Y');
+        
         $validatedData = $request->validate([
             'npm' => 'required|max:8',
             'nama' => 'required',
@@ -70,10 +72,15 @@ class PengajuanTugasAkhirController extends Controller
         $validatedData['user_id'] = auth()->user()->id;
         $validatedData['nomor_pengajuan'] = 'TA' . rand(100000, 999999);
         $validatedData['tanggal_pengajuan'] = Carbon::now('Asia/Jakarta')->format('d-m-Y');
+        $validatedData['status_pengajuan'] = 1;
 
         // dd($validatedData);
 
-        PengajuanTugasAkhir::create($validatedData);
+        $pengajuanta = PengajuanTugasAkhir::create($validatedData);
+
+        DetailPengajuanTugasAkhir::create([
+            'pengajuan_tugas_akhir_id' => $pengajuanta->id,
+        ]);
 
         return redirect('dashboard/pengajuan-ta')->with('success', 'New Pengajuan Tugas Akhir has been added!');
     }
@@ -83,9 +90,11 @@ class PengajuanTugasAkhirController extends Controller
      */
     public function show(PengajuanTugasAkhir $pengajuan_tum)
     {
+        // dd($pengajuan_tum->usulanDospemPertama);
         return view('dashboard.pengajuan_tugas_akhir.show', [
-            'pengajuanta' => $pengajuan_tum->load(['user', 'usulanDospemPertama', 'usulanDospemKedua']),
+            'detailpengajuanta' => $pengajuan_tum->load(['user', 'usulanDospemPertama', 'usulanDospemKedua', 'detailpengajuantugasakhir']),
         ]);
+        
     }
 
     /**
@@ -94,7 +103,7 @@ class PengajuanTugasAkhirController extends Controller
     public function edit(PengajuanTugasAkhir $pengajuan_tum)
     {
         return view('dashboard.pengajuan_tugas_akhir.edit', [
-            'pengajuanta' => $pengajuan_tum,
+            'detailpengajuanta' => $pengajuan_tum->load(['user', 'usulanDospemPertama', 'usulanDospemKedua', 'detailpengajuantugasakhir']),
         ]);
     }
 

@@ -106,12 +106,12 @@
                                     @endif
                                 </td>
                                 <td class="text-center">
-                                    @if ($pta->status_pengajuan === 0 && ($pta->status_pengajuan === 2))
-                                        <a href="/dashboard/pengajuan-ta/{{ $pta->id }}/edit" class="btn btn-warning btn-circle btn-sm" disabled>
+                                    @if ($pta->status_pengajuan === 0 || ($pta->status_pengajuan === 2))
+                                        <a href="/dashboard/detail-pengajuan-ta/{{ $pta->id }}/edit" class="btn btn-warning btn-circle btn-sm" disabled>
                                             <i class="fas fa-edit"></i>
                                         </a>
                                     @else
-                                        <a href="/dashboard/pengajuan-ta/{{ $pta->id }}/edit" class="btn btn-warning btn-circle btn-sm">
+                                        <a href="/dashboard/detail-pengajuan-ta/{{ $pta->id }}/edit" class="btn btn-warning btn-circle btn-sm">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                     @endif
@@ -121,13 +121,13 @@
                                     </a>
 
                                     {{-- tombol delete --}}
-                                    <form action="/dashboard/pengajuan-ta/{{ $pta->id }}" method="POST" class="d-inline">
+                                    {{-- <form action="/dashboard/pengajuan-ta/{{ $pta->id }}" method="POST" class="d-inline">
                                         @method('DELETE')
                                         @csrf
                                         <button type="" class="btn btn-danger btn-circle btn-sm" onclick="return confirm('Yakin?')">
                                             <i class="fas fa-trash"></i>
                                         </button>
-                                    </form>
+                                    </form> --}}
                                 </td>
                             </tr>
                             @endforeach
@@ -178,7 +178,7 @@
                                     @endif
                                 </td>
                                 <td class="text-center">
-                                    @if ($pta->status_pengajuan === 1 && $pta->status_pengajuan === 2)
+                                    @if ($pta->status_pengajuan === 1 || $pta->status_pengajuan === 2)
                                         <a href="/dashboard/pengajuan-ta/{{ $pta->id }}/edit" class="btn btn-warning btn-circle btn-sm d-none">
                                             <i class="fas fa-edit"></i>
                                         </a>

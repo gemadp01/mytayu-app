@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\PengajuanTugasAkhirController;
+use App\Http\Controllers\DetailPengajuanTugasAkhirController;
 use App\Http\Controllers\ProfileController;
 use Carbon\Carbon;
 
@@ -44,6 +45,9 @@ Route::middleware('auth', 'check.user.status:mahasiswa,koordinator')->group(func
     Route::resource('/dashboard/pengajuan-ta', PengajuanTugasAkhirController::class);
 });
 
+Route::middleware('auth', 'check.user.status:koordinator,kaprodi,dekan')->group(function () {
+    Route::resource('/dashboard/detail-pengajuan-ta', DetailPengajuanTugasAkhirController::class)->only(['show', 'edit', 'update']);
+});
 
 Route::middleware('auth', 'check.user.status:koordinator')->group(function () {
     Route::resource('/dashboard/dosen', DosenController::class);
