@@ -27,16 +27,16 @@
     <div class="sidebar-heading">Data Persetujuan</div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
+    <li class="nav-item {{ Request::is('dashboard/pengajuan-ta*') ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
             aria-expanded="true" aria-controls="collapseTwo">
             <i class="fa fa-check-square" aria-hidden="true"></i>
             <span>Approve data</span>
         </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseTwo" class="collapse {{ Request::is('dashboard/pengajuan-ta*') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Data pengajuan:</h6>
-                <a class="collapse-item" href="">Pembimbing TA</a>
+                <a class="collapse-item {{ Request::is('dashboard/pengajuan-ta*') ? 'active' : '' }}" href="/dashboard/pengajuan-ta">Pembimbing TA</a>
                 <a class="collapse-item" href="">Penguji Seminar TA</a>
                 <a class="collapse-item" href="">Penguji Sidang TA</a>
             </div>

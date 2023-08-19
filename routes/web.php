@@ -43,7 +43,7 @@ Route::middleware('auth')->group(function() {
     });
 });
 
-Route::middleware('auth', 'check.user.status:mahasiswa,koordinator,kaprodi')->group(function () {
+Route::middleware('auth', 'check.user.status:mahasiswa,koordinator,kaprodi,dekan')->group(function () {
     Route::resource('/dashboard/pengajuan-ta', PengajuanTugasAkhirController::class);
 });
 

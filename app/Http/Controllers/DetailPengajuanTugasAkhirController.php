@@ -133,6 +133,16 @@ class DetailPengajuanTugasAkhirController extends Controller
             $detail_pengajuan_tum->save();
 
             return redirect('dashboard/pengajuan-ta')->with('success', 'Usulan Pembimbing has been Updated!');
+
+        }elseif (Gate::allows('IsDekan')) {
+            $detail_pengajuan_tum->status_approve = 1;
+            $detail_pengajuan_tum->tanggal_approve = Carbon::now('Asia/Jakarta')->format('d-m-Y');
+            $detail_pengajuan_tum->pengajuanta->status_pengajuan = 4;
+
+            $detail_pengajuan_tum->pengajuanta->save();
+            $detail_pengajuan_tum->save();
+
+            return redirect('dashboard/pengajuan-ta')->with('success', 'Mahasiswa has been approved!');
         }
     }
 
