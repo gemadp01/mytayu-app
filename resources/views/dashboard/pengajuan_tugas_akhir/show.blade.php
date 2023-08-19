@@ -48,7 +48,7 @@
                             <span class="badge text-bg-danger">revisi...</span>
                         @elseif ($detailpengajuanta->status_pengajuan === 1)
                             <span class="badge text-bg-warning">belum diperiksa...</span>
-                        @elseif ($detailpengajuanta->status_pengajuan === 2)
+                        @else
                             <span class="badge text-bg-success">diterima...</span>
                         @endif
                     </li>
@@ -56,6 +56,13 @@
                     <li class="list-group-item">{{ "( ". ($detailpengajuanta->usulanDospemPertama->singkatan ?? 'Default Singkatan') ." ) " . ($detailpengajuanta->usulanDospemPertama->nama ?? 'Default nama') }}</li>
                     <li class="list-group-item">Usulan Pembimbing 2 dari Mahasiswa :</li>
                     <li class="list-group-item">{{ "( ". ($detailpengajuanta->usulanDospemKedua->singkatan ?? 'Default Singkatan') ." ) " . ($detailpengajuanta->usulanDospemKedua->nama ?? 'Default nama') }}</li>
+
+                    @if ($detailpengajuanta->detailpengajuantugasakhir->usulanDospemKaprodiPertama && $detailpengajuanta->detailpengajuantugasakhir->usulanDospemKaprodiKedua)
+                    <li class="list-group-item">Usulan Pembimbing 1 dari Kaprodi :</li>
+                    <li class="list-group-item">{{ "( ". ($detailpengajuanta->detailpengajuantugasakhir->usulanDospemKaprodiPertama->singkatan ?? 'Default Singkatan') ." ) " . ($detailpengajuanta->detailpengajuantugasakhir->usulanDospemKaprodiPertama->nama ?? 'Default nama') }}</li>
+                    <li class="list-group-item">Usulan Pembimbing 2 dari Kaprodi :</li>
+                    <li class="list-group-item">{{ "( ". ($detailpengajuanta->detailpengajuantugasakhir->usulanDospemKaprodiKedua->singkatan ?? 'Default Singkatan') ." ) " . ($detailpengajuanta->detailpengajuantugasakhir->usulanDospemKaprodiKedua->nama ?? 'Default nama') }}</li>
+                    @endif
                 </ul>
             </div>
         </div>

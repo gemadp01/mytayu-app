@@ -19,7 +19,7 @@ class PengajuanTugasAkhirController extends Controller
     {
         return view('dashboard.pengajuan_tugas_akhir.index', [
             'pengajuanta' => PengajuanTugasAkhir::with(['user', 'usulanDospemPertama', 'usulanDospemKedua'])->latest()->where('user_id', auth()->user()->id)->get(),
-            'pengajuantas' => PengajuanTugasAkhir::with(['user', 'usulanDospemPertama', 'usulanDospemKedua'])->latest()->paginate(10),
+            'pengajuantas' => PengajuanTugasAkhir::with(['user', 'usulanDospemPertama', 'usulanDospemKedua', 'detailpengajuantugasakhir'])->latest()->paginate(10),
         ]);
     }
 
@@ -113,38 +113,44 @@ class PengajuanTugasAkhirController extends Controller
     public function update(Request $request, PengajuanTugasAkhir $pengajuan_tum)
     {
         // dd($pengajuan_tum->detailpengajuantugasakhir);
+        
         $validatedData = $request->validate([
-            'foto_kwitansi' => 'image|file|mimes:jpeg,png,jpg|max:2048',
-            'foto_ktm' => 'image|file|mimes:jpeg,png,jpg|max:2048',
-            'foto_khs' => 'image|file|mimes:jpeg,png,jpg|max:2048',
-            'foto_krs' => 'image|file|mimes:jpeg,png,jpg|max:2048',
+        'foto_kwitansi' => 'image|file|mimes:jpeg,png,jpg|max:2048',
+        'foto_ktm' => 'image|file|mimes:jpeg,png,jpg|max:2048',
+        'foto_khs' => 'image|file|mimes:jpeg,png,jpg|max:2048',
+        'foto_krs' => 'image|file|mimes:jpeg,png,jpg|max:2048',
         ]);
         
         if($pengajuan_tum->detailpengajuantugasakhir->ket_kwitansi){
             $validatedData['foto_kwitansi'] = $pengajuan_tum->foto_kwitansi;
+        }else {
+            $validatedData['foto_kwitansi'] = $request->file('foto_kwitansi')->store('pengajuan-ta-images');
         }
 
         if($pengajuan_tum->detailpengajuantugasakhir->ket_ktm){
             $validatedData['foto_ktm'] = $pengajuan_tum->foto_ktm;
+        }else {
+            $validatedData['foto_ktm'] = $request->file('foto_ktm')->store('pengajuan-ta-images');
         }
 
         if($pengajuan_tum->detailpengajuantugasakhir->ket_khs){
             $validatedData['foto_khs'] = $pengajuan_tum->foto_khs;
+        }else {
+            $validatedData['foto_khs'] = $request->file('foto_khs')->store('pengajuan-ta-images');
         }
 
         if($pengajuan_tum->detailpengajuantugasakhir->ket_krs){
             $validatedData['foto_krs'] = $pengajuan_tum->foto_krs;
+        }else {
+            $validatedData['foto_krs'] = $request->file('foto_krs')->store('pengajuan-ta-images');
         }
-
-        $validatedData['foto_kwitansi'] = $request->file('foto_kwitansi')->store('pengajuan-ta-images');
-        $validatedData['foto_ktm'] = $request->file('foto_ktm')->store('pengajuan-ta-images');
-        $validatedData['foto_khs'] = $request->file('foto_khs')->store('pengajuan-ta-images');
-        $validatedData['foto_krs'] = $request->file('foto_krs')->store('pengajuan-ta-images');
+        
         $validatedData['status_pengajuan'] = 1;
 
         $pengajuan_tum->update($validatedData);
 
         return redirect('dashboard/pengajuan-ta')->with('success', 'New revisi has been added!');
+
     }
 
     /**

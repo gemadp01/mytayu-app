@@ -16,4 +16,12 @@ class DetailPengajuanTugasAkhir extends Model
     public function pengajuanta() {
         return $this->belongsTo(PengajuanTugasAkhir::class, 'pengajuan_tugas_akhir_id');
     }
+
+    public function usulanDospemKaprodiPertama() {
+        return $this->belongsTo(Dosen::class, 'usulan_pembimbing_kaprodi1_id');
+    }
+
+    public function usulanDospemKaprodiKedua() {
+        return $this->belongsTo(Dosen::class, 'usulan_pembimbing_kaprodi2_id');
+    }
 }

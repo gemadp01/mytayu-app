@@ -8,6 +8,8 @@ use App\Http\Controllers\PengajuanTugasAkhirController;
 use App\Http\Controllers\DetailPengajuanTugasAkhirController;
 use App\Http\Controllers\ProfileController;
 use Carbon\Carbon;
+use App\Http\Controllers\Gate;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -41,7 +43,7 @@ Route::middleware('auth')->group(function() {
     });
 });
 
-Route::middleware('auth', 'check.user.status:mahasiswa,koordinator')->group(function () {
+Route::middleware('auth', 'check.user.status:mahasiswa,koordinator,kaprodi')->group(function () {
     Route::resource('/dashboard/pengajuan-ta', PengajuanTugasAkhirController::class);
 });
 

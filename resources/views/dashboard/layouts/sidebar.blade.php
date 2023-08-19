@@ -149,9 +149,9 @@
     <div class="sidebar-heading">Data Pembimbing</div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item {{ Request::is('dashboard/dosen*') ? 'active' : '' }}">
+    <li class="nav-item {{ Request::is('dashboard/pengajuan-ta*') ? 'active' : '' }}">
         <a class="nav-link active"
-        href="/dashboard/dosen">
+        href="/dashboard/pengajuan-ta">
             <i class="fa fa-graduation-cap"></i>
             <span>Pengajuan Pembimbing TA</span>
         </a>

@@ -33,6 +33,10 @@ class Dosen extends Model
         return $this->hasMany(PengajuanTugasAkhir::class);
     }
 
+    public function detailpengajuantugasakhir() {
+        return $this->hasMany(DetailPengajuanTugasAkhir::class);
+    }
+
     // public function dosenUser()
     // {
     //     return $this->belongsTo(User::class, 'user_id');
