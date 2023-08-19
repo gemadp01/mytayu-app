@@ -133,7 +133,7 @@
                             <div class="mb-3">
                                 <label for="foto_kwitansi" class="form-label @error('foto_kwitansi') is-invalid @enderror">Upload Kwitansi Pembayaran TA</label>
                                 <input class="form-control" type="file" name="foto_kwitansi" id="foto_kwitansi">
-                                <small class="text-body-secondary">.jped, .png, .jpg</small>
+                                <small class="text-body-secondary">.jped, .png, .jpg, maks:2mb</small>
                               </div>
                             @error('foto_kwitansi')
                                 <div class="invalid-feedback">
@@ -144,7 +144,7 @@
                             <div class="mb-3">
                                 <label for="foto_khs" class="form-label @error('foto_khs') is-invalid @enderror">Upload KHS Terakhir</label>
                                 <input class="form-control" type="file" name="foto_khs" id="foto_khs">
-                                <small class="text-body-secondary">.jped, .png, .jpg</small>
+                                <small class="text-body-secondary">.jped, .png, .jpg. maks:2mb</small>
                               </div>
                             @error('foto_khs')
                                 <div class="invalid-feedback">
@@ -155,7 +155,7 @@
                             <div class="mb-3">
                                 <label for="foto_krs" class="form-label @error('foto_krs') is-invalid @enderror">Upload KRS Semester Berjalan</label>
                                 <input class="form-control" type="file" name="foto_krs" id="foto_krs">
-                                <small class="text-body-secondary">.jped, .png, .jpg</small>
+                                <small class="text-body-secondary">.jped, .png, .jpg, maks:2mb</small>
                               </div>
                             @error('foto_krs')
                                 <div class="invalid-feedback">
@@ -166,7 +166,7 @@
                             <div class="mb-3">
                                 <label for="foto_ktm" class="form-label @error('foto_ktm') is-invalid @enderror">Upload KTM</label>
                                 <input class="form-control" type="file" name="foto_ktm" id="foto_ktm">
-                                <small class="text-body-secondary">.jped, .png, .jpg</small>
+                                <small class="text-body-secondary">.jped, .png, .jpg, maks:2mb</small>
                               </div>
                             @error('foto_ktm')
                                 <div class="invalid-feedback">
@@ -188,7 +188,7 @@
                             <div class="mb-3">
                                 <label for="proposal_ta" class="form-label @error('proposal_ta') is-invalid @enderror">Upload Outline Proposal TA/Skripsi</label>
                                 <input class="form-control" type="file" name="proposal_ta" id="proposal_ta">
-                                <small class="text-body-secondary">.pdf</small>
+                                <small class="text-body-secondary">.pdf, maks:2mb</small>
                               </div>
                             @error('proposal_ta')
                                 <div class="invalid-feedback">

@@ -112,7 +112,7 @@
                         <div class="row justify-content-evenly">
                             <div class="col-12 col-sm-5 col-md-3 col-md-5 col-xl-2">
                                 @if ($detailpengajuanta->foto_kwitansi)
-                                <div class="card h-auto">
+                                <div class="card h-auto" style="width: 10rem;">
                                     <img src="{{ asset('storage/' . $detailpengajuanta->foto_kwitansi) }}" class="card-img-top" alt="...">
                                     <div class="card-body text-center">
                                         <a class="card-text" href="{{ asset('storage/' . $detailpengajuanta->foto_kwitansi) }}" download>Download Kwitansi</a>
@@ -131,7 +131,7 @@
                                             Diterima
                                         </span>
                                     </div>
-                                </div>    
+                                </div>  
                                 @else
                                 <div class="card" style="width: 10rem;">
                                     <div class="card-body text-center">

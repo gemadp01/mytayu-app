@@ -135,11 +135,11 @@
                                 @else
                                 <div class="card" style="width: 10rem;">
                                     <div class="card-body text-center">
+                                        @if (!$detailpengajuanta->detailpengajuantugasakhir->ket_kwitansi)
                                         <span class="badge text-bg-danger">
-                                            @if (!$detailpengajuanta->detailpengajuantugasakhir->ket_kwitansi)
                                                 Revisi
-                                            @endif
-                                        </span>
+                                            </span>
+                                        @endif
                                     </div>
                                 </div>
                                 @endif
@@ -168,11 +168,11 @@
                                 @else
                                 <div class="card" style="width: 10rem;">
                                     <div class="card-body text-center">
+                                        @if (!$detailpengajuanta->detailpengajuantugasakhir->ket_ktm)
                                         <span class="badge text-bg-danger">
-                                            @if (!$detailpengajuanta->detailpengajuantugasakhir->ket_ktm)
-                                                Revisi
-                                            @endif
+                                            Revisi
                                         </span>
+                                        @endif
                                     </div>
                                 </div>
                                 @endif
@@ -201,11 +201,11 @@
                                 @else
                                 <div class="card" style="width: 10rem;">
                                     <div class="card-body text-center">
+                                        @if (!$detailpengajuanta->detailpengajuantugasakhir->ket_khs)
                                         <span class="badge text-bg-danger">
-                                            @if ($detailpengajuanta->detailpengajuantugasakhir->ket_khs)
-                                                Revisi
-                                            @endif
+                                            Revisi
                                         </span>
+                                        @endif
                                     </div>
                                 </div>
                                 @endif
@@ -234,11 +234,11 @@
                                 @else
                                 <div class="card" style="width: 10rem;">
                                     <div class="card-body text-center">
+                                        @if (!$detailpengajuanta->detailpengajuantugasakhir->ket_krs)
                                         <span class="badge text-bg-danger">
-                                            @if (!$detailpengajuanta->detailpengajuantugasakhir->ket_krs)
-                                                Revisi
-                                            @endif
+                                            Revisi
                                         </span>
+                                        @endif
                                     </div>
                                 </div>
                                 @endif
@@ -250,6 +250,81 @@
             </div>
         </div>
 
+        <div class="row flex-column flex-lg-row">
+
+            <div class="col-12 col-lg-8 offset-lg-4">
+                <div class="card shadow mb-4 m-0">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Status Pemeriksaan oleh Koordinator</h6>
+                    </div>
+                    <div class="card-body">              
+                        <form method="post" action="/dashboard/pengajuan-ta/{{ $detailpengajuanta->id }}"  enctype="multipart/form-data">
+                            @method('put')
+                            @csrf
+                            <div class="mb-3">
+                                <label for="foto_kwitansi" class="form-label">Kwitansi</label>
+                                @if ($detailpengajuanta->detailpengajuantugasakhir->ket_kwitansi)
+                                <p>
+                                    <strong>
+                                        Diterima
+                                    </strong>
+                                </p>
+                                @else
+                                <input type="file" class="form-control" name="foto_kwitansi" id="foto_kwitansi">
+                                <small class="text-body-secondary">.jped, .png, .jpg, maks:2mb</small>
+                                @endif
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="ktm" class="form-label">KTM (Kartu Tanda Mahasiswa)</label>
+                                @if ($detailpengajuanta->detailpengajuantugasakhir->ket_ktm)
+                                <p>
+                                    <strong>
+                                        Diterima
+                                    </strong>
+                                </p>
+                                @else 
+                                <input type="file" class="form-control" name="foto_ktm" id="ktm">
+                                <small class="text-body-secondary">.jped, .png, .jpg. maks:2mb</small>
+                                @endif
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="khs" class="form-label">KHS (Kartu Hasil Studi)</label>
+                                @if ($detailpengajuanta->detailpengajuantugasakhir->ket_khs)
+                                <p>
+                                    <strong>
+                                        Diterima
+                                    </strong>
+                                </p>
+                                @else
+                                <input type="file" class="form-control" name="foto_khs" id="khs">
+                                <small class="text-body-secondary">.jped, .png, .jpg, maks:2mb</small>    
+                                @endif
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="krs" class="form-label">KRS (Kartu Rencana Studi)</label>
+                                @if ($detailpengajuanta->detailpengajuantugasakhir->ket_krs)
+                                <p>
+                                    <strong>
+                                        Diterima
+                                    </strong>
+                                </p>
+                                @else
+                                <input type="file" class="form-control" name="foto_krs" id="krs">
+                                <small class="text-body-secondary">.jped, .png, .jpg, maks:2mb</small> 
+                            @endif
+                            </div>
+
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary">Ajukan Revisi</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>      
+            </div>
+        </div>
         
 
     </div>

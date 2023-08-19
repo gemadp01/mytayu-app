@@ -6,6 +6,7 @@ use App\Models\DetailPengajuanTugasAkhir;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 // use App\Models\PengajuanTugasAkhir;
 
 class DetailPengajuanTugasAkhirController extends Controller
@@ -96,6 +97,7 @@ class DetailPengajuanTugasAkhirController extends Controller
         $detail_pengajuan_tum->ket_ktm = $request->input('ket_ktm') === "Diterima" ? true : false;
         $detail_pengajuan_tum->ket_khs = $request->input('ket_khs') === "Diterima" ? true : false;
         $detail_pengajuan_tum->ket_krs = $request->input('ket_krs') === "Diterima" ? true : false;
+        
 
         if (in_array(false, [
                 $detail_pengajuan_tum->ket_kwitansi,
@@ -108,8 +110,9 @@ class DetailPengajuanTugasAkhirController extends Controller
             } else {
                 // Jika semua status bernilai true
                 $detail_pengajuan_tum->pengajuanta->status_pengajuan = 2;
+                $detail_pengajuan_tum->tanggal_penerimaan = Carbon::now('Asia/Jakarta')->format('d-m-Y');
             }
-        
+            
         // dd($request->input('tanggapan_koordinator'));
         $detail_pengajuan_tum->pengajuanta->save(); // Simpan perubahan pada objek terkait
         $detail_pengajuan_tum->save(); // Simpan perubahan pada objek DetailPengajuanTugasAkhir
