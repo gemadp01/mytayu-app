@@ -71,4 +71,12 @@ class User extends Authenticatable
     public function pengajuantugasakhir() {
         return $this->hasMany(PengajuanTugasAkhir::class);
     }
+
+    public function appointment() {
+        return $this->hasMany(Appointment::class);
+    }
+
+    public function bimbingan() {
+        return $this->hasMany(Bimbingan::class);
+    }
 }

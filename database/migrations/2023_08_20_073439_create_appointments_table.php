@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_accid');
+            $table->foreignId('pembimbing_id');
+            $table->string('hari');
+            $table->string('tanggal');
+            $table->string('waktu_awal');
+            $table->string('waktu_akhir');
+            $table->string('jenis_pertemuan');
+            $table->unsignedInteger('kuota_bimbingan')->length(2)->default(0);
+            $table->string('keterangan')->nullable();
             $table->timestamps();
         });
     }

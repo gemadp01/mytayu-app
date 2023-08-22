@@ -41,5 +41,9 @@ class Dosen extends Model
     // {
     //     return $this->belongsTo(User::class, 'user_id');
     // }
+
+    public function appointment() {
+        return $this->hasMany(Appointment::class);
+    }
     
 }

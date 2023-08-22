@@ -61,7 +61,7 @@
                                 @endif
                             </td>
                             <td class="text-center">
-                                @if ($pta->status_pengajuan === 1 || $pta->status_pengajuan === 2 || $pta->status_pengajuan === 3)
+                                @if ($pta->status_pengajuan === 1 || $pta->status_pengajuan === 2 || $pta->status_pengajuan === 3 || $pta->status_pengajuan === 4)
                                     <a href="/dashboard/pengajuan-ta/{{ $pta->id }}/edit" class="btn btn-warning btn-circle btn-sm d-none">
                                         <i class="fas fa-edit"></i>
                                     </a>
@@ -415,7 +415,7 @@
                                             </form>
                                       </div>
                                     </div>
-                                  </div>
+                                </div>
 
                                 <a href="/dashboard/pengajuan-ta/{{ $pta->id }}" class="btn btn-primary btn-circle btn-sm">
                                     <i class="fa fa-eye"></i>

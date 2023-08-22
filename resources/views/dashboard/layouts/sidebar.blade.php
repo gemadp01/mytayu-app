@@ -52,16 +52,27 @@
     <div class="sidebar-heading">Pendaftaran</div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item {{ Request::is('dashboard/pengajuan-ta*') ? 'active' : '' }}">
+    <li class="nav-item 
+    @if(Request::is('dashboard/pengajuan-ta*') || Request::is('dashboard/detail-pengajuan-ta*'))
+        active
+    @endif">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
             aria-expanded="true" aria-controls="collapseTwo">
             <i class="fa fa-graduation-cap" aria-hidden="true"></i>
             <span>Tugas Akhir</span>
         </a>
-        <div id="collapseTwo" class="collapse {{ Request::is('dashboard/pengajuan-ta*') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseTwo" class="collapse 
+        @if(Request::is('dashboard/pengajuan-ta*') || Request::is('dashboard/detail-pengajuan-ta*'))
+            show
+        @endif" 
+        aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Pengajuan:</h6>
-                <a class="collapse-item {{ Request::is('dashboard/pengajuan-ta*') ? 'active' : '' }}" href="/dashboard/pengajuan-ta">Pengajuan Tugas Akhir</a>
+                <a class="collapse-item 
+                @if(Request::is('dashboard/pengajuan-ta*') || Request::is('dashboard/detail-pengajuan-ta*'))
+                    active
+                @endif" 
+                href="/dashboard/pengajuan-ta">Pengajuan Tugas Akhir</a>
                 <a class="collapse-item {{ Request::is('dashboard/pengajuan-seminar-ta*') ? 'active' : '' }}" href="/dashboard/pengajuan-seminar-ta">Pengajuan Seminar TA</a>
                 <a class="collapse-item {{ Request::is('dashboard/pengajuan-sidang-ta*') ? 'active' : '' }}" href="/dashboard/pengajuan-sidang-ta">Pengajuan Sidang TA</a>
             </div>
@@ -79,7 +90,7 @@
 
     <!-- Nav Item - Bimbingan -->
     <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link {{ Request::is('dashboard/agenda-bimbingan*') ? 'active' : '' }}" href="/dashboard/info-pembimbing">
             <i class="fa fa-user" aria-hidden="true"></i>
             <span>Bimbingan TA</span></a>
     </li>
@@ -149,7 +160,11 @@
     <div class="sidebar-heading">Data Pembimbing</div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item {{ Request::is('dashboard/pengajuan-ta*') ? 'active' : '' }}">
+    <li class="nav-item 
+    @if(Request::is('dashboard/pengajuan-ta*') || Request::is('dashboard/detail-pengajuan-ta*'))
+        active
+    @endif
+    ">
         <a class="nav-link active"
         href="/dashboard/pengajuan-ta">
             <i class="fa fa-graduation-cap"></i>
@@ -293,9 +308,9 @@
     <div class="sidebar-heading">Bimbingan</div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item {{ Request::is('dashboard/dosen*') ? 'active' : '' }}">
+    <li class="nav-item {{ Request::is('dashboard/mahasiswa-bimbingan*') ? 'active' : '' }}">
         <a class="nav-link active"
-        href="/dashboard/dosen">
+        href="/dashboard/mahasiswa-bimbingan">
         <i class="fa fa-check-square"></i>
         <span>Mahasiswa Bimbingan TA</span></a>
     </li>
@@ -306,9 +321,9 @@
     <div class="sidebar-heading">Appointment</div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item {{ Request::is('dashboard/dosen*') ? 'active' : '' }}">
+    <li class="nav-item {{ Request::is('dashboard/agenda-bimbingan*') ? 'active' : '' }}">
         <a class="nav-link active"
-        href="/dashboard/dosen">
+        href="/dashboard/agenda-bimbingan">
         <i class="fas fa-users"></i>
         <span>Bimbingan</span></a>
     </li>

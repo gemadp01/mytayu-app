@@ -6,6 +6,9 @@ use App\Http\Controllers\DosenController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\PengajuanTugasAkhirController;
 use App\Http\Controllers\DetailPengajuanTugasAkhirController;
+use App\Http\Controllers\MahasiswaBimbinganController;
+use App\Http\Controllers\AppointmentBimbinganController;
+use App\Http\Controllers\BimbinganTugasAkhirController;
 use App\Http\Controllers\ProfileController;
 use Carbon\Carbon;
 use App\Http\Controllers\Gate;
@@ -65,3 +68,12 @@ Route::middleware('auth', 'check.user.status:koordinator')->group(function () {
     Route::get('/mahasiswa/export-to-pdf', [MahasiswaController::class, 'exportToPDF']);
 });
 
+Route::middleware('auth', 'check.user.status:mahasiswa,dospem')->group(function () {
+    Route::resource('/dashboard/mahasiswa-bimbingan', MahasiswaBimbinganController::class);
+    Route::resource('/dashboard/agenda-bimbingan', AppointmentBimbinganController::class);
+    Route::resource('/dashboard/bimbingan', BimbinganTugasAkhirController::class);
+    Route::get('/dashboard/info-pembimbing', [AppointmentBimbinganController::class, 'infopembimbing']);
+    Route::get('/dashboard/dospemsatu-appointment', [AppointmentBimbinganController::class, 'dospemsatuAppointment']);
+    Route::get('/dashboard/dospemdua-appointment', [AppointmentBimbinganController::class, 'dospemduaAppointment']);
+    Route::post('/dashboard/bimbingan/{bimbingan}/declined-bimbingan', [BimbinganTugasAkhirController::class, 'declinedBimbingan']);
+});

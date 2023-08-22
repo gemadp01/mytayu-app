@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->char('singkatan', 3)->unique()->nullable();
             $table->string('nomor_telepon')->nullable();
-            $table->integer('kuota_pembimbing')->default(1)->nullable();
+            $table->integer('kuota_pembimbing')->default(3)->nullable();
             $table->string('keilmuan')->nullable();
             $table->timestamps();
         });
