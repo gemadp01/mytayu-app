@@ -30,7 +30,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @dd($databimbingan->bimbingan) --}}
+                    
                     @foreach($databimbingan->bimbingan as $mahasiswa)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
@@ -107,6 +107,13 @@
 
         <div class="row">
             <div class="col mb-1">
+                
+                @if ($dataappointment->where('appointment_id', $appointment->id)->where('status_bimbingan', 2)->count() >= $appointment->kuota_bimbingan)
+                <div class="alert alert-danger" role="alert">
+                    Agenda pertemuan sudah penuh
+                </div>
+
+                @elseif ($dataappointment->where('appointment_id', $appointment->id)->where('status_bimbingan', 2)->count() <= $appointment->kuota_bimbingan)
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     <span class="icon text-white-50">
@@ -114,8 +121,11 @@
                     </span>
                     Agendakan Pertemuan
                 </button>
-                
+
                 @include('dashboard.appointment.create')
+
+                @endif
+                
             </div>
         </div>
 
@@ -137,7 +147,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @dd($dataappointment->bimbingan) --}}
+                    {{-- @dd($dataappointment->where('appointment_id', $appointment->id)->count()) --}}
                     @foreach($dataappointment as $mahasiswa)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
