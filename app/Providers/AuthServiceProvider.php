@@ -30,5 +30,10 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('KoordinatorKaprodiDekan', function ($user) {
             return in_array($user->level_user, ['koordinator', 'kaprodi', 'dekan']);
         });
+
+        Gate::define('KaprodiDekan', function ($user) {
+            return in_array($user->level_user, ['kaprodi', 'dekan']);
+        });
+
     }
 }

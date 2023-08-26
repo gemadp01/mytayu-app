@@ -27,17 +27,26 @@
     <div class="sidebar-heading">Data Persetujuan</div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item {{ Request::is('dashboard/pengajuan-ta*') ? 'active' : '' }}">
+    <li class="nav-item 
+    @if(Request::is('dashboard/pengajuan-ta*') || Request::is('dashboard/pengajuan-seminarta*'))
+        active
+    @endif
+    ">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
             aria-expanded="true" aria-controls="collapseTwo">
             <i class="fa fa-check-square" aria-hidden="true"></i>
             <span>Approve data</span>
         </a>
-        <div id="collapseTwo" class="collapse {{ Request::is('dashboard/pengajuan-ta*') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseTwo" class="collapse 
+        @if(Request::is('dashboard/pengajuan-ta*') || Request::is('dashboard/pengajuan-seminarta*'))
+        show
+        @endif
+        {{ Request::is('dashboard/pengajuan-ta*') ? 'show' : '' }}
+        " aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Data pengajuan:</h6>
                 <a class="collapse-item {{ Request::is('dashboard/pengajuan-ta*') ? 'active' : '' }}" href="/dashboard/pengajuan-ta">Pembimbing TA</a>
-                <a class="collapse-item" href="">Penguji Seminar TA</a>
+                <a class="collapse-item {{ Request::is('dashboard/pengajuan-seminarta*') ? 'active' : '' }}" href="/dashboard/pengajuan-seminarta">Penguji Seminar TA</a>
                 <a class="collapse-item" href="">Penguji Sidang TA</a>
             </div>
         </div>
@@ -53,7 +62,7 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item 
-    @if(Request::is('dashboard/pengajuan-ta*') || Request::is('dashboard/detail-pengajuan-ta*'))
+    @if(Request::is('dashboard/pengajuan-ta*') || Request::is('dashboard/pengajuan-seminarta*') || Request::is('dashboard/detail-pengajuan-ta*'))
         active
     @endif">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
@@ -62,7 +71,7 @@
             <span>Tugas Akhir</span>
         </a>
         <div id="collapseTwo" class="collapse 
-        @if(Request::is('dashboard/pengajuan-ta*') || Request::is('dashboard/detail-pengajuan-ta*'))
+        @if(Request::is('dashboard/pengajuan-ta*') || Request::is('dashboard/pengajuan-seminarta*') || Request::is('dashboard/detail-pengajuan-ta*'))
             show
         @endif" 
         aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -73,7 +82,11 @@
                     active
                 @endif" 
                 href="/dashboard/pengajuan-ta">Pengajuan Tugas Akhir</a>
-                <a class="collapse-item {{ Request::is('dashboard/pengajuan-seminar-ta*') ? 'active' : '' }}" href="/dashboard/pengajuan-seminar-ta">Pengajuan Seminar TA</a>
+                <a class="collapse-item 
+                @if(Request::is('dashboard/pengajuan-seminarta*') || Request::is('dashboard/detail-pengajuan-seminarta*'))
+                    active
+                @endif" 
+                href="/dashboard/pengajuan-seminarta">Pengajuan Seminar TA</a>
                 <a class="collapse-item {{ Request::is('dashboard/pengajuan-sidang-ta*') ? 'active' : '' }}" href="/dashboard/pengajuan-sidang-ta">Pengajuan Sidang TA</a>
             </div>
         </div>
@@ -102,16 +115,16 @@
     <div class="sidebar-heading">Seminar | Sidang</div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
+    <li class="nav-item {{ Request::is('dashboard/penjadwalan-seminar-sidang*') ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
             aria-expanded="true" aria-controls="collapsePages">
             <i class="fa fa-graduation-cap" aria-hidden="true"></i>
             <span>Seminar</span>
         </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div id="collapsePages" class="collapse {{ Request::is('dashboard/penjadwalan-seminar-sidang*') ? 'show' : '' }}" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Jadwal Hasil:</h6>
-                <a class="collapse-item" href="login.html">Jadwal Seminar TA</a>
+                <a class="collapse-item {{ Request::is('dashboard/penjadwalan-seminar-sidang*') ? 'active' : '' }}" href="/dashboard/penjadwalan-seminar-sidang">Jadwal Seminar TA</a>
                 <a class="collapse-item" href="register.html">Hasil Seminar TA</a>
             </div>
         </div>
@@ -226,9 +239,9 @@
     <div class="sidebar-heading">Penjadwalan TA</div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item {{ Request::is('dashboard/dosen*') ? 'active' : '' }}">
+    <li class="nav-item {{ Request::is('dashboard/penjadwalan-seminar-sidang*') ? 'active' : '' }}">
         <a class="nav-link active"
-        href="/dashboard/dosen">
+        href="/dashboard/penjadwalan-seminar-sidang">
             <i class="fa fa-calendar"></i>
             <span>Jadwal Seminar Sidang</span>
         </a>

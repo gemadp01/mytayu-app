@@ -2,7 +2,7 @@
 
 @section('page-heading')
     
-{{-- @dd($detailpengajuanta->detailpengajuantugasakhir)detaildetail --}}
+{{-- @dd($detailpengajuanta->detailpengajuantugasakhir) --}}
 
 <div class="d-sm-flex align-items-center justify-content-between mb-2 bg-primary" style="border-radius: 5px">
     <h6 class="h6 mb-0 text-white p-2">

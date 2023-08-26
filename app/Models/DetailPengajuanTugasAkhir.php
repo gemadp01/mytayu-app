@@ -11,7 +11,7 @@ class DetailPengajuanTugasAkhir extends Model
 
     protected $guarded = ['id'];
 
-    // protected $with = ['pengajuanta'];
+    // protected $with = ['pengajuanta','usulanDospemKaprodiPertama','usulanDospemKaprodiKedua'];
 
     public function pengajuanta() {
         return $this->belongsTo(PengajuanTugasAkhir::class, 'pengajuan_tugas_akhir_id');

@@ -71,7 +71,7 @@ class AppointmentBimbinganController extends Controller
             'waktu_awal' => 'required',
             'waktu_akhir' => 'required',
             'jenis_pertemuan' => 'required',
-            'kuota' => 'required',
+            'kuota_bimbingan' => 'required',
             'keterangan' => 'nullable',
         ]);
 
@@ -117,7 +117,7 @@ class AppointmentBimbinganController extends Controller
             // $mahasiswa_id = auth()->user()->id;
             // $dataappointment = Auth::user()->bimbingan()->where('id', $agenda_bimbingan->id)->with(['appointment', 'user'])->get();
 
-            $dataappointment = Bimbingan::where('user_id', auth()->user()->id)->get();
+            $dataappointment = Bimbingan::where('user_id', auth()->user()->id)->where('appointment_id', $agenda_bimbingan->id)->get();
 
             // dd($dataappointment);
 
@@ -146,24 +146,30 @@ class AppointmentBimbinganController extends Controller
 
     public function infopembimbing() {
         // dd(auth()->user()->pengajuantugasakhir[0]->status_pengajuan);
-        $mahasiswa = auth()->user()->pengajuantugasakhir[0]->detailpengajuantugasakhir;
-        return view('dashboard.bimbingan.index',[
-            'dospemsatu' => Dosen::where('id', $mahasiswa->usulan_pembimbing_kaprodi1_id)->get()[0],
-            'dospemdua' => Dosen::where('id', $mahasiswa->usulan_pembimbing_kaprodi2_id)->get()[0],
-        ]);
+        // dd(isset(auth()->user()->pengajuantugasakhir[0]->detailpengajuantugasakhir));
+        if(isset(auth()->user()->pengajuantugasakhir[0]->detailpengajuantugasakhir)) {
+            $mahasiswa = auth()->user()->pengajuantugasakhir[0]->detailpengajuantugasakhir;
+            return view('dashboard.bimbingan.index',[
+                'dospemsatu' => Dosen::where('id', $mahasiswa->usulan_pembimbing_kaprodi1_id)->get()[0],
+                'dospemdua' => Dosen::where('id', $mahasiswa->usulan_pembimbing_kaprodi2_id)->get()[0],
+            ]);
+        }else{
+            return view('dashboard.bimbingan.index');
+        }
+        
     }
 
     public function dospemsatuAppointment() {
         $mahasiswa = auth()->user()->pengajuantugasakhir[0]->detailpengajuantugasakhir;
         return view('dashboard.appointment.index',[
-            'appointments' => Appointment::where('pembimbing_id', $mahasiswa->usulan_pembimbing_kaprodi1_id)->paginate(5),
+            'appointments' => Appointment::where('pembimbing_id', $mahasiswa->usulan_pembimbing_kaprodi1_id)->latest()->paginate(5),
         ]);
     }
 
     public function dospemduaAppointment() {
         $mahasiswa = auth()->user()->pengajuantugasakhir[0]->detailpengajuantugasakhir;
         return view('dashboard.appointment.index',[
-            'appointments' => Appointment::where('pembimbing_id', $mahasiswa->usulan_pembimbing_kaprodi2_id)->paginate(5),
+            'appointments' => Appointment::where('pembimbing_id', $mahasiswa->usulan_pembimbing_kaprodi2_id)->latest()->paginate(5),
         ]);
     }
 }

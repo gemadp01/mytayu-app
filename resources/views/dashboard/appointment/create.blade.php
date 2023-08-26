@@ -46,8 +46,8 @@
                   </label>
               </div>
               <div class="mb-3">
-                  <label for="kuota" class="form-label">Kuota Bimbingan</label>
-                  <input type="number" class="form-control" name="kuota" id="kuota" placeholder="Masukkan kuota bimbingan" required>
+                  <label for="kuota_bimbingan" class="form-label">Kuota Bimbingan</label>
+                  <input type="number" class="form-control" name="kuota_bimbingan" id="kuota_bimbingan" placeholder="Masukkan kuota bimbingan" required>
               </div>
               <div class="mb-3">
                   <label for="keterangan" class="form-label">Keterangan</label>

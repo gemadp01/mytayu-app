@@ -10,6 +10,8 @@ class Bimbingan extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+    // protected $with = ['user', 'appointment'];
+
 
     public function appointment() {
         return $this->belongsTo(Appointment::class);

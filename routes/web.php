@@ -9,6 +9,11 @@ use App\Http\Controllers\DetailPengajuanTugasAkhirController;
 use App\Http\Controllers\MahasiswaBimbinganController;
 use App\Http\Controllers\AppointmentBimbinganController;
 use App\Http\Controllers\BimbinganTugasAkhirController;
+use App\Http\Controllers\PengajuanSeminarTugasAkhirController;
+use App\Http\Controllers\DetailPengajuanSeminarTugasAkhirController;
+use App\Http\Controllers\PenjadwalanSeminarTugasAkhirController;
+use App\Http\Controllers\PenilaianSeminarTugasAkhirController;
+// use App\Http\Controllers\PenjadwalanSeminarSidangController;
 use App\Http\Controllers\ProfileController;
 use Carbon\Carbon;
 use App\Http\Controllers\Gate;
@@ -48,10 +53,18 @@ Route::middleware('auth')->group(function() {
 
 Route::middleware('auth', 'check.user.status:mahasiswa,koordinator,kaprodi,dekan')->group(function () {
     Route::resource('/dashboard/pengajuan-ta', PengajuanTugasAkhirController::class);
+    Route::resource('/dashboard/pengajuan-seminarta', PengajuanSeminarTugasAkhirController::class);
+    Route::resource('/dashboard/penjadwalan-seminar-sidang', PenjadwalanSeminarTugasAkhirController::class);
+    // Route::get('/dashboard/penjadwalan-seminar-sidang', [PenjadwalanSeminarSidangController::class, 'index']);
 });
 
 Route::middleware('auth', 'check.user.status:koordinator,kaprodi,dekan')->group(function () {
     Route::resource('/dashboard/detail-pengajuan-ta', DetailPengajuanTugasAkhirController::class)->only(['show', 'edit', 'update']);
+
+});
+
+Route::middleware('auth', 'check.user.status:koordinator,dekan')->group(function () {
+    Route::resource('/dashboard/detail-pengajuan-seminarta', DetailPengajuanSeminarTugasAkhirController::class)->only(['show', 'edit', 'update']);
 });
 
 Route::middleware('auth', 'check.user.status:koordinator')->group(function () {
@@ -66,6 +79,8 @@ Route::middleware('auth', 'check.user.status:koordinator')->group(function () {
     Route::post('/mahasiswa/import', [MahasiswaController::class, 'import']);
     Route::get('/mahasiswa/export-to-excel', [MahasiswaController::class, 'exportToExcel']);
     Route::get('/mahasiswa/export-to-pdf', [MahasiswaController::class, 'exportToPDF']);
+
+    
 });
 
 Route::middleware('auth', 'check.user.status:mahasiswa,dospem')->group(function () {

@@ -11,6 +11,8 @@ class Appointment extends Model
 
     protected $guarded = ['id'];
 
+    // protected $with = ['user', 'dosen'];
+
     public function user() {
         return $this->belongsTo(User::class);
     }
