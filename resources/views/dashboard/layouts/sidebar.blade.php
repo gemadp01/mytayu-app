@@ -115,17 +115,25 @@
     <div class="sidebar-heading">Seminar | Sidang</div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item {{ Request::is('dashboard/penjadwalan-seminar-sidang*') ? 'active' : '' }}">
+    <li class="nav-item 
+    @if(Request::is('dashboard/penjadwalan-seminar*') || Request::is('dashboard/penilaian-seminar*'))
+        active
+    @endif 
+    ">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
             aria-expanded="true" aria-controls="collapsePages">
             <i class="fa fa-graduation-cap" aria-hidden="true"></i>
             <span>Seminar</span>
         </a>
-        <div id="collapsePages" class="collapse {{ Request::is('dashboard/penjadwalan-seminar-sidang*') ? 'show' : '' }}" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div id="collapsePages" class="collapse
+        @if(Request::is('dashboard/penjadwalan-seminar*') || Request::is('dashboard/penilaian-seminar*'))
+            show
+        @endif 
+        " aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Jadwal Hasil:</h6>
-                <a class="collapse-item {{ Request::is('dashboard/penjadwalan-seminar-sidang*') ? 'active' : '' }}" href="/dashboard/penjadwalan-seminar-sidang">Jadwal Seminar TA</a>
-                <a class="collapse-item" href="register.html">Hasil Seminar TA</a>
+                <a class="collapse-item {{ Request::is('dashboard/penjadwalan-seminar*') ? 'active' : '' }}" href="/dashboard/penjadwalan-seminar">Jadwal Seminar TA</a>
+                <a class="collapse-item {{ Request::is('dashboard/penilaian-seminar*') ? 'active' : '' }}" href="/dashboard/penilaian-seminar">Hasil Seminar TA</a>
             </div>
         </div>
     </li>
@@ -347,9 +355,9 @@
     <div class="sidebar-heading">Appointment</div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item {{ Request::is('dashboard/dosen*') ? 'active' : '' }}">
+    <li class="nav-item {{ Request::is('dashboard/penjadwalan-seminar') ? 'active' : '' }}">
         <a class="nav-link active"
-        href="/dashboard/dosen">
+        href="/dashboard/penjadwalan-seminar">
         <i class="fa fa-graduation-cap"></i>
         <span>Pengujian Seminar TA</span></a>
     </li>

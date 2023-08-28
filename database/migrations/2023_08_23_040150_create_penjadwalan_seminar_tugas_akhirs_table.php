@@ -16,11 +16,11 @@ return new class extends Migration
             $table->foreignId('pengajuan_seminarta_id');
             $table->string('pembimbing_1');
             $table->string('pembimbing_2');
-            $table->string('tanggal_approve_seminarta');
-            $table->string('tanggal_penjadwalan');
-            $table->string('waktu_seminar');
-            $table->string('ruangan');
-            $table->text('keterangan');
+            $table->string('tanggal_approve_seminarta')->nullable();
+            $table->string('tanggal_penjadwalan')->nullable();
+            $table->string('waktu_seminar')->nullable();
+            $table->string('ruangan')->nullable();
+            $table->text('keterangan')->nullable();
             $table->timestamps();
         });
     }

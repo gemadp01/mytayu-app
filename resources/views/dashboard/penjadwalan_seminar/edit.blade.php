@@ -9,7 +9,7 @@
     <div class="card-body">
         <div class="row">
             <div class="col-12">
-                <form method="post" action="/dashboard/penjadwalan-seminar-sidang/{{ $inputJadwal->id }}" >
+                <form method="post" action="/dashboard/penjadwalan-seminar/{{ $inputJadwal->id }}" >
                     @method('put')
                     @csrf
                     <div class="mb-3">
@@ -23,22 +23,30 @@
                     </div>
                     <div class="mb-3">
                         <label for="datetime_range" class="form-label @error('datetime_range') is-invalid @enderror">Tanggal dan Waktu Seminar</label>
-                        <input type="text" class="form-control" name="datetime_range" id="datetime_range" value="{{ old('datetime_range', $inputJadwal->tanggal_penjadwalan . ' ' . $inputJadwal->waktu_seminar) }}">
+                        <input type="text" class="form-control" name="tanggal_penjadwalan" id="datetime_range" value="{{ old('tanggal_penjadwalan', $inputJadwal->tanggal_penjadwalan) }}">
                         @error('datetime_range')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
                         @enderror
                     </div>
-                    <div class="mb-3">
-                        <label for="ruangan" class="form-label @error('ruangan') is-invalid @enderror">Ruangan</label>
-                        <input type="text" class="form-control" name="ruangan" id="ruangan" value="{{ old('ruangan', $inputJadwal->ruangan) }}">
-                        @error('ruangan')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
+                    <div>
+                        <label for="ruangan">Daftar Ruangan</label>
                     </div>
+                    <div class="input-group mb-3">
+                        <select class="form-select" name="ruangan" id="ruangan">
+                            @foreach ($ruangan as $seminar)
+                            <option value="{{ $seminar }}">{{ $seminar }}</option>
+                            @endforeach
+                            
+                        </select>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <textarea class="form-control" placeholder="Masukkan keterangan jika ada..." name="keterangan" id="keterangan" style="height: 100px"></textarea>
+                        <label for="keterangan">Keterangan</label>
+                      </div>
+
                     <div class="d-grid gap-2">
                         <button class="btn btn-primary" type="submit">Submit Jadwal Seminar</button>
                     </div>
@@ -47,5 +55,15 @@
         </div>
     </div>
 </div>
+
+@section('flatpickr')
+<script>
+    flatpickr("#datetime_range", {
+        enableTime: true,
+        dateFormat: "d-m-Y H:i",
+        time_24hr: true,
+    });
+</script>
+@endsection
 
 @endsection

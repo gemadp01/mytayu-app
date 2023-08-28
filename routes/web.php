@@ -13,7 +13,8 @@ use App\Http\Controllers\PengajuanSeminarTugasAkhirController;
 use App\Http\Controllers\DetailPengajuanSeminarTugasAkhirController;
 use App\Http\Controllers\PenjadwalanSeminarTugasAkhirController;
 use App\Http\Controllers\PenilaianSeminarTugasAkhirController;
-// use App\Http\Controllers\PenjadwalanSeminarSidangController;
+use App\Http\Controllers\PenjadwalanSeminarSidangController;
+use App\Http\Controllers\FormPerbaikanSeminarController;
 use App\Http\Controllers\ProfileController;
 use Carbon\Carbon;
 use App\Http\Controllers\Gate;
@@ -54,8 +55,15 @@ Route::middleware('auth')->group(function() {
 Route::middleware('auth', 'check.user.status:mahasiswa,koordinator,kaprodi,dekan')->group(function () {
     Route::resource('/dashboard/pengajuan-ta', PengajuanTugasAkhirController::class);
     Route::resource('/dashboard/pengajuan-seminarta', PengajuanSeminarTugasAkhirController::class);
-    Route::resource('/dashboard/penjadwalan-seminar-sidang', PenjadwalanSeminarTugasAkhirController::class);
-    // Route::get('/dashboard/penjadwalan-seminar-sidang', [PenjadwalanSeminarSidangController::class, 'index']);
+});
+
+Route::middleware('auth', 'check.user.status:mahasiswa,koordinator,kaprodi,dekan,dospem')->group(function () {
+    Route::resource('/dashboard/penjadwalan-seminar', PenjadwalanSeminarTugasAkhirController::class);
+    Route::resource('/dashboard/penilaian-seminar', PenilaianSeminarTugasAkhirController::class);
+    Route::resource('/dashboard/form-perbaikan', FormPerbaikanSeminarController::class)->only(['update']);
+    Route::get('/berita-acara-seminar/{id}', [PenilaianSeminarTugasAkhirController::class, 'beritaAcara']);
+    Route::get('/form-perbaikan-seminar/{id}', [PenilaianSeminarTugasAkhirController::class, 'formPerbaikan']);
+    Route::get('/dashboard/penjadwalan-seminar-sidang', [PenjadwalanSeminarSidangController::class, 'index']);
 });
 
 Route::middleware('auth', 'check.user.status:koordinator,kaprodi,dekan')->group(function () {

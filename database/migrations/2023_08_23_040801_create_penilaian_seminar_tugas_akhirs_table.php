@@ -17,10 +17,10 @@ return new class extends Migration
             $table->foreignId('penjadwalan_seminarta_id');
             $table->foreignId('pembimbing1_id');
             $table->foreignId('pembimbing2_id');
-            $table->text('catatan_perbaikan_pembimbing1');
-            $table->text('catatan_perbaikan_pembimbing2');
-            $table->text('keterangan_perbaikan');
-            $table->string('tanggal_berita_acara');
+            $table->text('catatan_perbaikan_pembimbing1')->nullable();
+            $table->text('catatan_perbaikan_pembimbing2')->nullable();
+            $table->text('keterangan_perbaikan')->nullable();
+            $table->string('tanggal_berita_acara')->nullable();
             $table->unsignedInteger('approve_pembimbing1')->length(1)->default(0);
             $table->unsignedInteger('approve_pembimbing2')->length(1)->default(0);
             $table->timestamps();
