@@ -53,21 +53,9 @@
                             <td>{{ $dps->usulanDospemKaprodiPertama->nama }}</td>
                             <td class="text-center">
 
-                                <a href="/dashboard/pengajuan-ta/" class="btn btn-warning btn-circle btn-sm">
+                                <a href="/form-bimbingan/{{ $dps->pengajuanta->user_id }}/{{ $dps->usulan_pembimbing_kaprodi1_id }}" class="btn btn-warning btn-circle btn-sm">
                                     <i class="fa fa-address-book"></i>
                                 </a>
-
-                                <a href="/dashboard/pengajuan-ta/" class="btn btn-primary btn-circle btn-sm">
-                                    <i class="fa fa-eye"></i>
-                                </a>
-
-                                {{-- <form action="/dashboard/pengajuan-ta/{{ $pta->id }}" method="POST" class="d-inline">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button type="" class="btn btn-danger btn-circle btn-sm" onclick="return confirm('Yakin?')">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </form> --}}
                             </td>
                         </tr>
                         @endforeach
@@ -129,21 +117,9 @@
                             <td>{{ $dps->usulanDospemKaprodiKedua->nama }}</td>
                             <td class="text-center">
 
-                                <a href="/dashboard/pengajuan-ta/" class="btn btn-warning btn-circle btn-sm">
+                                <a href="/form-bimbingan/{{ $dps->pengajuanta->user_id }}/{{ $dps->usulan_pembimbing_kaprodi2_id }}" class="btn btn-warning btn-circle btn-sm">
                                     <i class="fa fa-address-book"></i>
                                 </a>
-
-                                <a href="/dashboard/pengajuan-ta/" class="btn btn-primary btn-circle btn-sm">
-                                    <i class="fa fa-eye"></i>
-                                </a>
-
-                                {{-- <form action="/dashboard/pengajuan-ta/{{ $pta->id }}" method="POST" class="d-inline">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button type="" class="btn btn-danger btn-circle btn-sm" onclick="return confirm('Yakin?')">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </form> --}}
                             </td>
                         </tr>
                         @endforeach

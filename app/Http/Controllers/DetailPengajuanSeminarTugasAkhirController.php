@@ -132,15 +132,20 @@ class DetailPengajuanSeminarTugasAkhirController extends Controller
                 $detail_pengajuan_seminartum->pengajuanseminarta->draft_laporan = "";
             }
 
-            if($request->input('ket_sertifikat_kegiatan') !== "Diterima") {
-                $imageName = $detail_pengajuan_seminartum->pengajuanseminarta->sertifikat_kegiatan; // Ganti ini dengan logika yang sesuai untuk mendapatkan nama gambar dari database
-                if ($imageName) {
-                    Storage::delete($imageName);
+            if ($request->input('ket_sertifikat_kegiatan') !== "Diterima") {
+                $sertifikatPaths = json_decode($detail_pengajuan_seminartum->pengajuanseminarta->sertifikat_kegiatan);
+
+                foreach ($sertifikatPaths as $path) {
+                    // Menghapus gambar fisik dari sistem penyimpanan
+                    Storage::delete($path);
                 }
-                $sertifikatPaths = array_filter($sertifikatPaths, function ($path) use ($imageName) {
-                    return $path !== $imageName;
-                });
+
+                // Menghapus semua paths dari array $sertifikatPaths
+                $sertifikatPaths = [];
+
+                // Mengubah array kembali menjadi JSON dan menyimpan perubahan ke kolom 'sertifikat_kegiatan' dalam database
                 $detail_pengajuan_seminartum->pengajuanseminarta->sertifikat_kegiatan = json_encode($sertifikatPaths);
+                $detail_pengajuan_seminartum->pengajuanseminarta->save(); // Simpan perubahan ke database
             }
 
             $detail_pengajuan_seminartum->ket_kwitansi = $request->input('ket_kwitansi') === "Diterima" ? true : false;

@@ -66,11 +66,11 @@
                                     <h6 class="m-0 font-weight-bold text-primary">Tanggapan Koordinator KP/TA</h6>
                                 </div>
                                 <div class="card-body">
-                                    @if ($detailpengajuan_seminarta->detailpengajuanseminarta[0]->tanggapan)
+                                    @if ($detailpengajuan_seminarta->detailpengajuanseminarta->tanggapan)
                                     <p>
-                                        {{ $detailpengajuan_seminarta->detailpengajuanseminarta[0]->tanggapan }}
+                                        {{ $detailpengajuan_seminarta->detailpengajuanseminarta->tanggapan }}
                                     </p>
-                                    @else
+                                    @elseif ($detailpengajuan_seminarta->detailpengajuanseminarta->tanggapan === null)
                                     <p>
                                         ...
                                     </p>
@@ -90,7 +90,7 @@
                                         <li class="list-group-item">Topik Penelitian yang diajukan : </li>
                                         <li class="list-group-item">{{ $detailpengajuan_seminarta->judul_smta }}</li>
                                         <li class="list-group-item">
-                                            @if (!$detailpengajuan_seminarta->detailpengajuanseminarta[0]->ket_draft_laporan)
+                                            @if (!$detailpengajuan_seminarta->detailpengajuanseminarta->ket_draft_laporan)
                                             <span class="badge text-bg-danger">
                                                 Revisi
                                             </span>
@@ -105,7 +105,7 @@
                                             @endif
                                         </li>
                                         <li class="list-group-item">
-                                            @if (!$detailpengajuan_seminarta->detailpengajuanseminarta[0]->ket_sk_ta)
+                                            @if (!$detailpengajuan_seminarta->detailpengajuanseminarta->ket_sk_ta)
                                             <span class="badge text-bg-danger">
                                                 Revisi
                                             </span>
@@ -133,12 +133,12 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-12">
-                                    <form method="post" action="/dashboard/pengajuan-seminarta/{{ $detailpengajuan_seminarta->id }}"  enctype="multipart/form-data">
+                                    <form method="post" action="/dashboard/pengajuan-seminarta/{{ $detailpengajuan_seminarta->id }}" enctype="multipart/form-data">
                                         @method('put')
                                         @csrf
                                         <div class="mb-3">
                                             <label for="foto_kwitansi" class="form-label">Kwitansi</label>
-                                            @if ($detailpengajuan_seminarta->detailpengajuanseminarta[0]->ket_kwitansi)
+                                            @if ($detailpengajuan_seminarta->detailpengajuanseminarta->ket_kwitansi)
                                             <p>
                                                 <strong>
                                                     Diterima
@@ -152,7 +152,7 @@
         
                                         <div class="mb-3">
                                             <label for="khs" class="form-label">KHS (Kartu Hasil Studi)</label>
-                                            @if ($detailpengajuan_seminarta->detailpengajuanseminarta[0]->ket_khs)
+                                            @if ($detailpengajuan_seminarta->detailpengajuanseminarta->ket_khs)
                                             <p>
                                                 <strong>
                                                     Diterima
@@ -166,7 +166,7 @@
         
                                         <div class="mb-3">
                                             <label for="krs" class="form-label">KRS (Kartu Rencana Studi)</label>
-                                            @if ($detailpengajuan_seminarta->detailpengajuanseminarta[0]->ket_krs)
+                                            @if ($detailpengajuan_seminarta->detailpengajuanseminarta->ket_krs)
                                             <p>
                                                 <strong>
                                                     Diterima
@@ -180,21 +180,21 @@
 
                                         <div class="mb-3">
                                             <label for="persetujuan_seminarta" class="form-label">Lembar Persetujuan Seminar TA</label>
-                                            @if ($detailpengajuan_seminarta->detailpengajuanseminarta[0]->ket_persetujuan_seminarta)
+                                            @if ($detailpengajuan_seminarta->detailpengajuanseminarta->ket_persetujuan_seminarta)
                                             <p>
                                                 <strong>
                                                     Diterima
                                                 </strong>
                                             </p>
                                             @else
-                                            <input type="file" class="form-control" name="foto_lembar_persetujuan_seminarta" id="persetujuan_seminarta">
+                                            <input type="file" class="form-control" name="lembar_persetujuan_seminarta" id="persetujuan_seminarta">
                                             <small class="text-body-secondary">.jped, .png, .jpg, maks:2mb</small> 
                                             @endif
                                         </div>
 
                                         <div class="mb-3">
                                             <label for="lembar_bimbingan1" class="form-label">Lembar Bimbingan 1</label>
-                                            @if ($detailpengajuan_seminarta->detailpengajuanseminarta[0]->ket_lembar_bimbingan1)
+                                            @if ($detailpengajuan_seminarta->detailpengajuanseminarta->ket_lembar_bimbingan1)
                                             <p>
                                                 <strong>
                                                     Diterima
@@ -208,7 +208,7 @@
 
                                         <div class="mb-3">
                                             <label for="lembar_bimbingan2" class="form-label">Lembar Bimbingan 2</label>
-                                            @if ($detailpengajuan_seminarta->detailpengajuanseminarta[0]->ket_lembar_bimbingan2)
+                                            @if ($detailpengajuan_seminarta->detailpengajuanseminarta->ket_lembar_bimbingan2)
                                             <p>
                                                 <strong>
                                                     Diterima
@@ -222,7 +222,7 @@
 
                                         <div class="mb-3">
                                             <label for="sk_ta" class="form-label">SK TA</label>
-                                            @if ($detailpengajuan_seminarta->detailpengajuanseminarta[0]->ket_sk_ta)
+                                            @if ($detailpengajuan_seminarta->detailpengajuanseminarta->ket_sk_ta)
                                             <p>
                                                 <strong>
                                                     Diterima
@@ -236,7 +236,7 @@
 
                                         <div class="mb-3">
                                             <label for="draft_laporan" class="form-label">Draft Laporan</label>
-                                            @if ($detailpengajuan_seminarta->detailpengajuanseminarta[0]->ket_draft_laporan)
+                                            @if ($detailpengajuan_seminarta->detailpengajuanseminarta->ket_draft_laporan)
                                             <p>
                                                 <strong>
                                                     Diterima
@@ -250,7 +250,7 @@
         
                                         <div class="mb-3">
                                             <label for="sertifikat_kegiatan" class="form-label">Sertifikat Kegiatan</label>
-                                            @if ($detailpengajuan_seminarta->detailpengajuanseminarta[0]->ket_sertifikat_kegiatan)
+                                            @if ($detailpengajuan_seminarta->detailpengajuanseminarta->ket_sertifikat_kegiatan)
                                             <p>
                                                 <strong>
                                                     Diterima
@@ -272,84 +272,6 @@
                     </div>
                 </div>
             </div>
-
-            {{-- <div class="row flex-column flex-lg-row">
-
-                <div class="col-12 col-lg-8 offset-lg-4">
-                    <div class="card shadow mb-4 m-0">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Status Pemeriksaan oleh Koordinator</h6>
-                        </div>
-                        <div class="card-body">              
-                            <form method="post" action="/dashboard/pengajuan-ta/{{ $detailpengajuan_seminarta->id }}"  enctype="multipart/form-data">
-                                @method('put')
-                                @csrf
-                                <div class="mb-3">
-                                    <label for="foto_kwitansi" class="form-label">Kwitansi</label>
-                                    @if ($detailpengajuan_seminarta->detailpengajuanseminarta[0]->ket_kwitansi)
-                                    <p>
-                                        <strong>
-                                            Diterima
-                                        </strong>
-                                    </p>
-                                    @else
-                                    <input type="file" class="form-control" name="foto_kwitansi" id="foto_kwitansi">
-                                    <small class="text-body-secondary">.jped, .png, .jpg, maks:2mb</small>
-                                    @endif
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="ktm" class="form-label">KTM (Kartu Tanda Mahasiswa)</label>
-                                    @if ($detailpengajuan_seminarta->detailpengajuanseminarta[0]->ket_ktm)
-                                    <p>
-                                        <strong>
-                                            Diterima
-                                        </strong>
-                                    </p>
-                                    @else 
-                                    <input type="file" class="form-control" name="foto_ktm" id="ktm">
-                                    <small class="text-body-secondary">.jped, .png, .jpg. maks:2mb</small>
-                                    @endif
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="khs" class="form-label">KHS (Kartu Hasil Studi)</label>
-                                    @if ($detailpengajuan_seminarta->detailpengajuanseminarta[0]->ket_khs)
-                                    <p>
-                                        <strong>
-                                            Diterima
-                                        </strong>
-                                    </p>
-                                    @else
-                                    <input type="file" class="form-control" name="foto_khs" id="khs">
-                                    <small class="text-body-secondary">.jped, .png, .jpg, maks:2mb</small>    
-                                    @endif
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="krs" class="form-label">KRS (Kartu Rencana Studi)</label>
-                                    @if ($detailpengajuan_seminarta->detailpengajuanseminarta[0]->ket_krs)
-                                    <p>
-                                        <strong>
-                                            Diterima
-                                        </strong>
-                                    </p>
-                                    @else
-                                    <input type="file" class="form-control" name="foto_krs" id="krs">
-                                    <small class="text-body-secondary">.jped, .png, .jpg, maks:2mb</small> 
-                                @endif
-                                </div>
-
-                                <div class="d-grid gap-2">
-                                    <button type="submit" class="btn btn-primary">Ajukan Revisi</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>      
-                </div>
-            </div> --}}
-            
-
         </div>
     </div>
 

@@ -14,15 +14,18 @@
             </div>
         @endif
 
+        @if (session()->has('error'))
+            <div class="alert alert-danger col-lg-8" role="alert">
+                {{ session('error') }}
+            </div>
+        @endif
+
         <div class="row">
             <div class="col-12">
-                <form method="post" action="/dashboard/profile" >
+                <form method="post" action="/dashboard/profile/{{ $user->id
+                 }}" >
                     @method('put')
                     @csrf
-                    <input type="hidden" name="id" value="{{ $user->dosen->id }}">
-                    <input type="hidden" name="user_id" value="{{ $user->id }}">
-                    <input type="hidden" name="access_id" value="{{ $user->dosen->access_id }}">
-                    <input type="hidden" name="status_user" value="{{ $user->dosen->status_user }}">
                     <div class="mb-3">
                         <label for="nidn" class="form-label @error('nidn') is-invalid @enderror">NIDN</label>
                         <input type="number" class="form-control" name="nidn" id="nidn" placeholder="NIDN" autofocus required readonly value="{{ $user->dosen->nidn }}">
@@ -105,14 +108,24 @@
                         </div>
                     @enderror
 
+                    <div class="mb-3">
+                        <label for="current_password" class="form-label @error('current_password') is-invalid @enderror">Current Password</label>
+                        <input type="password" class="form-control" name="current_password" id="current_password">
+                    </div>
+                    <div class="mb-3">
+                        <label for="new_password" class="form-label @error('new_password') is-invalid @enderror">New Password</label>
+                        <input type="password" class="form-control" name="new_password" id="new_password">
+                    </div>
                     <div class="d-grid gap-2">
-                        <button class="btn btn-primary" type="submit">Ubah data profile</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+
 @endcan
 
 @endsection

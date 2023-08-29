@@ -20,9 +20,17 @@
 
             <dt class="col-sm-3">Nomor Telepon</dt>
             <dd class="col-sm-9">{{ $dospemsatu->nomor_telepon }}</dd>
-            <div class="row justify-content-end">
-                <div class="col-8">
-                    <a href="/dashboard/dospemsatu-appointment" class="btn btn-primary btn-sm">Bimbingan</a>
+            <div class="row">
+                
+                <div class="col-3">
+                    <div class="d-grid gap-2">
+                        <a href="/dashboard/dospemsatu-appointment" class="btn btn-primary btn-sm">Bimbingan</a>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="d-grid gap-2">
+                        <a href="/form-bimbingan/{{ auth()->user()->id }}/{{ $dospemsatu->id }}" class="btn btn-primary btn-sm">Hasil Bimbingan</a>
+                    </div>
                 </div>
             </div>
         </dl>
@@ -45,9 +53,16 @@
 
             <dt class="col-sm-3">Nomor Telepon</dt>
             <dd class="col-sm-9">{{ $dospemdua->nomor_telepon }}</dd>
-            <div class="row justify-content-end">
-                <div class="col-8">
-                    <a href="/dashboard/dospemdua-appointment" class="btn btn-primary btn-sm">Bimbingan</a>
+            <div class="row">
+                <div class="col-3">
+                    <div class="d-grid gap-2">
+                        <a href="/dashboard/dospemdua-appointment" class="btn btn-primary btn-sm">Bimbingan</a>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="d-grid gap-2">
+                        <a href="/form-bimbingan/{{ auth()->user()->id }}/{{ $dospemdua->id }}" class="btn btn-primary btn-sm">Hasil Bimbingan</a>
+                    </div>
                 </div>
             </div>
         </dl>

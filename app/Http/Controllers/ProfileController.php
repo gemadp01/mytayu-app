@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use App\Models\Dosen;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 
 class ProfileController extends Controller
@@ -36,13 +38,10 @@ class ProfileController extends Controller
     /**
      * Update the user's profile information.
      */
-    public function update(Request $request)
+    public function update(Request $request, User $idUser)
     {
         $validatedData = $request->validate([
-            'nidn' => 'required|max:10',
-            'nama' => 'required',
             'email' => 'nullable|email:dns',
-            'singkatan' => 'nullable|max:3',
             'nomor_telepon' => 'nullable|min:10|max:13',
             'kuota_pembimbing' => 'nullable|min:1',
         ]);
@@ -52,8 +51,22 @@ class ProfileController extends Controller
         // $selectedKeilmuanString = implode(', ', $selectedKeilmuan);
         // $validatedData['keilmuan'] = $selectedKeilmuanString;
         $validatedData['keilmuan'] = $selectedKeilmuan;
+        if (!empty($request->input('current_password')) && !empty($request->input('new_password'))) {
+            $user = Auth::user();
+            $currentPassword = $user->password;
 
-        Dosen::where('id', $request->id)->update($validatedData);
+            if (!Hash::check($request->input('current_password'), $currentPassword)) {
+                return redirect()->back()->with('error', 'Current password salah.');
+            }
+
+            $user->update([
+                'password' => Hash::make($request->input('new_password')),
+            ]);
+            
+        }
+
+        Dosen::where('user_id', $idUser->id)->update($validatedData);
+        
 
         return redirect('dashboard/profile')->with('status', 'profile-updated')->withInput();
     }

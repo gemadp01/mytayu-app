@@ -262,7 +262,7 @@ class PengajuanSeminarTugasAkhirController extends Controller
 
         $validatedData['status_pengajuan_seminar'] = 1;
 
-        $pengajuan_seminartum->updated($validatedData);
+        $pengajuan_seminartum->update($validatedData);
 
         return redirect('dashboard/pengajuan-seminarta')->with('success', 'New revisi has been added!');
 

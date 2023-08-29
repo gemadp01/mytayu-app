@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\DetailPengajuanTugasAkhir;
 use App\Models\Bimbingan;
+use App\Models\PengajuanTugasAkhir;
+use App\Models\Dosen;
 use Illuminate\Http\Request;
 
 class MahasiswaBimbinganController extends Controller
@@ -70,5 +72,19 @@ class MahasiswaBimbinganController extends Controller
     public function destroy(DetailPengajuanTugasAkhir $detailPengajuanTugasAkhir)
     {
         //
+    }
+
+    public function formBimbingan($idUser, $idDospem) {
+        $userTerkait = PengajuanTugasAkhir::where('user_id', $idUser)->get()->first();
+        $dosenPertama = Dosen::where('id', $userTerkait->detailpengajuantugasakhir->usulan_pembimbing_kaprodi1_id)->get()->first();
+        $dosenKedua = Dosen::where('id', $userTerkait->detailpengajuantugasakhir->usulan_pembimbing_kaprodi2_id)->get()->first();
+        $bimbinganMahasiswa = Bimbingan::where('user_id', $idUser)->where('pembimbing_id', $idDospem)->latest()->paginate(5);
+
+        return view('dashboard.form_bimbingan.index', [
+            'bimbingans' => $bimbinganMahasiswa,
+            'infoMahasiswa' => $userTerkait,
+            'dospem1' => $dosenPertama,
+            'dospem2' => $dosenKedua,
+        ]);
     }
 }

@@ -1,7 +1,6 @@
 @extends('dashboard.layouts.main')
 
 @section('page-heading')
-    
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Data Pengajuan Mahasiswa Tugas Akhir</h1>
     <h1 class="h3 mb-2 text-gray-800">Tahun Akademik Semester Ganjil - 2022/2023</h1>
@@ -12,6 +11,7 @@
             <h6 class="m-0 font-weight-bold text-primary">Pengajuan Skripsi/Tugas Akhir</h6>
         </div>
         <div class="card-body">
+            @if (auth()->user()->pengajuantugasakhir->count() < 1)
             <div class="row">
                 <div class="col mb-1">
                     <a href="/dashboard/pengajuan-ta/create" class="btn btn-primary btn-icon-split btn-sm">
@@ -22,6 +22,8 @@
                     </a>
                 </div>
             </div>
+            @endif
+            
 
             @if (session()->has('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">

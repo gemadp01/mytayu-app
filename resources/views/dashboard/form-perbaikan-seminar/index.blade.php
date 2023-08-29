@@ -29,8 +29,7 @@
                 </ul>
             </div>
             <div class="col-12">
-                <!-- Page Heading -->
-                
+                @can('IsDospem')
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">Catatan Perbaikan</h6>
@@ -57,10 +56,30 @@
                             </div>
                         </form>
                         @endif
-
                     </div>
                 </div>
+                @endcan
                 
+                @can('IsMahasiswa')
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Catatan Perbaikan</h6>
+                    </div>
+                    <div class="card-body">
+                        {!! $penilaian_seminar->catatan_perbaikan_pembimbing1 !!}
+                    </div>
+                </div>
+
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Catatan Perbaikan</h6>
+                    </div>
+                    <div class="card-body">
+                        {!! $penilaian_seminar->catatan_perbaikan_pembimbing2 !!}
+                    </div>
+                </div>
+                @endcan
+
             </div>
         </div>
     </div>

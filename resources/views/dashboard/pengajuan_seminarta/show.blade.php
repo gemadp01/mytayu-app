@@ -102,7 +102,7 @@
                                         
                                     </li>
                                     <li class="list-group-item">
-                                        @if ($detailpengajuan_seminarta->detailpengajuanseminarta->ket_sk_ta)
+                                        @if ($detailpengajuan_seminarta->sk_ta)
                                         <a href="{{ asset('storage/' . $detailpengajuan_seminarta->sk_ta) }}" download>Download SK TA</a>    
                                         @else
                                             <span class="badge text-bg-danger">

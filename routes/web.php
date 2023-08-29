@@ -41,7 +41,7 @@ Route::post('/login', [LoginController::class, 'authenticate']);
 
 Route::middleware('auth')->group(function() {
     Route::get('dashboard/profile', [ProfileController::class, 'edit']);
-    Route::put('dashboard/profile', [ProfileController::class, 'update']);
+    Route::put('dashboard/profile/{idUser}', [ProfileController::class, 'update']);
     // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/logout', [LoginController::class, 'logout']);
 
@@ -99,4 +99,5 @@ Route::middleware('auth', 'check.user.status:mahasiswa,dospem')->group(function 
     Route::get('/dashboard/dospemsatu-appointment', [AppointmentBimbinganController::class, 'dospemsatuAppointment']);
     Route::get('/dashboard/dospemdua-appointment', [AppointmentBimbinganController::class, 'dospemduaAppointment']);
     Route::post('/dashboard/bimbingan/{bimbingan}/declined-bimbingan', [BimbinganTugasAkhirController::class, 'declinedBimbingan']);
+    Route::get('/form-bimbingan/{idUser}/{idDospem}', [MahasiswaBimbinganController::class, 'formBimbingan']);
 });

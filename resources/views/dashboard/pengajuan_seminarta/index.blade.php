@@ -15,6 +15,32 @@
 
 
         <div class="card-body">
+            {{-- @if (auth()->user()->pengajuanseminarta->count() < 1)
+                @if (!auth()->user()->pengajuantugasakhir->count())
+                <div class="alert alert-danger" role="alert">
+                    Lakukan Pendaftaran Tugas Akhir Terlebih Dahulu!
+                </div>
+                @elseif (auth()->user()->pengajuantugasakhir->count() > 0)
+                <div class="row">
+                    <div class="col mb-1">
+                        @if (isset($approved_seminar[$userid_seminar]) && $approved_seminar[$userid_seminar] >= $min_bimbingan)
+                        <a href="/dashboard/pengajuan-seminarta/create" class="btn btn-primary btn-icon-split btn-sm">
+                            <span class="icon text-white-50">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </span>
+                            <span class="text">Pengajuan Seminar Tugas Akhir</span>
+                        </a>
+                        @else
+                        <div class="alert alert-danger" role="alert">
+                            Lakukan bimbingan dengan dosen pembimbing terlebih dahulu!
+                        </div>
+                        @endif
+                        
+                    </div>
+                </div>
+                @endif
+            @endif --}}
+
             @if (!auth()->user()->pengajuantugasakhir->count())
             <div class="alert alert-danger" role="alert">
                 Lakukan Pendaftaran Tugas Akhir Terlebih Dahulu!
