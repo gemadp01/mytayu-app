@@ -85,6 +85,6 @@ class User extends Authenticatable
     }
 
     public function pengajuansidangta() {
-        return $this->hasMany(PengajuanSidangTugasAkhir::classs);
+        return $this->hasMany(PengajuanSidangTugasAkhir::class);
     }
 }

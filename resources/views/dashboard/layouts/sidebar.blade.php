@@ -227,9 +227,9 @@
     <div class="sidebar-heading">Data Mahasiswa TA</div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item {{ Request::is('dashboard/dosen*') ? 'active' : '' }}">
+    <li class="nav-item {{ Request::is('dashboard/mahasiswa-ta*') ? 'active' : '' }}">
         <a class="nav-link active"
-        href="/dashboard/dosen">
+        href="/dashboard/mahasiswa-ta">
         <i class="fa fa-graduation-cap"></i>
         <span>Mahasiswa TA</span></a>
     </li>
@@ -239,17 +239,17 @@
     <div class="sidebar-heading">Data Seminar Sidang</div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item {{ Request::is('dashboard/dosen*') ? 'active' : '' }}">
+    <li class="nav-item {{ Request::is('dashboard/mahasiswa-seminarta*') ? 'active' : '' }}">
         <a class="nav-link active"
-        href="/dashboard/dosen">
+        href="/dashboard/mahasiswa-seminarta">
             <i class="fa fa-graduation-cap"></i>
             <span>Mahasiswa Seminar TA</span>
         </a>
     </li>
 
-    <li class="nav-item {{ Request::is('dashboard/dosen*') ? 'active' : '' }}">
+    <li class="nav-item {{ Request::is('dashboard/mahasiswa-sidangta*') ? 'active' : '' }}">
         <a class="nav-link active"
-        href="/dashboard/dosen">
+        href="/dashboard/mahasiswa-sidangta">
             <i class="fa fa-graduation-cap"></i>
             <span>Mahasiswa Sidang TA</span>
         </a>
@@ -314,11 +314,23 @@
     <div class="sidebar-heading">Data Mahasiswa TA</div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item {{ Request::is('dashboard/dosen*') ? 'active' : '' }}">
+    <li class="nav-item {{ Request::is('dashboard/mahasiswa-ta*') ? 'active' : '' }}">
         <a class="nav-link active"
-        href="/dashboard/dosen">
+        href="/dashboard/mahasiswa-ta">
         <i class="fa fa-graduation-cap"></i>
         <span>Mahasiswa TA</span></a>
+    </li>
+
+    <hr class="sidebar-divider" />
+
+    <div class="sidebar-heading">Data SK TA</div>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item {{ Request::is('dashboard/sk-ta*') ? 'active' : '' }}">
+        <a class="nav-link active"
+        href="/dashboard/sk-ta">
+        <i class="fa fa-graduation-cap"></i>
+        <span>Info SK TA Mahasiswa</span></a>
     </li>
 
     <hr class="sidebar-divider" />

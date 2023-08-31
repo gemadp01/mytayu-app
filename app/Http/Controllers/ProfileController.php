@@ -8,7 +8,7 @@ use Illuminate\View\View;
 use App\Models\Dosen;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\Gate;
 
 class ProfileController extends Controller
 {
@@ -40,7 +40,8 @@ class ProfileController extends Controller
      */
     public function update(Request $request, User $idUser)
     {
-        $validatedData = $request->validate([
+        if (Gate::allows('IsDospem')) {
+            $validatedData = $request->validate([
             'email' => 'nullable|email:dns',
             'nomor_telepon' => 'nullable|min:10|max:13',
             'kuota_pembimbing' => 'nullable|min:1',
@@ -69,6 +70,21 @@ class ProfileController extends Controller
         
 
         return redirect('dashboard/profile')->with('status', 'profile-updated')->withInput();
+
+        }elseif (Gate::allows('IsMahasiswa') || Gate::allows('KoordinatorKaprodiDekan') || Gate::allows('IsAdmin')) {
+            $user = Auth::user();
+            $currentPassword = $user->password;
+
+            if (!Hash::check($request->input('current_password'), $currentPassword)) {
+                return redirect()->back()->with('error', 'Current password salah.');
+            }
+
+            $user->update([
+                'password' => Hash::make($request->input('new_password')),
+            ]);
+
+            return redirect('dashboard/profile')->with('status', 'profile-updated')->withInput();
+        }
     }
     
     /**

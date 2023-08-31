@@ -22,10 +22,17 @@ use App\Http\Controllers\PenjadwalanSidangTugasAkhirController;
 use App\Http\Controllers\PenilaianSidangTugasAkhirController;
 use App\Http\Controllers\FormPerbaikanSidangController;
 use App\Http\Controllers\YudisiumController;
+use App\Http\Controllers\SuratKeteranganTugasAkhirController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\MahasiswaTugasAkhirController;
+use App\Http\Controllers\MahasiswaSeminarController;
+use App\Http\Controllers\MahasiswaSidangController;
 use Carbon\Carbon;
 use App\Http\Controllers\Gate;
 
+use App\Models\PengajuanTugasAkhir;
+use App\Models\PengajuanSeminarTugasAkhir;
+use App\Models\PengajuanSidangTugasAkhir;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +62,10 @@ Route::middleware('auth')->group(function() {
     Route::get('/dashboard', function() {
         return view('dashboard.index', [
             'date' => Carbon::now('Asia/Jakarta')->format('d-m-Y'),
+            'sk_ta' => PengajuanTugasAkhir::where('user_id', auth()->user()->id)->get()->first(),
+            'pengajuan_ta' => PengajuanTugasAkhir::all()->count(),
+            'pengajuan_seminarta' => PengajuanSeminarTugasAkhir::all()->count(),
+            'pengajuan_sidangta' => PengajuanSidangTugasAkhir::all()->count(),
         ]);
     });
 });
@@ -82,10 +93,13 @@ Route::middleware('auth', 'check.user.status:mahasiswa,koordinator,kaprodi,dekan
     Route::get('/dashboard/penjadwalan-seminar-sidang', [PenjadwalanSeminarSidangController::class, 'index']);
 });
 
-Route::middleware('auth', 'check.user.status:koordinator,kaprodi,dekan')->group(function () {
+Route::middleware('auth', 'check.user.status:koordinator,kaprodi,dekan,admin')->group(function () {
     Route::resource('/dashboard/detail-pengajuan-ta', DetailPengajuanTugasAkhirController::class)->only(['show', 'edit', 'update']);
     Route::resource('/dashboard/detail-pengajuan-sidangta', DetailPengajuanSidangTugasAkhirController::class)->only(['show', 'edit', 'update']);
     Route::resource('/dashboard/usulan-penguji-sidang', InputUsulanPengujiSidangController::class);
+    Route::resource('/dashboard/mahasiswa-ta', MahasiswaTugasAkhirController::class);
+    Route::resource('/dashboard/mahasiswa-seminarta', MahasiswaSeminarController::class)->only(['index']);
+    Route::resource('/dashboard/mahasiswa-sidangta', MahasiswaSidangController::class)->only(['index']);
 });
 
 Route::middleware('auth', 'check.user.status:koordinator,dekan')->group(function () {
@@ -124,7 +138,11 @@ Route::middleware('auth', 'check.user.status:mahasiswa,dospem,koordinator')->gro
 });
 
 Route::middleware('auth', 'check.user.status:kaprodi')->group(function () {
-    Route::resource('/yudisium', YudisiumController::class);
+    Route::resource('/yudisium', YudisiumController::class)->only(['index','edit','update']);
 
+});
+
+Route::middleware('auth', 'check.user.status:admin')->group(function () {
+    Route::resource('/dashboard/sk-ta', SuratKeteranganTugasAkhirController::class)->only(['index','create','store','edit','update']);
 });
 

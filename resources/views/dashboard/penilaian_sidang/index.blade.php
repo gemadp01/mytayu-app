@@ -25,23 +25,27 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if ($jadwal_sidangta !== null)
-                    <tr>
-                        <td>1</td>
-                        <td>{{ $jadwal_sidangta->pengajuansidangta->npm }}</td>
-                        <td>{{ $jadwal_sidangta->pengajuansidangta->nama }}</td>
-                        <td>{{ $jadwal_sidangta->pengajuansidangta->kelas }}</td>
-                        <td>{{ $dospem1->nama }}</td>
-                        <td>{{ $dospem2->nama }}</td>
-                        <td>{{ $jadwal_sidangta->tanggal_penjadwalan }}</td>
-                        <td>{{ $jadwal_sidangta->ruangan }}</td>
-                        <td>
-                            <div class="d-flex flex-column">
-                                <a href="/berita-acara-sidang/{{ $jadwal_sidangta->id }}" class="btn btn-outline-primary mb-1">Berita Acara</a>
-                                <a href="/form-perbaikan-sidang/{{ $jadwal_sidangta->id }}" class="btn btn-outline-primary">Form Perbaikan</a>
-                            </div>
-                        </td>
-                    </tr>
+                    @if (auth()->user()->pengajuansidangta->count() > 0)
+                        @if ($jadwal_sidangta !== null)
+                        <tr>
+                            <td>1</td>
+                            <td>{{ $jadwal_sidangta->pengajuansidangta->npm }}</td>
+                            <td>{{ $jadwal_sidangta->pengajuansidangta->nama }}</td>
+                            <td>{{ $jadwal_sidangta->pengajuansidangta->kelas }}</td>
+                            <td>{{ $dospem1->nama }}</td>
+                            <td>{{ $dospem2->nama }}</td>
+                            <td>{{ $jadwal_sidangta->tanggal_penjadwalan }}</td>
+                            <td>{{ $jadwal_sidangta->ruangan }}</td>
+                            <td>
+                                <div class="d-flex flex-column">
+                                    <a href="/berita-acara-sidang/{{ $jadwal_sidangta->id }}" class="btn btn-outline-primary mb-1">Berita Acara</a>
+                                    <a href="/form-perbaikan-sidang/{{ $jadwal_sidangta->id }}" class="btn btn-outline-primary">Form Perbaikan</a>
+                                </div>
+                            </td>
+                        </tr>
+                        @endif
+                    @else
+                        
                     @endif
                 </tbody>
             </table>

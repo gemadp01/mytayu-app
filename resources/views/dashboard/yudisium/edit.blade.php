@@ -103,6 +103,7 @@
                                         <i class="fas fa-check"></i>
                                     </button>
                                     @endif
+                                    <input type="hidden" name="oldyudisium" value="{{ $data_pengajuan->pengajuansidangta->yudisium }}">
                                     <input class="form-control" type="file" name="yudisium" id="yudisium">
                                     <small class="text-body-secondary">.pdf, maks:2mb</small>
                                   </div>

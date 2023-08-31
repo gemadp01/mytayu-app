@@ -17,4 +17,137 @@
         </h6>
         <h6 class="h6 mb-0 text-white p-2">{{ $date }}</h6>
     </div>
+
+    @can('IsMahasiswa')
+    {{-- @dd($sk_ta->suratketeranganta->tanggal_berlaku) --}}
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <div class="card bg-primary text-white shadow">
+                <div class="card-body">
+                  <a href="file-dashboard/Panduan TA FTI Lengkap 2021.docx.pdf" class="text-white" download>
+                    Panduan TA
+                  </a>
+                  <div class="text-white-50 small">Panduan TA FTI 2021</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card bg-primary text-white shadow">
+                <div class="card-body">
+                    <a href="file-dashboard/PEDOMAN AKADEMIK.pdf" class="text-white" download>
+                      Pedoman Akademik
+                    </a>
+                    <div class="text-white-50 small">Pedoman Akademik</div>
+                  </div>
+            </div>
+        </div>
+        <div class="col-6 mt-3">
+            <div class="card bg-primary text-white shadow">
+                <div class="card-body">
+                    <a href="file-dashboard/PEDOMAN AKADEMIK.pdf" class="text-white" download>
+                      SK TA
+                    </a>
+                    @if ($sk_ta !== null)
+                    <div class="text-white-50 small">SK TA Berlaku sampai : {{ $sk_ta->suratketeranganta->tanggal_berlaku }}</div>
+                    @else
+                    <div class="text-white-50 small">Tolong daftar TA terlebih dahulu.</div>  
+                    @endif
+                  </div>
+            </div>
+        </div>
+    </div>
+    @endcan
+
+    @can('KoordinatorKaprodiDekan')
+    
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <div class="card bg-primary text-white shadow">
+                <div class="card-body">
+                    Pengajuan Tugas Akhir
+                  <div class="text-white-50 small">{{ $pengajuan_ta . " Mahasiswa yang sudah mendaftar" }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card bg-primary text-white shadow">
+                <div class="card-body">
+                    Pengajuan Seminar Tugas Akhir
+                  <div class="text-white-50 small">{{ $pengajuan_seminarta . " Mahasiswa yang sudah mendaftar" }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 mt-3">
+            <div class="card bg-primary text-white shadow">
+                <div class="card-body">
+                    Pengajuan Sidang Tugas Akhir
+                  <div class="text-white-50 small">{{ $pengajuan_sidangta . " Mahasiswa yang sudah mendaftar" }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @endcan
+
+    @can('IsDospem')
+    
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <div class="card bg-primary text-white shadow">
+                <div class="card-body">
+                    Pengajuan Tugas Akhir
+                  <div class="text-white-50 small">{{ $pengajuan_ta . " Mahasiswa yang sudah mendaftar" }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card bg-primary text-white shadow">
+                <div class="card-body">
+                    Pengajuan Seminar Tugas Akhir
+                  <div class="text-white-50 small">{{ $pengajuan_seminarta . " Mahasiswa yang sudah mendaftar" }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 mt-3">
+            <div class="card bg-primary text-white shadow">
+                <div class="card-body">
+                    Pengajuan Sidang Tugas Akhir
+                  <div class="text-white-50 small">{{ $pengajuan_sidangta . " Mahasiswa yang sudah mendaftar" }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @endcan
+
+    @can('IsAdmin')
+    
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <div class="card bg-primary text-white shadow">
+                <div class="card-body">
+                    Pengajuan Tugas Akhir
+                  <div class="text-white-50 small">{{ $pengajuan_ta . " Mahasiswa yang sudah mendaftar" }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card bg-primary text-white shadow">
+                <div class="card-body">
+                    Pengajuan Seminar Tugas Akhir
+                  <div class="text-white-50 small">{{ $pengajuan_seminarta . " Mahasiswa yang sudah mendaftar" }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 mt-3">
+            <div class="card bg-primary text-white shadow">
+                <div class="card-body">
+                    Pengajuan Sidang Tugas Akhir
+                  <div class="text-white-50 small">{{ $pengajuan_sidangta . " Mahasiswa yang sudah mendaftar" }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @endcan
 @endsection

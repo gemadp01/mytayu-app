@@ -25,23 +25,27 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if ($jadwal_seminarta !== null)
-                    <tr>
-                        <td>1</td>
-                        <td>{{ $jadwal_seminarta->pengajuansta->npm }}</td>
-                        <td>{{ $jadwal_seminarta->pengajuansta->nama }}</td>
-                        <td>{{ $jadwal_seminarta->pengajuansta->kelas }}</td>
-                        <td>{{ $jadwal_seminarta->pembimbing_1 }}</td>
-                        <td>{{ $jadwal_seminarta->pembimbing_2 }}</td>
-                        <td>{{ $jadwal_seminarta->tanggal_penjadwalan }}</td>
-                        <td>{{ $jadwal_seminarta->ruangan }}</td>
-                        <td>
-                            <div class="d-flex flex-column">
-                                <a href="/berita-acara-seminar/{{ $jadwal_seminarta->id }}" class="btn btn-outline-primary mb-1">Berita Acara</a>
-                                <a href="/form-perbaikan-seminar/{{ $jadwal_seminarta->id }}" class="btn btn-outline-primary">Form Perbaikan</a>
-                            </div>
-                        </td>
-                    </tr>
+                    @if (auth()->user()->pengajuanseminarta->count() > 0)
+                        @if ($jadwal_seminarta !== null)
+                        <tr>
+                            <td>1</td>
+                            <td>{{ $jadwal_seminarta->pengajuansta->npm }}</td>
+                            <td>{{ $jadwal_seminarta->pengajuansta->nama }}</td>
+                            <td>{{ $jadwal_seminarta->pengajuansta->kelas }}</td>
+                            <td>{{ $jadwal_seminarta->pembimbing_1 }}</td>
+                            <td>{{ $jadwal_seminarta->pembimbing_2 }}</td>
+                            <td>{{ $jadwal_seminarta->tanggal_penjadwalan }}</td>
+                            <td>{{ $jadwal_seminarta->ruangan }}</td>
+                            <td>
+                                <div class="d-flex flex-column">
+                                    <a href="/berita-acara-seminar/{{ $jadwal_seminarta->id }}" class="btn btn-outline-primary mb-1">Berita Acara</a>
+                                    <a href="/form-perbaikan-seminar/{{ $jadwal_seminarta->id }}" class="btn btn-outline-primary">Form Perbaikan</a>
+                                </div>
+                            </td>
+                        </tr>
+                        @endif
+                    @else
+
                     @endif
                 </tbody>
             </table>

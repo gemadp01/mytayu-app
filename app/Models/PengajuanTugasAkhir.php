@@ -35,4 +35,8 @@ class PengajuanTugasAkhir extends Model
     public function detailpengajuantugasakhir() {
         return $this->hasOne(DetailPengajuanTugasAkhir::class);
     }
+
+    public function suratketeranganta() {
+        return $this->belongsTo(SuratKeteranganTugasAkhir::class, 'sk_ta_id');
+    }
 }

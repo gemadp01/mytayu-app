@@ -17,9 +17,13 @@ class PenilaianSeminarTugasAkhirController extends Controller
     public function index()
     {
         $pengajuanSeminarTa = PengajuanSeminarTugasAkhir::where('user_id', auth()->user()->id)->get()->first();
-        return view('dashboard.penilaian_tugas_akhir.index', [
-            'jadwal_seminarta' => PenjadwalanSeminarTugasAkhir::where('pengajuan_seminarta_id', $pengajuanSeminarTa->id)->get()->first(),
-        ]);
+        if ($pengajuanSeminarTa !== null) {
+            return view('dashboard.penilaian_tugas_akhir.index', [
+                'jadwal_seminarta' => PenjadwalanSeminarTugasAkhir::where('pengajuan_seminarta_id', $pengajuanSeminarTa->id)->get()->first(),
+            ]);
+        }else{
+            return view('dashboard.penilaian_tugas_akhir.index');
+        }
     }
 
     /**

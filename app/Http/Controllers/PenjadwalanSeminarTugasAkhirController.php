@@ -18,9 +18,14 @@ class PenjadwalanSeminarTugasAkhirController extends Controller
     {
         if (Gate::allows('IsMahasiswa')) {
             $pengajuanSeminarTa = PengajuanSeminarTugasAkhir::where('user_id', auth()->user()->id)->get()->first();
-            return view('dashboard.penjadwalan_seminar.index', [
-                'jadwal_seminarta' => PenjadwalanSeminarTugasAkhir::where('pengajuan_seminarta_id', $pengajuanSeminarTa->id)->get()->first(),
-            ]);
+            if ($pengajuanSeminarTa !== null) {
+                # code...
+                return view('dashboard.penjadwalan_seminar.index', [
+                    'jadwal_seminarta' => PenjadwalanSeminarTugasAkhir::where('pengajuan_seminarta_id', $pengajuanSeminarTa->id)->get()->first(),
+                ]);
+            }else{
+                return view('dashboard.penjadwalan_seminar.index');
+            }
         }elseif (Gate::allows('IsDospem')) {
             $dosen = auth()->user()->dosen;
             return view('dashboard.penjadwalan_seminar.index', [

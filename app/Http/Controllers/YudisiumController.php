@@ -62,7 +62,13 @@ class YudisiumController extends Controller
         $validatedData = $request->validate([
             'yudisium' => 'mimes:pdf|max:2048',
         ]);
-        $validatedData['yudisium'] = $request->file('yudisium')->store('yudisium-files');
+
+        if ($request->file('yudisium')) {
+            if ($request->oldyudisium) {
+                Storage::delete($request->oldyudisium);
+            }
+            $validatedData['yudisium'] = $request->file('yudisium')->store('yudisium-files');
+        }
 
         $yudisium->pengajuansidangta->update($validatedData);
 

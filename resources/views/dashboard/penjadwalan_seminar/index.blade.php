@@ -26,17 +26,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if ($jadwal_seminarta !== null)
-                    <tr>
-                        <td>1</td>
-                        <td>{{ $jadwal_seminarta->pengajuansta->npm }}</td>
-                        <td>{{ $jadwal_seminarta->pengajuansta->nama }}</td>
-                        <td>{{ $jadwal_seminarta->pengajuansta->kelas }}</td>
-                        <td>{{ $jadwal_seminarta->pembimbing_1 }}</td>
-                        <td>{{ $jadwal_seminarta->pembimbing_2 }}</td>
-                        <td>{{ $jadwal_seminarta->tanggal_penjadwalan }}</td>
-                        <td>{{ $jadwal_seminarta->ruangan }}</td>
-                    </tr>
+                    @if (auth()->user()->pengajuanseminarta->count() > 0)
+                        @if ($jadwal_seminarta !== null)
+                        <tr>
+                            <td>1</td>
+                            <td>{{ $jadwal_seminarta->pengajuansta->npm }}</td>
+                            <td>{{ $jadwal_seminarta->pengajuansta->nama }}</td>
+                            <td>{{ $jadwal_seminarta->pengajuansta->kelas }}</td>
+                            <td>{{ $jadwal_seminarta->pembimbing_1 }}</td>
+                            <td>{{ $jadwal_seminarta->pembimbing_2 }}</td>
+                            <td>{{ $jadwal_seminarta->tanggal_penjadwalan }}</td>
+                            <td>{{ $jadwal_seminarta->ruangan }}</td>
+                        </tr>
+                        @endif
+                        
+                    @else
+
                     @endif
                 </tbody>
             </table>

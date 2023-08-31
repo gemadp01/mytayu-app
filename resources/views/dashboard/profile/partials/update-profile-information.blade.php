@@ -128,4 +128,198 @@
 
 @endcan
 
+@can('IsMahasiswa')
+<div class="card shadow mb-4 m-0">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Profile Information</h6>
+    </div>
+    <div class="card-body">
+        <p>Update your account's profile information</p>
+
+        @if (session()->has('status'))
+            <div class="alert alert-success col-lg-8" role="alert">
+                {{ session('status') }}
+            </div>
+        @endif
+
+        @if (session()->has('error'))
+            <div class="alert alert-danger col-lg-8" role="alert">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        <div class="row">
+            <div class="col-12">
+                <form method="post" action="/dashboard/profile/{{ $user->id
+                 }}" >
+                    @method('put')
+                    @csrf
+                    <div class="mb-3">
+                        <label for="nama" class="form-label @error('nama') is-invalid @enderror">Nama</label>
+                        <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama" required readonly value="{{ $user->name }}">
+                    </div>
+                    @error('nama')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+
+                    <div class="mb-3">
+                        <label for="username" class="form-label @error('username') is-invalid @enderror">Username</label>
+                        <input type="text" class="form-control" name="username" id="username" placeholder="username" required readonly value="{{ $user->username }}">
+                    </div>
+                    @error('username')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+
+                    <div class="mb-3">
+                        <label for="current_password" class="form-label @error('current_password') is-invalid @enderror">Current Password</label>
+                        <input type="password" class="form-control" name="current_password" id="current_password">
+                    </div>
+                    <div class="mb-3">
+                        <label for="new_password" class="form-label @error('new_password') is-invalid @enderror">New Password</label>
+                        <input type="password" class="form-control" name="new_password" id="new_password">
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@endcan
+
+@can('KoordinatorKaprodiDekan')
+    
+<div class="card shadow mb-4 m-0">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Profile Information</h6>
+    </div>
+    <div class="card-body">
+        <p>Update your account's profile information</p>
+
+        @if (session()->has('status'))
+            <div class="alert alert-success col-lg-8" role="alert">
+                {{ session('status') }}
+            </div>
+        @endif
+
+        @if (session()->has('error'))
+            <div class="alert alert-danger col-lg-8" role="alert">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        <div class="row">
+            <div class="col-12">
+                <form method="post" action="/dashboard/profile/{{ $user->id
+                 }}" >
+                    @method('put')
+                    @csrf
+                    <div class="mb-3">
+                        <label for="nama" class="form-label @error('nama') is-invalid @enderror">Nama</label>
+                        <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama" required readonly value="{{ $user->name }}">
+                    </div>
+                    @error('nama')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+
+                    <div class="mb-3">
+                        <label for="username" class="form-label @error('username') is-invalid @enderror">Username</label>
+                        <input type="text" class="form-control" name="username" id="username" placeholder="username" required readonly value="{{ $user->username }}">
+                    </div>
+                    @error('username')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+
+                    <div class="mb-3">
+                        <label for="current_password" class="form-label @error('current_password') is-invalid @enderror">Current Password</label>
+                        <input type="password" class="form-control" name="current_password" id="current_password">
+                    </div>
+                    <div class="mb-3">
+                        <label for="new_password" class="form-label @error('new_password') is-invalid @enderror">New Password</label>
+                        <input type="password" class="form-control" name="new_password" id="new_password">
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@endcan
+
+@can('IsAdmin')
+<div class="card shadow mb-4 m-0">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Profile Information</h6>
+    </div>
+    <div class="card-body">
+        <p>Update your account's profile information</p>
+
+        @if (session()->has('status'))
+            <div class="alert alert-success col-lg-8" role="alert">
+                {{ session('status') }}
+            </div>
+        @endif
+
+        @if (session()->has('error'))
+            <div class="alert alert-danger col-lg-8" role="alert">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        <div class="row">
+            <div class="col-12">
+                <form method="post" action="/dashboard/profile/{{ $user->id
+                 }}" >
+                    @method('put')
+                    @csrf
+                    <div class="mb-3">
+                        <label for="nama" class="form-label @error('nama') is-invalid @enderror">Nama</label>
+                        <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama" required readonly value="{{ $user->name }}">
+                    </div>
+                    @error('nama')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+
+                    <div class="mb-3">
+                        <label for="username" class="form-label @error('username') is-invalid @enderror">Username</label>
+                        <input type="text" class="form-control" name="username" id="username" placeholder="username" required readonly value="{{ $user->username }}">
+                    </div>
+                    @error('username')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+
+                    <div class="mb-3">
+                        <label for="current_password" class="form-label @error('current_password') is-invalid @enderror">Current Password</label>
+                        <input type="password" class="form-control" name="current_password" id="current_password">
+                    </div>
+                    <div class="mb-3">
+                        <label for="new_password" class="form-label @error('new_password') is-invalid @enderror">New Password</label>
+                        <input type="password" class="form-control" name="new_password" id="new_password">
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@endcan
+
 @endsection
