@@ -32,7 +32,7 @@ return new class extends Migration
             $table->foreignId('usulan_pembimbing_mhs1_id');
             $table->foreignId('usulan_pembimbing_mhs2_id');
             $table->unsignedInteger('status_pengajuan')->length(1)->default(0);
-            $table->string('sk_ta')->nullable();
+            $table->foreignId('sk_ta_id')->nullable();
             $table->timestamps();
         });
     }

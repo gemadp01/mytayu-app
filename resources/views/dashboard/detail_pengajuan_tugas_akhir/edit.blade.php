@@ -300,7 +300,7 @@
                                     <select class="form-select" name="usulan_pembimbing_kaprodi1_id" id="pembimbing_satu">
                                     <option selected>Choose...</option>
                                     @foreach ($dospems as $dospem)
-                                        <option value="{{ $dospem->id }}">{{  "$dospem->singkatan --- $dospem->nama" }}</option>
+                                        <option value="{{ $dospem->id }}">{{  "$dospem->singkatan --- $dospem->nama --- $dospem->keilmuan --- Kuota[$dospem->kuota_pembimbing]" }}</option>
                                     @endforeach
                                     </select>
                                 </div>
@@ -312,7 +312,7 @@
                                     <select class="form-select" name="usulan_pembimbing_kaprodi2_id" id="pembimbing_dua">
                                     <option selected>Choose...</option>
                                     @foreach ($dospems as $dospem)
-                                        <option value="{{ $dospem->id }}">{{  "$dospem->singkatan --- $dospem->nama" }}</option>
+                                        <option value="{{ $dospem->id }}">{{  "$dospem->singkatan --- $dospem->nama --- $dospem->keilmuan --- Kuota[$dospem->kuota_pembimbing]" }}</option>
                                     @endforeach
                                     </select>
                                 </div>

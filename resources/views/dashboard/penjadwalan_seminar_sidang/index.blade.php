@@ -3,8 +3,6 @@
 @section('page-heading')
 
 @can('KaprodiDekan')
-    
-{{-- @dd($jadwal_seminarta) --}}
 
 <h1 class="h3 mb-2 text-gray-800">Data Mahasiswa Seminar Sidang Tugas Akhir</h1>
 
@@ -71,16 +69,20 @@
                 </thead>
                 <tbody>
                     
-                    {{-- @foreach($appointments as $appointment)
+                    @foreach($jadwal_sidangta as $sidangta)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $appointment->tanggal }}</td>
-                        <td>{{ $appointment->hari }}</td>
-                        <td>{{ $appointment->waktu_awal . " - " . $appointment->waktu_akhir }}</td>
-                        <td>{{ $appointment->jenis_pertemuan }}</td>
-                        <td>{{ $appointment->keterangan }}</td>
+                        <td>{{ $sidangta->pengajuansidangta->npm }}</td>
+                        <td>{{ $sidangta->pengajuansidangta->nama }}</td>
+                        <td>{{ $sidangta->pengajuansidangta->kelas }}</td>
+                        <td>{{ $infoDosen->where('id', $sidangta->penguji_utama_id)->pluck('singkatan')->first() }}</td>
+                        <td>{{ $infoDosen->where('id', $sidangta->uji1_id)->pluck('singkatan')->first() }}</td>
+                        <td>{{ $infoDosen->where('id', $sidangta->uji2_id)->pluck('singkatan')->first() }}</td>
+                        <td>{{ $infoDosen->where('id', $sidangta->uji3_id)->pluck('singkatan')->first() }}</td>
+                        <td>{{ $sidangta->tanggal_penjadwalan }}</td>
+                        <td>{{ $sidangta->ruangan }}</td>
                     </tr>
-                    @endforeach --}}
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -92,6 +94,7 @@
 
 @can('IsKoordinator')
     
+
 <h1 class="h3 mb-2 text-gray-800">Data Mahasiswa Seminar Sidang Tugas Akhir</h1>
 
 <div class="card shadow mb-4">
@@ -164,28 +167,25 @@
                 </thead>
                 <tbody>
                     
-                    {{-- @foreach($appointments as $appointment)
+                    @foreach($jadwal_sidangta as $sidangta)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $appointment->tanggal }}</td>
-                        <td>{{ $appointment->hari }}</td>
-                        <td>{{ $appointment->waktu_awal . " - " . $appointment->waktu_akhir }}</td>
-                        <td>{{ $appointment->jenis_pertemuan }}</td>
-                        <td>{{ $appointment->keterangan }}</td>
+                        <td>{{ $sidangta->pengajuansidangta->npm }}</td>
+                        <td>{{ $sidangta->pengajuansidangta->nama }}</td>
+                        <td>{{ $sidangta->pengajuansidangta->kelas }}</td>
+                        <td>{{ $infoDosen->where('id', $sidangta->penguji_utama_id)->pluck('singkatan')->first() }}</td>
+                        <td>{{ $infoDosen->where('id', $sidangta->uji1_id)->pluck('singkatan')->first() }}</td>
+                        <td>{{ $infoDosen->where('id', $sidangta->uji2_id)->pluck('singkatan')->first() }}</td>
+                        <td>{{ $infoDosen->where('id', $sidangta->uji3_id)->pluck('singkatan')->first() }}</td>
+                        <td>{{ $sidangta->tanggal_penjadwalan }}</td>
+                        <td>{{ $sidangta->ruangan }}</td>
                         <td>
-                            <a href="/dashboard/agenda-bimbingan/{{ $appointment->id }}/edit" class="btn btn-warning btn-sm">
-                                <i class="fas fa-edit"></i>
-                                Appointment
-                            </a>
-                        </td>
-                        <td class="text-center">
-                            <a href="/dashboard/pengajuan-ta/{{ $appointment->id }}/edit" class="btn btn-warning btn-circle btn-sm">
+                            <a href="/dashboard/penjadwalan-sidang/{{ $sidangta->id }}/edit" class="btn btn-warning btn-sm">
                                 <i class="fas fa-edit"></i>
                             </a>
-
                         </td>
                     </tr>
-                    @endforeach --}}
+                    @endforeach
                 </tbody>
             </table>
         </div>

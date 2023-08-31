@@ -26,6 +26,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @if ($jadwal_seminarta !== null)
                     <tr>
                         <td>1</td>
                         <td>{{ $jadwal_seminarta->pengajuansta->npm }}</td>
@@ -36,6 +37,7 @@
                         <td>{{ $jadwal_seminarta->tanggal_penjadwalan }}</td>
                         <td>{{ $jadwal_seminarta->ruangan }}</td>
                     </tr>
+                    @endif
                 </tbody>
             </table>
         </div>

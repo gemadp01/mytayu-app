@@ -28,7 +28,7 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item 
-    @if(Request::is('dashboard/pengajuan-ta*') || Request::is('dashboard/pengajuan-seminarta*'))
+    @if(Request::is('dashboard/pengajuan-ta*') || Request::is('dashboard/pengajuan-seminarta*') || Request::is('dashboard/usulan-penguji-sidang*'))
         active
     @endif
     ">
@@ -38,7 +38,7 @@
             <span>Approve data</span>
         </a>
         <div id="collapseTwo" class="collapse 
-        @if(Request::is('dashboard/pengajuan-ta*') || Request::is('dashboard/pengajuan-seminarta*'))
+        @if(Request::is('dashboard/pengajuan-ta*') || Request::is('dashboard/pengajuan-seminarta*') || Request::is('dashboard/usulan-penguji-sidang*'))
         show
         @endif
         {{ Request::is('dashboard/pengajuan-ta*') ? 'show' : '' }}
@@ -47,7 +47,7 @@
                 <h6 class="collapse-header">Data pengajuan:</h6>
                 <a class="collapse-item {{ Request::is('dashboard/pengajuan-ta*') ? 'active' : '' }}" href="/dashboard/pengajuan-ta">Pembimbing TA</a>
                 <a class="collapse-item {{ Request::is('dashboard/pengajuan-seminarta*') ? 'active' : '' }}" href="/dashboard/pengajuan-seminarta">Penguji Seminar TA</a>
-                <a class="collapse-item" href="">Penguji Sidang TA</a>
+                <a class="collapse-item {{ Request::is('dashboard/usulan-penguji-sidang*') ? 'active' : '' }}" href="/dashboard/usulan-penguji-sidang">Penguji Sidang TA</a>
             </div>
         </div>
     </li>
@@ -62,7 +62,7 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item 
-    @if(Request::is('dashboard/pengajuan-ta*') || Request::is('dashboard/pengajuan-seminarta*') || Request::is('dashboard/detail-pengajuan-ta*'))
+    @if(Request::is('dashboard/pengajuan-ta*') || Request::is('dashboard/pengajuan-seminarta*') || Request::is('dashboard/pengajuan-sidangta*') || Request::is('dashboard/detail-pengajuan-ta*'))
         active
     @endif">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
@@ -71,7 +71,7 @@
             <span>Tugas Akhir</span>
         </a>
         <div id="collapseTwo" class="collapse 
-        @if(Request::is('dashboard/pengajuan-ta*') || Request::is('dashboard/pengajuan-seminarta*') || Request::is('dashboard/detail-pengajuan-ta*'))
+        @if(Request::is('dashboard/pengajuan-ta*') || Request::is('dashboard/pengajuan-seminarta*') || Request::is('dashboard/pengajuan-sidangta*') || Request::is('dashboard/detail-pengajuan-ta*'))
             show
         @endif" 
         aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -87,7 +87,12 @@
                     active
                 @endif" 
                 href="/dashboard/pengajuan-seminarta">Pengajuan Seminar TA</a>
-                <a class="collapse-item {{ Request::is('dashboard/pengajuan-sidang-ta*') ? 'active' : '' }}" href="/dashboard/pengajuan-sidang-ta">Pengajuan Sidang TA</a>
+
+                <a class="collapse-item 
+                @if(Request::is('dashboard/pengajuan-sidangta*') || Request::is('dashboard/detail-pengajuan-sidangta*'))
+                    active
+                @endif
+                " href="/dashboard/pengajuan-sidangta">Pengajuan Sidang TA</a>
             </div>
         </div>
     </li>
@@ -138,17 +143,25 @@
         </div>
     </li>
 
-    <li class="nav-item">
+    <li class="nav-item 
+    @if(Request::is('dashboard/penjadwalan-sidang*') || Request::is('dashboard/penilaian-sidang*'))
+        active
+    @endif
+    ">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSidang"
             aria-expanded="true" aria-controls="collapseSidang">
             <i class="fa fa-graduation-cap" aria-hidden="true"></i>
             <span>Sidang</span>
         </a>
-        <div id="collapseSidang" class="collapse" aria-labelledby="headingSidang" data-parent="#accordionSidebar">
+        <div id="collapseSidang" class="collapse 
+        @if(Request::is('dashboard/penjadwalan-sidang*') || Request::is('dashboard/penilaian-sidang*'))
+            show
+        @endif 
+        " aria-labelledby="headingSidang" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Jadwal Hasil:</h6>
-                <a class="collapse-item" href="login.html">Jadwal Sidang TA</a>
-                <a class="collapse-item" href="register.html">Hasil Sidang TA</a>
+                <a class="collapse-item {{ Request::is('dashboard/penjadwalan-sidang*') ? 'active' : '' }}" href="/dashboard/penjadwalan-sidang">Jadwal Sidang TA</a>
+                <a class="collapse-item {{ Request::is('dashboard/penilaian-sidang*') ? 'active' : '' }}" href="/dashboard/penilaian-sidang">Hasil Sidang TA</a>
             </div>
         </div>
     </li>
@@ -198,9 +211,9 @@
     <div class="sidebar-heading">Input Usulan Penguji</div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item {{ Request::is('dashboard/dosen*') ? 'active' : '' }}">
+    <li class="nav-item {{ Request::is('dashboard/usulan-penguji-sidang*') ? 'active' : '' }}">
         <a class="nav-link active"
-        href="/dashboard/dosen">
+        href="/dashboard/usulan-penguji-sidang">
             <i class="fa fa-graduation-cap"></i>
             <span>Sidang TA</span>
         </a>
@@ -285,9 +298,9 @@
     <div class="sidebar-heading">Yudisium</div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item {{ Request::is('dashboard/dosen*') ? 'active' : '' }}">
+    <li class="nav-item {{ Request::is('yudisium/*') ? 'active' : '' }}">
         <a class="nav-link active"
-        href="/dashboard/dosen">
+        href="/yudisium">
             <i class="fa fa-graduation-cap"></i>
             <span>Pengumuman Yudisium</span>
         </a>
@@ -363,11 +376,11 @@
     </li>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item {{ Request::is('dashboard/dosen*') ? 'active' : '' }}">
+    <li class="nav-item {{ Request::is('dashboard/penjadwalan-sidang*') ? 'active' : '' }}">
         <a class="nav-link active"
-        href="/dashboard/dosen">
+        href="/dashboard/penjadwalan-sidang">
         <i class="fa fa-graduation-cap"></i>
-        <span>pengujian Sidang TA</span></a>
+        <span>Pengujian Sidang TA</span></a>
     </li>
 
     <hr class="sidebar-divider" />

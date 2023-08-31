@@ -388,7 +388,7 @@
                                         <img src="{{ asset('storage/' . $sertifikat) }}" class="card-img-top" alt="...">
                                         <div class="card-body text-center">
                                             <a class="card-text" href="{{ asset('storage/' . $sertifikat) }}" download>Download Sertifikat Kegiatan {{ $loop->iteration }}</a>
-                                            @if ($detailpengajuan_seminarta->detailpengajuanseminarta->ket_lembar_bimbingan2)
+                                            @if ($detailpengajuan_seminarta->detailpengajuanseminarta->ket_sertifikat_kegiatan)
                                             <span class="badge text-bg-success">
                                                 Diterima
                                             </span>

@@ -2,11 +2,11 @@
 
 @section('page-heading')
     
-<h1 class="h3 mb-2 text-gray-800">Jadwal Seminar Tugas Akhir</h1>
+<h1 class="h3 mb-2 text-gray-800">Jadwal Sidang Tugas Akhir</h1>
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Jadwal Seminar Tugas Akhir</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Jadwal Sidang Tugas Akhir</h6>
     </div>
     <div class="card-body d-flex justify-content-center">
         <div class="table-responsive">
@@ -25,20 +25,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if ($jadwal_seminarta !== null)
+                    @if ($jadwal_sidangta !== null)
                     <tr>
                         <td>1</td>
-                        <td>{{ $jadwal_seminarta->pengajuansta->npm }}</td>
-                        <td>{{ $jadwal_seminarta->pengajuansta->nama }}</td>
-                        <td>{{ $jadwal_seminarta->pengajuansta->kelas }}</td>
-                        <td>{{ $jadwal_seminarta->pembimbing_1 }}</td>
-                        <td>{{ $jadwal_seminarta->pembimbing_2 }}</td>
-                        <td>{{ $jadwal_seminarta->tanggal_penjadwalan }}</td>
-                        <td>{{ $jadwal_seminarta->ruangan }}</td>
+                        <td>{{ $jadwal_sidangta->pengajuansidangta->npm }}</td>
+                        <td>{{ $jadwal_sidangta->pengajuansidangta->nama }}</td>
+                        <td>{{ $jadwal_sidangta->pengajuansidangta->kelas }}</td>
+                        <td>{{ $dospem1->nama }}</td>
+                        <td>{{ $dospem2->nama }}</td>
+                        <td>{{ $jadwal_sidangta->tanggal_penjadwalan }}</td>
+                        <td>{{ $jadwal_sidangta->ruangan }}</td>
                         <td>
                             <div class="d-flex flex-column">
-                                <a href="/berita-acara-seminar/{{ $jadwal_seminarta->id }}" class="btn btn-outline-primary mb-1">Berita Acara</a>
-                                <a href="/form-perbaikan-seminar/{{ $jadwal_seminarta->id }}" class="btn btn-outline-primary">Form Perbaikan</a>
+                                <a href="/berita-acara-sidang/{{ $jadwal_sidangta->id }}" class="btn btn-outline-primary mb-1">Berita Acara</a>
+                                <a href="/form-perbaikan-sidang/{{ $jadwal_sidangta->id }}" class="btn btn-outline-primary">Form Perbaikan</a>
                             </div>
                         </td>
                     </tr>

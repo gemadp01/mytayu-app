@@ -45,5 +45,13 @@ class Dosen extends Model
     public function appointment() {
         return $this->hasMany(Appointment::class);
     }
+
+    public function penjadwalansidangta() {
+        return $this->hasMany(PenjadwalanSidangTugasAkhir::class);
+    }
+
+    public function penilaiansidangta() {
+        return $this->hasMany(PenilaianSidangTugasAkhir::class);
+    }
     
 }

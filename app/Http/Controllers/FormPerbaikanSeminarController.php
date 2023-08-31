@@ -56,7 +56,7 @@ class FormPerbaikanSeminarController extends Controller
             $form_perbaikan->catatan_perbaikan_pembimbing1 = $request->input('formPerbaikan');
             $form_perbaikan->save();
 
-            return redirect('berita-acara-seminar/' . $form_perbaikan->penjadwalansta->id);
+            return redirect('form-perbaikan-seminar/' . $form_perbaikan->penjadwalansta->id);
         }elseif (auth()->user()->dosen->id === $form_perbaikan->pembimbing2_id) {
             $form_perbaikan->catatan_perbaikan_pembimbing2 = $request->input('formPerbaikan');
             $form_perbaikan->save();

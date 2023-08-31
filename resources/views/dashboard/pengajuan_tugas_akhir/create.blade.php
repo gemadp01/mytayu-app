@@ -2,7 +2,6 @@
 
 @section('page-heading')
 
-
 <div class="row">
     {{-- Form Pengajuan Tugas Akhir --}}
     <div class="col-6">
@@ -99,7 +98,11 @@
                                 <select class="form-select" name="usulan_pembimbing_mhs1_id" id="pembimbing_satu">
                                   <option selected>Choose...</option>
                                   @foreach ($dospems as $dospem)
-                                    <option value="{{ $dospem->id }}">{{  "$dospem->singkatan --- $dospem->nama" }}</option>
+                                  
+                                    <option value="{{ $dospem->id }}">{{  "$dospem->singkatan --- $dospem->nama --- $dospem->keilmuan --- Kuota[$dospem->kuota_pembimbing]" }}</option>
+                                    {{-- @if ($dospem->kuota)
+                                        
+                                    @endif --}}
                                   @endforeach
                                 </select>
                             </div>
@@ -111,7 +114,7 @@
                                 <select class="form-select" name="usulan_pembimbing_mhs2_id" id="pembimbing_dua">
                                   <option selected>Choose...</option>
                                   @foreach ($dospems as $dospem)
-                                    <option value="{{ $dospem->id }}">{{  "$dospem->singkatan --- $dospem->nama" }}</option>
+                                    <option value="{{ $dospem->id }}">{{  "$dospem->singkatan --- $dospem->nama --- $dospem->keilmuan --- Kuota[$dospem->kuota_pembimbing]" }}</option>
                                   @endforeach
                                 </select>
                             </div>
