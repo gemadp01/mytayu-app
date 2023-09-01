@@ -47,8 +47,8 @@
                     <a href="file-dashboard/PEDOMAN AKADEMIK.pdf" class="text-white" download>
                       SK TA
                     </a>
-                    @if ($sk_ta !== null)
-                    <div class="text-white-50 small">SK TA Berlaku sampai : {{ $sk_ta->suratketeranganta->tanggal_berlaku }}</div>
+                    @if ($sk_ta->sk_ta_id !== null)
+                    <div class="text-white-50 small">SK TA Berlaku sampai : {{ $sk_ta->suratketeranganta->tanggal_berlaku }} </div>
                     @else
                     <div class="text-white-50 small">Tolong daftar TA terlebih dahulu.</div>  
                     @endif
