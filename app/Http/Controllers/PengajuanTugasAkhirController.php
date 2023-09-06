@@ -17,9 +17,26 @@ class PengajuanTugasAkhirController extends Controller
      */
     public function index()
     {
+        $saatIni = Carbon::now('Asia/Jakarta')->format('Y-m-d');
+        $dateNow = Carbon::createFromFormat('Y-m-d', $saatIni);
+
+        $tanggalBerakhirSk = PengajuanTugasAkhir::with(['user', 'usulanDospemPertama', 'usulanDospemKedua'])->where('user_id', auth()->user()->id)->get();
+        // dd($tanggalBerakhirSk !== null);
+        if ($tanggalBerakhirSk->count() > 0) {
+            if ($tanggalBerakhirSk[0]->suratketeranganta !== null) {
+                $dateSk = Carbon::createFromFormat('Y-m-d', $tanggalBerakhirSk[0]->suratketeranganta->tanggal_berakhir);
+            }else {
+                $dateSk = "Belum ada SK TA";
+            }
+        }else {
+            $dateSk = "Belum ada SK TA";
+        }
+
         return view('dashboard.pengajuan_tugas_akhir.index', [
             'pengajuanta' => PengajuanTugasAkhir::with(['user', 'usulanDospemPertama', 'usulanDospemKedua'])->latest()->where('user_id', auth()->user()->id)->get(),
             'pengajuantas' => PengajuanTugasAkhir::with(['user', 'usulanDospemPertama', 'usulanDospemKedua', 'detailpengajuantugasakhir'])->latest()->paginate(10),
+            'hariIni' => $dateNow,
+            'tanggalBerakhirSk' => $dateSk,
         ]);
     }
 
@@ -104,6 +121,7 @@ class PengajuanTugasAkhirController extends Controller
     {
         return view('dashboard.pengajuan_tugas_akhir.edit', [
             'detailpengajuanta' => $pengajuan_tum->load(['user', 'usulanDospemPertama', 'usulanDospemKedua', 'detailpengajuantugasakhir']),
+            'dospems' => Dosen::all(),
         ]);
     }
 
@@ -143,6 +161,30 @@ class PengajuanTugasAkhirController extends Controller
             $validatedData['foto_krs'] = $pengajuan_tum->foto_krs;
         }else {
             $validatedData['foto_krs'] = $request->file('foto_krs')->store('pengajuan-ta-images');
+        }
+
+        if ($pengajuan_tum->suratketeranganta !== null) {
+            // if($pengajuan_tum->usulan_pembimbing_mhs1_id){
+            //     $validatedData['usulan_pembimbing_mhs1_id'] = $pengajuan_tum->usulan_pembimbing_mhs1_id;
+            // }else {
+            //     $validatedData['usulan_pembimbing_mhs1_id'] = $request->input('usulan_pembimbing_mhs1_id');
+            // }
+
+            // if($pengajuan_tum->usulan_pembimbing_mhs2_id){
+            //     $validatedData['usulan_pembimbing_mhs2_id'] = $pengajuan_tum->usulan_pembimbing_mhs2_id;
+            // }else {
+            //     $validatedData['usulan_pembimbing_mhs2_id'] = $request->input('usulan_pembimbing_mhs2_id');
+            // }
+
+            $validatedData['usulan_pembimbing_mhs1_id'] = $request->input('usulan_pembimbing_mhs1_id');
+            $validatedData['usulan_pembimbing_mhs2_id'] = $request->input('usulan_pembimbing_mhs2_id');
+
+            $validatedData['status_pengajuan'] = 5;
+
+            $pengajuan_tum->update($validatedData);
+
+            return redirect('dashboard/pengajuan-ta')->with('success', 'New revisi has been added!');
+
         }
         
         $validatedData['status_pengajuan'] = 1;

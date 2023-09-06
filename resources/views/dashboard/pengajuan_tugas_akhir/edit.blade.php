@@ -4,6 +4,8 @@
     
 @can('IsMahasiswa')
 
+{{-- @dd($detailpengajuanta->detailpengajuantugasakhir->usulanDospemKaprodiPertama) --}}
+
     <div class="d-sm-flex align-items-center justify-content-between mb-2 bg-primary" style="border-radius: 5px">
         <h6 class="h6 mb-0 text-white p-2">
             No Pendaftaran : {{ $detailpengajuanta->nomor_pengajuan }}
@@ -314,6 +316,61 @@
                                     <small class="text-body-secondary">.jped, .png, .jpg, maks:2mb</small> 
                                 @endif
                                 </div>
+                                
+                                @if ($detailpengajuanta->status_pengajuan === 0)
+                                    
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-primary">Ajukan Revisi</button>
+                                </div>
+                            </form>
+                                @endif
+                        </div>
+                    </div>      
+                </div>
+
+                @if ($detailpengajuanta->suratketeranganta !== null)
+                <div class="col-12 col-lg-8 offset-lg-4">
+                    <div class="card shadow mb-4 m-0">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Pengajuan Ulang Tugas Akhir</h6>
+                        </div>
+                        <div class="card-body">              
+                            {{-- <form method="post" action="/dashboard/pengajuan-ta/{{ $detailpengajuanta->id }}"  enctype="multipart/form-data">
+                                @method('put')
+                                @csrf --}}
+                                
+
+                                <div>
+                                    <label for="pembimbing_satu">Pembimbing 1</label>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <select class="form-select" name="usulan_pembimbing_mhs1_id" id="pembimbing_satu">
+                                      <option value="{{ $detailpengajuanta->detailpengajuantugasakhir->usulan_pembimbing_kaprodi1_id }}" selected>
+                                        {{ $detailpengajuanta->detailpengajuantugasakhir->usulanDospemKaprodiPertama->nama }}
+                                      </option>
+                                      @foreach ($dospems as $dospem)
+                                      
+                                        <option value="{{ $dospem->id }}">{{  "$dospem->singkatan --- $dospem->nama --- $dospem->keilmuan --- Kuota[$dospem->kuota_pembimbing]" }}</option>
+                                        {{-- @if ($dospem->kuota)
+                                            
+                                        @endif --}}
+                                      @endforeach
+                                    </select>
+                                </div>
+                                
+                                <div>
+                                    <label for="pembimbing_dua">Pembimbing 2</label>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <select class="form-select" name="usulan_pembimbing_mhs2_id" id="pembimbing_dua">
+                                        <option value="{{ $detailpengajuanta->detailpengajuantugasakhir->usulan_pembimbing_kaprodi2_id }}" selected>
+                                            {{ $detailpengajuanta->detailpengajuantugasakhir->usulanDospemKaprodiKedua->nama }}
+                                          </option>
+                                      @foreach ($dospems as $dospem)
+                                        <option value="{{ $dospem->id }}">{{  "$dospem->singkatan --- $dospem->nama --- $dospem->keilmuan --- Kuota[$dospem->kuota_pembimbing]" }}</option>
+                                      @endforeach
+                                    </select>
+                                </div>
 
                                 <div class="d-grid gap-2">
                                     <button type="submit" class="btn btn-primary">Ajukan Revisi</button>
@@ -322,6 +379,7 @@
                         </div>
                     </div>      
                 </div>
+                @endif
             </div>
             
 

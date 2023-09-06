@@ -7,6 +7,8 @@
 
     <div class="card shadow mb-4">
         @can('IsMahasiswa')
+        {{-- @dd($hariIni->year >= $tanggalBerakhirSk->year && $hariIni->month >= $tanggalBerakhirSk->month && $hariIni->day >= $tanggalBerakhirSk->day) --}}
+        
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Pengajuan Skripsi/Tugas Akhir</h6>
         </div>
@@ -58,18 +60,42 @@
                                     <span class="badge text-bg-danger">direvisi...</span>
                                 @elseif ($pta->status_pengajuan === 1)
                                     <span class="badge text-bg-warning">diproses...</span>
+                                @elseif ($pta->status_pengajuan === 4 && $pta->suratketeranganta !== null)
+                                    @if ($hariIni->year >= $tanggalBerakhirSk->year && $hariIni->month >= $tanggalBerakhirSk->month && $hariIni->day >= $tanggalBerakhirSk->day)
+                                        <span class="badge text-bg-danger">Masa berlaku SK sudah berakhir.</span>
+                                    @else
+                                    <span class="badge text-bg-success">diterima...</span>
+                                    @endif
+                                @elseif ($pta->status_pengajuan === 5)
+                                <span class="badge text-bg-warning">Sedang diperiksa kaprodi...</span>
                                 @else
                                     <span class="badge text-bg-success">diterima...</span>
                                 @endif
                             </td>
                             <td class="text-center">
-                                @if ($pta->status_pengajuan === 1 || $pta->status_pengajuan === 2 || $pta->status_pengajuan === 3 || $pta->status_pengajuan === 4)
+                                @if ($pta->status_pengajuan === 1 || $pta->status_pengajuan === 2 || $pta->status_pengajuan === 3)
                                     <a href="/dashboard/pengajuan-ta/{{ $pta->id }}/edit" class="btn btn-warning btn-circle btn-sm d-none">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                @else
+                                @elseif ($pta->status_pengajuan === 4 && $pta->suratketeranganta !== null)
+
+                                    @if ($hariIni->year >= $tanggalBerakhirSk->year && $hariIni->month >= $tanggalBerakhirSk->month && $hariIni->day >= $tanggalBerakhirSk->day)
+
                                     <a href="/dashboard/pengajuan-ta/{{ $pta->id }}/edit" class="btn btn-warning btn-circle btn-sm">
                                         <i class="fas fa-edit"></i>
+                                    </a>
+                                    @endif
+                                
+                                @elseif ($pta->status_pengajuan === 0)
+                                <a href="/dashboard/pengajuan-ta/{{ $pta->id }}/edit" class="btn btn-warning btn-circle btn-sm">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+
+                                @endif
+
+                                @if ($pta->suratketeranganta !== null)
+                                    <a href="{{ asset('storage/' . $pta->suratketeranganta->sk_ta) }}" class="btn btn-primary btn-circle btn-sm" download>
+                                        <i class="fa fa-download"></i>
                                     </a>
                                 @endif
 
@@ -288,6 +314,8 @@
                                     <span class="badge text-bg-warning">belum diperiksa...</span>
                                 @elseif ($pta->status_pengajuan === 3 || $pta->status_pengajuan === 4)
                                     <span class="badge text-bg-success">telah diperiksa...</span>
+                                @elseif ($pta->status_pengajuan === 5)
+                                <span class="badge text-bg-danger">Pengajuan ulang pembimbing...</span>
                                 @endif
                             </td>
                             <td class="text-center">
@@ -328,7 +356,7 @@
         @endcan
 
         @can('IsDekan')
-            
+
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Data Pengajuan Pembimbing Tugas Akhir</h6>
         </div>
@@ -378,8 +406,12 @@
                             <td>{{ $pta->npm }}</td>
                             <td>{{ $pta->nama }}</td>
                             <td>{{ $pta->program_studi }}</td>
-                            <td>{{ $pta->usulanDospemPertama->nama }}</td>
-                            <td>{{ $pta->usulanDospemKedua->nama }}</td>
+                            <td>
+                                {{ $pta->detailpengajuantugasakhir->usulanDospemKaprodiPertama->nama }}
+                            </td>
+                            <td>
+                                {{ $pta->detailpengajuantugasakhir->usulanDospemKaprodiKedua->nama }}
+                            </td>
                             <td>
                                 @if ($pta->status_pengajuan === 3)
                                     <span class="badge text-bg-danger">belum disetujui...</span>

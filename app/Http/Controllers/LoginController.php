@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class LoginController extends Controller
 {
 
-    protected $levels = ['mahasiswa', 'koordinator', 'kaprodi', 'dekan', 'adminfti', 'dospem'];
+    protected $levels = ['mahasiswa', 'koordinator', 'kaprodi', 'dekan', 'admin', 'dospem'];
 
     public function index() {
         if (Auth::check()) {

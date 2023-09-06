@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\SuratKeteranganTugasAkhir;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 
 class SuratKeteranganTugasAkhirController extends Controller
@@ -70,6 +71,7 @@ class SuratKeteranganTugasAkhirController extends Controller
      */
     public function update(Request $request, SuratKeteranganTugasAkhir $sk_tum)
     {
+        // dd($request->oldskta);
         $validatedData = $request->validate([
             'npm' => 'required',
             'nama' => 'required',
@@ -78,14 +80,19 @@ class SuratKeteranganTugasAkhirController extends Controller
             'sk_ta' => 'mimes:pdf|max:2048',
         ]);
 
+
         if ($request->file('sk_ta')) {
             if ($request->oldskta) {
                 Storage::delete($request->oldskta);
             }
             $validatedData['sk_ta'] = $request->file('sk_ta')->store('sk-ta-files');
+        }else{
+            $validatedData['sk_ta'] = $request->oldskta;
         }
 
-        SuratKeteranganTugasAkhir::updated($validatedData);
+        // dd($validatedData);
+
+        $sk_tum->update($validatedData);
 
         return redirect('dashboard/sk-ta')->with('success', 'SK TA has been Updated!');
     }

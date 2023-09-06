@@ -217,6 +217,8 @@
                         <li class="list-group-item">Status Pengajuan : 
                             @if ($detailpengajuanta->pengajuanta->status_pengajuan === 2)
                             <span class="badge text-bg-success">diterima oleh koordinator...</span>
+                            @elseif ($detailpengajuanta->pengajuanta->status_pengajuan === 5)
+                            <span class="badge text-bg-danger">Pengajuan ulang pembimbing...</span>
                             @endif
                         </li>
                         <li class="list-group-item">Usulan Pembimbing 1 dari Mahasiswa :</li>
@@ -298,7 +300,16 @@
                                 </div>
                                 <div class="input-group mb-3">
                                     <select class="form-select" name="usulan_pembimbing_kaprodi1_id" id="pembimbing_satu">
+                                    @if ($detailpengajuanta->pengajuanta->status_pengajuan === 5)    
+                                    <option value="{{ $detailpengajuanta->usulanDospemKaprodiPertama }}" selected>
+                                        {{ $detailpengajuanta->usulanDospemKaprodiPertama->nama }}
+                                    </option>
+                                    @else
+
                                     <option selected>Choose...</option>
+                                    @endif
+
+                                    
                                     @foreach ($dospems as $dospem)
                                         <option value="{{ $dospem->id }}">{{  "$dospem->singkatan --- $dospem->nama --- $dospem->keilmuan --- Kuota[$dospem->kuota_pembimbing]" }}</option>
                                     @endforeach
@@ -310,7 +321,15 @@
                                 </div>
                                 <div class="input-group mb-3">
                                     <select class="form-select" name="usulan_pembimbing_kaprodi2_id" id="pembimbing_dua">
+                                    @if ($detailpengajuanta->pengajuanta->status_pengajuan === 5)    
+                                    <option value="{{ $detailpengajuanta->usulanDospemKaprodiKedua }}" selected>
+                                        {{ $detailpengajuanta->usulanDospemKaprodiKedua->nama }}
+                                    </option>
+                                    @else
+
                                     <option selected>Choose...</option>
+                                    @endif
+
                                     @foreach ($dospems as $dospem)
                                         <option value="{{ $dospem->id }}">{{  "$dospem->singkatan --- $dospem->nama --- $dospem->keilmuan --- Kuota[$dospem->kuota_pembimbing]" }}</option>
                                     @endforeach

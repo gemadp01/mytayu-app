@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DetailPengajuanTugasAkhir;
+use App\Models\SuratKeteranganTugasAkhir;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -124,8 +125,18 @@ class DetailPengajuanTugasAkhirController extends Controller
             return redirect('dashboard/pengajuan-ta')->with('success', 'Dosen has been Updated!');
             
         }elseif (Gate::allows('IsKaprodi')) {
-            $detail_pengajuan_tum->usulan_pembimbing_kaprodi1_id = $request->input('usulan_pembimbing_kaprodi1_id');
-            $detail_pengajuan_tum->usulan_pembimbing_kaprodi2_id = $request->input('usulan_pembimbing_kaprodi2_id');
+            if($detail_pengajuan_tum->usulan_pembimbing_kaprodi1_id){
+                $detail_pengajuan_tum->usulan_pembimbing_kaprodi1_id = $detail_pengajuan_tum->usulan_pembimbing_kaprodi1_id;
+            }else {
+                $detail_pengajuan_tum->usulan_pembimbing_kaprodi1_id = $request->input('usulan_pembimbing_kaprodi1_id');
+            }
+
+            if($detail_pengajuan_tum->usulan_pembimbing_kaprodi2_id){
+                $detail_pengajuan_tum->usulan_pembimbing_kaprodi2_id = $detail_pengajuan_tum->usulan_pembimbing_kaprodi2_id;
+            }else {
+                $detail_pengajuan_tum->usulan_pembimbing_kaprodi2_id = $request->input('usulan_pembimbing_kaprodi2_id');
+            }
+ 
             $detail_pengajuan_tum->tanggal_input_pembimbing = Carbon::now('Asia/Jakarta')->format('d-m-Y');
 
             $detail_pengajuan_tum->pengajuanta->status_pengajuan = 3;
@@ -135,6 +146,19 @@ class DetailPengajuanTugasAkhirController extends Controller
             return redirect('dashboard/pengajuan-ta')->with('success', 'Usulan Pembimbing has been Updated!');
 
         }elseif (Gate::allows('IsDekan')) {
+            // dd($detail_pengajuan_tum->pengajuanta->suratketeranganta->sk_ta);
+            if ($detail_pengajuan_tum->pengajuanta->suratketeranganta !== null) {
+                if ($detail_pengajuan_tum->pengajuanta->suratketeranganta->sk_ta) {
+                    $fileName = $detail_pengajuan_tum->pengajuanta->suratketeranganta->sk_ta;
+                    if ($fileName) {
+                        Storage::delete($fileName);
+                    }
+                    $detail_pengajuan_tum->pengajuanta->suratketeranganta->sk_ta = "";
+                    SuratKeteranganTugasAkhir::destroy($detail_pengajuan_tum->pengajuanta->sk_ta_id);
+                    $detail_pengajuan_tum->pengajuanta->sk_ta_id = null;
+                }
+            }
+
             $detail_pengajuan_tum->status_approve = 1;
             $detail_pengajuan_tum->tanggal_approve = Carbon::now('Asia/Jakarta')->format('d-m-Y');
             $detail_pengajuan_tum->pengajuanta->status_pengajuan = 4;

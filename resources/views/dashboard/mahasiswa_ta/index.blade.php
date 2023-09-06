@@ -72,10 +72,14 @@
                             </td>
                             <td class="text-center">
                                 @can('IsAdmin')
-                                    @if ($pta->status_pengajuan === 4)
+                                    @if ($pta->status_pengajuan === 4 && $pta->suratketeranganta === null)
                                         <a href="/dashboard/mahasiswa-ta/{{ $pta->id }}/edit" class="btn btn-warning btn-circle btn-sm">
                                             <i class="fas fa-edit"></i>
                                         </a>
+                                    @elseif ($pta->status_pengajuan === 4 && $pta->suratketeranganta !== null)
+                                    <a href="/dashboard/mahasiswa-ta/{{ $pta->id }}/edit" class="btn btn-warning btn-circle btn-sm d-none">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
                                     @endif
                                 @endcan
                             </td>

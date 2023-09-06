@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('npm')->nullable();
             $table->string('nama')->nullable();
             $table->date('tanggal_berlaku')->nullable();
-            $table->date('tanggal_berakhir')->nullable();
+            $table->string('tanggal_berakhir')->nullable();
             $table->string('sk_ta')->nullable();
             $table->timestamps();
         });
