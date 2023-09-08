@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             // $table->foreignId('access_id')->default(2);
-            $table->string('level_user')->default('Dospem');
+            $table->string('level_user')->default('dospem');
             $table->boolean('status_user')->default(false);
             $table->string('nidn')->unique();
             $table->string('nama')->unique();
