@@ -37,7 +37,7 @@ class MahasiswaTugasAkhirController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(PengajuanTugasAkhir $mahasiswa_tum)
+    public function show(PengajuanTugasAkhir $daftar_mahasiswa_tum)
     {
         //
     }
@@ -45,10 +45,10 @@ class MahasiswaTugasAkhirController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(PengajuanTugasAkhir $mahasiswa_tum)
+    public function edit(PengajuanTugasAkhir $daftar_mahasiswa_tum)
     {
         return view('dashboard.mahasiswa_ta.edit', [
-            'detailpengajuanta' => $mahasiswa_tum,
+            'detailpengajuanta' => $daftar_mahasiswa_tum,
             'list_sk_ta' => SuratKeteranganTugasAkhir::all(),
         ]);
     }
@@ -56,19 +56,19 @@ class MahasiswaTugasAkhirController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, PengajuanTugasAkhir $mahasiswa_tum)
+    public function update(Request $request, PengajuanTugasAkhir $daftar_mahasiswa_tum)
     {
-        $mahasiswa_tum->update([
+        $daftar_mahasiswa_tum->update([
             'sk_ta_id' => $request->input('sk_ta'),
         ]);
 
-        return redirect('dashboard/mahasiswa-ta')->with('success', 'SK TA has been added!');
+        return redirect('dashboard/daftar-mahasiswa-ta')->with('success', 'SK TA has been added!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(PengajuanTugasAkhir $mahasiswa_tum)
+    public function destroy(PengajuanTugasAkhir $daftar_mahasiswa_tum)
     {
         //
     }

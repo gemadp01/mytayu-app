@@ -9,7 +9,21 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Dashboard</title>
+    <title>
+        @if (auth()->user()->level_user === "koordinator")
+            Dashboard Koordinator
+        @elseif (auth()->user()->level_user === "kaprodi")
+            Dashboard Kaprodi
+        @elseif (auth()->user()->level_user === "dekan")
+            Dashboard Dekan
+        @elseif (auth()->user()->level_user === "admin")
+            Dashboard Admin FTI
+        @elseif (auth()->user()->level_user === "dospem")
+            Dashboard Dosen Pembimbing
+        @elseif (auth()->user()->level_user === "mahasiswa")
+            Dashboard Mahasiswa
+        @endif
+    </title>
 
     {{-- Trix Editor --}}
 

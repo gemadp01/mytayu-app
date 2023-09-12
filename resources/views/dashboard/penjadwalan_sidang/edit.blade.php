@@ -49,7 +49,7 @@
                       </div>
 
                     <div class="d-grid gap-2">
-                        <button class="btn btn-primary" type="submit">Submit Jadwal Seminar</button>
+                        <button class="btn btn-primary" type="submit">Submit Jadwal Sidang</button>
                     </div>
                 </form>
             </div>

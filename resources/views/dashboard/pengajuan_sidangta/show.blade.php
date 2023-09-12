@@ -2,7 +2,7 @@
 
 @section('page-heading')
     
-{{-- @dd($dospem1) --}}
+{{-- @dd($detailpengajuan_sidang) --}}
 
 <div class="d-sm-flex align-items-center justify-content-between mb-2 bg-primary" style="border-radius: 5px">
     <h6 class="h6 mb-0 text-white p-2">
@@ -492,7 +492,7 @@
                                 <div class="card h-auto" style="width: 10rem;">
                                     <img src="{{ asset('storage/' . $detailpengajuan_sidang->foto_ijazah_sma) }}" class="card-img-top" alt="...">
                                     <div class="card-body text-center">
-                                        <a class="card-text" href="{{ asset('storage/' . $detailpengajuan_sidang->foto_ijazah_sma) }}" download>Download Lembar Persetujuan Seminar</a>
+                                        <a class="card-text" href="{{ asset('storage/' . $detailpengajuan_sidang->foto_ijazah_sma) }}" download>Download Foto Ijazah</a>
                                         @if ($detailpengajuan_sidang->detailpengajuansidangta->ket_lampiran_ijazah)
                                         <span class="badge text-bg-success">
                                             Diterima
@@ -532,7 +532,7 @@
                                 <div class="card h-auto" style="width: 10rem;">
                                     <img src="{{ asset('storage/' . $detailpengajuan_sidang->sertifikat_pkkmb) }}" class="card-img-top" alt="...">
                                     <div class="card-body text-center">
-                                        <a class="card-text" href="{{ asset('storage/' . $detailpengajuan_sidang->sertifikat_pkkmb) }}" download>Download Lembar Persetujuan Seminar</a>
+                                        <a class="card-text" href="{{ asset('storage/' . $detailpengajuan_sidang->sertifikat_pkkmb) }}" download>Download Sertifikat PKKMB</a>
                                         @if ($detailpengajuan_sidang->detailpengajuansidangta->ket_lampiran_sertifikat_pkkmb)
                                         <span class="badge text-bg-success">
                                             Diterima
@@ -572,7 +572,7 @@
                                 <div class="card h-auto" style="width: 10rem;">
                                     <img src="{{ asset('storage/' . $detailpengajuan_sidang->sertifikat_toefl) }}" class="card-img-top" alt="...">
                                     <div class="card-body text-center">
-                                        <a class="card-text" href="{{ asset('storage/' . $detailpengajuan_sidang->sertifikat_toefl) }}" download>Download Lembar Persetujuan Seminar</a>
+                                        <a class="card-text" href="{{ asset('storage/' . $detailpengajuan_sidang->sertifikat_toefl) }}" download>Download Sertifikat TOEFL</a>
                                         @if ($detailpengajuan_sidang->detailpengajuansidangta->ket_lampiran_sertifikat_toefl)
                                         <span class="badge text-bg-success">
                                             Diterima

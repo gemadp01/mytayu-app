@@ -175,7 +175,7 @@
                             <td>{{ $infoDosen->where('id', $dp->uji2_id)->pluck('singkatan')->first() }}</td>
                             <td>{{ $infoDosen->where('id', $dp->uji3_id)->pluck('singkatan')->first() }}</td>
                             <td>
-                                @if ($dp->status_pengajuan_seminar === 3)
+                                @if ($dp->pengajuansidangta->status_pengajuan_sidang === 3)
                                     <span class="badge text-bg-danger">belum disetujui...</span>
                                 @else
                                     <span class="badge text-bg-success">disetujui...</span>
@@ -184,9 +184,15 @@
                             </td>
                             <td class="text-center">
 
+                                @if ($dp->pengajuansidangta->status_pengajuan_sidang === 3)
                                 <a href="/dashboard/usulan-penguji-sidang/{{ $dp->id }}/edit" class="btn btn-warning btn-circle btn-sm">
                                     <i class="fas fa-edit"></i>
                                 </a>
+                                @else
+                                <a href="/dashboard/usulan-penguji-sidang/{{ $dp->id }}/edit" class="btn btn-warning btn-circle btn-sm d-none">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                @endif
 
                             </td>
                         </tr>

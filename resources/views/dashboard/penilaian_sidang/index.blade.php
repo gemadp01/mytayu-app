@@ -37,10 +37,12 @@
                             <td>{{ $jadwal_sidangta->tanggal_penjadwalan }}</td>
                             <td>{{ $jadwal_sidangta->ruangan }}</td>
                             <td>
+                            @if ($penilaian_sidangta !== null)
                                 <div class="d-flex flex-column">
                                     <a href="/berita-acara-sidang/{{ $jadwal_sidangta->id }}" class="btn btn-outline-primary mb-1">Berita Acara</a>
                                     <a href="/form-perbaikan-sidang/{{ $jadwal_sidangta->id }}" class="btn btn-outline-primary">Form Perbaikan</a>
                                 </div>
+                            @endif
                             </td>
                         </tr>
                         @endif

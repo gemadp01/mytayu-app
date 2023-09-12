@@ -16,14 +16,27 @@ class PenilaianSidangTugasAkhirController extends Controller
     public function index()
     {
         $pengajuanSidangTa = PengajuanSidangTugasAkhir::where('user_id', auth()->user()->id)->get()->first();
+        
         if ($pengajuanSidangTa !== null) {
-            $dosenPertama = Dosen::where('id', $pengajuanSidangTa->penjadwalansidangta->pembimbing1_id)->get()->first();
-            $dosenKedua = Dosen::where('id', $pengajuanSidangTa->penjadwalansidangta->pembimbing2_id)->get()->first();
+            $penilaianSidangTa = PenilaianSidangTugasAkhir::where('pengajuan_sidangta_id', $pengajuanSidangTa->id)->get()->first();
+            $penjadwalanSidangTa = PenjadwalanSidangTugasAkhir::where('pengajuan_sidang_tugas_akhir_id', $pengajuanSidangTa->id)->get()->first();
+
+            // $dosenPertama = Dosen::where('id', $pengajuanSidangTa->penjadwalansidangta->pembimbing1_id)->get()->first();
+            // $dosenKedua = Dosen::where('id', $pengajuanSidangTa->penjadwalansidangta->pembimbing2_id)->get()->first();
+
+            if ($penjadwalanSidangTa !== null) {
+                $dosenPertama = Dosen::where('id', $pengajuanSidangTa->penjadwalansidangta->pembimbing1_id)->get()->first();
+                $dosenKedua = Dosen::where('id', $pengajuanSidangTa->penjadwalansidangta->pembimbing2_id)->get()->first();
+            }else{
+                $dosenPertama = "";
+                $dosenKedua = "";
+            }
 
             return view('dashboard.penilaian_sidang.index', [
                 'jadwal_sidangta' => PenjadwalanSidangTugasAkhir::where('pengajuan_sidang_tugas_akhir_id', $pengajuanSidangTa->id)->get()->first(),
                 'dospem1' => $dosenPertama,
                 'dospem2' => $dosenKedua,
+                'penilaian_sidangta' => $penilaianSidangTa,
             ]);
         }else {
             return view('dashboard.penilaian_sidang.index');

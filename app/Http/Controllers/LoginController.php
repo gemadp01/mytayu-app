@@ -12,10 +12,8 @@ class LoginController extends Controller
     protected $levels = ['mahasiswa', 'koordinator', 'kaprodi', 'dekan', 'admin', 'dospem'];
 
     public function index() {
-        if (Auth::check()) {
-            return redirect('/dashboard'); 
-        }
-        return view('login.index');
+        // return view('login.index');  
+        return response()->view('login.index')->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
     }
     
     public function authenticate(Request $request) {

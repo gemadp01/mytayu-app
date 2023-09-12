@@ -175,7 +175,7 @@ class DetailPengajuanSidangTugasAkhirController extends Controller
                 $detail_pengajuan_sidangtum->pengajuansidangta->foto_ijazah_sma = "";
             }
 
-            if($request->input('ket_lampiran_sbb_pendidikan') !== "Diterima") {
+            if($request->input('ket_sbb_pendidikan') !== "Diterima") {
                 $imageName = $detail_pengajuan_sidangtum->pengajuansidangta->sbb; 
                 if ($imageName) {
                     Storage::delete($imageName);
@@ -183,7 +183,7 @@ class DetailPengajuanSidangTugasAkhirController extends Controller
                 $detail_pengajuan_sidangtum->pengajuansidangta->sbb = "";
             }
 
-            if($request->input('ket_lampiran_sbb_perpustakaan') !== "Diterima") {
+            if($request->input('ket_sbb_perpustakaan') !== "Diterima") {
                 $imageName = $detail_pengajuan_sidangtum->pengajuansidangta->sbb_perpustakaan; 
                 if ($imageName) {
                     Storage::delete($imageName);

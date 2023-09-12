@@ -205,12 +205,13 @@
                                 @endif
                             </td>
                             <td class="text-center">
-                                @if ($pta->status_pengajuan === 0 || $pta->status_pengajuan === 2 || $pta->status_pengajuan === 3)
-                                    <a href="/dashboard/detail-pengajuan-ta/{{ $pta->id }}/edit" class="btn btn-warning btn-circle btn-sm d-none">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
+                                @if ($pta->status_pengajuan === 1)
+                                <a href="/dashboard/detail-pengajuan-ta/{{ $pta->id }}/edit" class="btn btn-warning btn-circle btn-sm">
+                                    <i class="fas fa-edit"></i>
+                                </a>
                                 @else
-                                    <a href="/dashboard/detail-pengajuan-ta/{{ $pta->id }}/edit" class="btn btn-warning btn-circle btn-sm">
+                                    
+                                    <a href="/dashboard/detail-pengajuan-ta/{{ $pta->id }}/edit" class="btn btn-warning btn-circle btn-sm d-none">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                 @endif

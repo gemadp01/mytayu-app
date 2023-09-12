@@ -62,13 +62,13 @@
                         <label for="prodi" class="form-label @error('prodi') is-invalid @enderror">Prodi</label>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="prodi" id="informatika" value="Informatika">
-                            <label class="form-check-label" for="reguler">
+                            <label class="form-check-label" for="informatika">
                               Informatika
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="prodi" id="sistem_informasi" value="Sistem Informasi">
-                            <label class="form-check-label" for="karyawan">
+                            <label class="form-check-label" for="sistem_informasi">
                               Sistem Informasi
                             </label>
                         </div>

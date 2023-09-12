@@ -36,12 +36,14 @@
                             <td>{{ $jadwal_seminarta->pembimbing_2 }}</td>
                             <td>{{ $jadwal_seminarta->tanggal_penjadwalan }}</td>
                             <td>{{ $jadwal_seminarta->ruangan }}</td>
+                            @if ($penilaian_seminarta !== null)
                             <td>
                                 <div class="d-flex flex-column">
                                     <a href="/berita-acara-seminar/{{ $jadwal_seminarta->id }}" class="btn btn-outline-primary mb-1">Berita Acara</a>
                                     <a href="/form-perbaikan-seminar/{{ $jadwal_seminarta->id }}" class="btn btn-outline-primary">Form Perbaikan</a>
                                 </div>
                             </td>
+                            @endif
                         </tr>
                         @endif
                     @else

@@ -31,8 +31,8 @@ return new class extends Migration
             $table->string('krs');
             $table->string('ktm');
             $table->string('sk_pembimbing');
-            $table->string('sbb');
-            $table->string('sbb_perpustakaan');
+            $table->string('sbb')->nullable();
+            $table->string('sbb_perpustakaan')->nullable();
             $table->string('foto_ijazah_sma');
             $table->string('sertifikat_pkkmb');
             $table->string('sertifikat_toefl');

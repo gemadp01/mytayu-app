@@ -81,10 +81,12 @@
                         <td>{{ $sidangta->tanggal_penjadwalan }}</td>
                         <td>{{ $sidangta->ruangan }}</td>
                         <td>
+                            @if ($sidangta->tanggal_penjadwalan !== null)    
                             <div class="d-flex flex-column">
                                 <a href="/berita-acara-sidang/{{ $sidangta->id }}" class="btn btn-outline-primary mb-1">Berita Acara</a>
                                 <a href="/form-perbaikan-sidang/{{ $sidangta->id }}" class="btn btn-outline-primary">Form Perbaikan</a>
                             </div>
+                            @endif
                         </td>
                     </tr>
                     @endforeach
@@ -106,7 +108,7 @@
                         <th>#</th>
                         <th>NPM</th>
                         <th>Nama</th>
-                        <th>Waktu</th>
+                        <th>Waktu Sidang</th>
                         <th>Ruangan</th>
                         <th>More</th>
                     </tr>
@@ -121,10 +123,12 @@
                         <td>{{ $sidangta->tanggal_penjadwalan }}</td>
                         <td>{{ $sidangta->ruangan }}</td>
                         <td>
+                            @if ($sidangta->tanggal_penjadwalan !== null)
                             <div class="d-flex flex-column">
                                 <a href="/berita-acara-sidang/{{ $sidangta->id }}" class="btn btn-outline-primary mb-1">Berita Acara</a>
                                 <a href="/form-perbaikan-sidang/{{ $sidangta->id }}" class="btn btn-outline-primary">Form Perbaikan</a>
                             </div>
+                            @endif
                         </td>
                     </tr>
                     @endforeach
@@ -146,7 +150,7 @@
                         <th>#</th>
                         <th>NPM</th>
                         <th>Nama</th>
-                        <th>Waktu</th>
+                        <th>Waktu Sidang</th>
                         <th>Ruangan</th>
                         <th>More</th>
                     </tr>
@@ -161,10 +165,12 @@
                         <td>{{ $sidangta->tanggal_penjadwalan }}</td>
                         <td>{{ $sidangta->ruangan }}</td>
                         <td>
+                            @if ($sidangta->tanggal_penjadwalan !== null)
                             <div class="d-flex flex-column">
                                 <a href="/berita-acara-sidang/{{ $sidangta->id }}" class="btn btn-outline-primary mb-1">Berita Acara</a>
                                 <a href="/form-perbaikan-sidang/{{ $sidangta->id }}" class="btn btn-outline-primary">Form Perbaikan</a>
                             </div>
+                            @endif
                         </td>
                     </tr>
                     @endforeach
@@ -186,7 +192,7 @@
                         <th>#</th>
                         <th>NPM</th>
                         <th>Nama</th>
-                        <th>Waktu</th>
+                        <th>Waktu Sidang</th>
                         <th>Ruangan</th>
                         <th>More</th>
                     </tr>
@@ -201,10 +207,12 @@
                         <td>{{ $sidangta->tanggal_penjadwalan }}</td>
                         <td>{{ $sidangta->ruangan }}</td>
                         <td>
+                            @if ($sidangta->tanggal_penjadwalan !== null)
                             <div class="d-flex flex-column">
                                 <a href="/berita-acara-sidang/{{ $sidangta->id }}" class="btn btn-outline-primary mb-1">Berita Acara</a>
                                 <a href="/form-perbaikan-sidang/{{ $sidangta->id }}" class="btn btn-outline-primary">Form Perbaikan</a>
                             </div>
+                            @endif
                         </td>
                     </tr>
                     @endforeach

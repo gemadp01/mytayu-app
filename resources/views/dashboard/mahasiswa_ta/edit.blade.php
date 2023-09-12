@@ -86,7 +86,7 @@
                             <h6 class="m-0 font-weight-bold text-primary">Upload SK TA</h6>
                         </div>
                         <div class="card-body">
-                            <form method="post" action="/dashboard/mahasiswa-ta/{{ $detailpengajuanta->id }}">
+                            <form method="post" action="/dashboard/daftar-mahasiswa-ta/{{ $detailpengajuanta->id }}">
                                 @method('put')
                                 @csrf
                                 <div>

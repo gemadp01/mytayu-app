@@ -53,6 +53,7 @@
 
 @can('IsDospem')
     
+
 <h1 class="h3 mb-2 text-gray-800">Data Mahasiswa Seminar Tugas Akhir</h1>
 <h1 class="h3 mb-2 text-gray-800">Tahun Akademik Semester Ganjil - 2022/2023</h1>
 
@@ -76,17 +77,18 @@
                 <tbody>
                     @foreach($jadwal_seminarta1 as $seminarta)
                     <tr>
-                        {{-- @dd($seminarta) --}}
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $seminarta->pengajuansta->npm }}</td>
                         <td>{{ $seminarta->pengajuansta->nama }}</td>
                         <td>{{ $seminarta->tanggal_penjadwalan }}</td>
                         <td>{{ $seminarta->ruangan }}</td>
                         <td>
+                        @if ($seminarta->tanggal_penjadwalan !== "")
                             <div class="d-flex flex-column">
                                 <a href="/berita-acara-seminar/{{ $seminarta->id }}" class="btn btn-outline-primary mb-1">Berita Acara</a>
                                 <a href="/form-perbaikan-seminar/{{ $seminarta->id }}" class="btn btn-outline-primary">Form Perbaikan</a>
                             </div>
+                        @endif
                         </td>
                     </tr>
                     @endforeach
@@ -123,10 +125,12 @@
                         <td>{{ $seminarta->tanggal_penjadwalan }}</td>
                         <td>{{ $seminarta->ruangan }}</td>
                         <td>
-                            <div class="d-flex flex-column">
-                                <a href="/berita-acara-seminar/{{ $seminarta->id }}" class="btn btn-outline-primary mb-1">Berita Acara</a>
-                                <a href="/form-perbaikan-seminar/{{ $seminarta->id }}" class="btn btn-outline-primary">Form Perbaikan</a>
-                            </div>
+                            @if ($seminarta->tanggal_penjadwalan !== "")
+                                <div class="d-flex flex-column">
+                                    <a href="/berita-acara-seminar/{{ $seminarta->id }}" class="btn btn-outline-primary mb-1">Berita Acara</a>
+                                    <a href="/form-perbaikan-seminar/{{ $seminarta->id }}" class="btn btn-outline-primary">Form Perbaikan</a>
+                                </div>
+                            @endif
                         </td>
                     </tr>
                     @endforeach

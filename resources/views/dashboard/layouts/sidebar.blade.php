@@ -227,9 +227,9 @@
     <div class="sidebar-heading">Data Mahasiswa TA</div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item {{ Request::is('dashboard/mahasiswa-ta*') ? 'active' : '' }}">
+    <li class="nav-item {{ Request::is('dashboard/daftar-mahasiswa-ta*') ? 'active' : '' }}">
         <a class="nav-link active"
-        href="/dashboard/mahasiswa-ta">
+        href="/dashboard/daftar-mahasiswa-ta">
         <i class="fa fa-graduation-cap"></i>
         <span>Mahasiswa TA</span></a>
     </li>
@@ -239,17 +239,17 @@
     <div class="sidebar-heading">Data Seminar Sidang</div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item {{ Request::is('dashboard/mahasiswa-seminarta*') ? 'active' : '' }}">
+    <li class="nav-item {{ Request::is('dashboard/daftar-mahasiswa-seminarta*') ? 'active' : '' }}">
         <a class="nav-link active"
-        href="/dashboard/mahasiswa-seminarta">
+        href="/dashboard/daftar-mahasiswa-seminarta">
             <i class="fa fa-graduation-cap"></i>
             <span>Mahasiswa Seminar TA</span>
         </a>
     </li>
 
-    <li class="nav-item {{ Request::is('dashboard/mahasiswa-sidangta*') ? 'active' : '' }}">
-        <a class="nav-link active"
-        href="/dashboard/mahasiswa-sidangta">
+    <li class="nav-item {{ Request::is('dashboard/daftar-mahasiswa-sidangta*') ? 'active' : '' }}">
+        <a class="nav-link"
+        href="/dashboard/daftar-mahasiswa-sidangta">
             <i class="fa fa-graduation-cap"></i>
             <span>Mahasiswa Sidang TA</span>
         </a>
@@ -314,9 +314,9 @@
     <div class="sidebar-heading">Data Mahasiswa TA</div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item {{ Request::is('dashboard/mahasiswa-ta*') ? 'active' : '' }}">
+    <li class="nav-item {{ Request::is('dashboard/daftar-mahasiswa-ta*') ? 'active' : '' }}">
         <a class="nav-link active"
-        href="/dashboard/mahasiswa-ta">
+        href="/dashboard/daftar-mahasiswa-ta">
         <i class="fa fa-graduation-cap"></i>
         <span>Mahasiswa TA</span></a>
     </li>

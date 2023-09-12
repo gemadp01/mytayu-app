@@ -19,15 +19,24 @@ class PenjadwalanSidangTugasAkhirController extends Controller
     {
         if (Gate::allows('IsMahasiswa')) {
             $pengajuanSidangTa = PengajuanSidangTugasAkhir::where('user_id', auth()->user()->id)->get()->first();
+            
+            
             if ($pengajuanSidangTa !== null) {
-                $dosenPertama = Dosen::where('id', $pengajuanSidangTa->penjadwalansidangta->pembimbing1_id)->get()->first();
-                $dosenKedua = Dosen::where('id', $pengajuanSidangTa->penjadwalansidangta->pembimbing2_id)->get()->first();
-    
+                $penjadwalanSidangTa = PenjadwalanSidangTugasAkhir::where('pengajuan_sidang_tugas_akhir_id', $pengajuanSidangTa->id)->get()->first();
+
+                if ($penjadwalanSidangTa !== null) {
+                    $dosenPertama = Dosen::where('id', $pengajuanSidangTa->penjadwalansidangta->pembimbing1_id)->get()->first();
+                    $dosenKedua = Dosen::where('id', $pengajuanSidangTa->penjadwalansidangta->pembimbing2_id)->get()->first();
+                }else{
+                    $dosenPertama = "";
+                    $dosenKedua = "";
+                }
                 return view('dashboard.penjadwalan_sidang.index', [
                     'jadwal_sidangta' => PenjadwalanSidangTugasAkhir::where('pengajuan_sidang_tugas_akhir_id', $pengajuanSidangTa->id)->get()->first(),
                     'dospem1' => $dosenPertama,
                     'dospem2' => $dosenKedua,
                 ]);
+    
             }else {
                 return view('dashboard.penjadwalan_sidang.index');
             }

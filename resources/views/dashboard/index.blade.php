@@ -19,7 +19,6 @@
     </div>
 
     @can('IsMahasiswa')
-    {{-- @dd($sk_ta->suratketeranganta->tanggal_berlaku) --}}
     <div class="row justify-content-center">
         <div class="col-6">
             <div class="card bg-primary text-white shadow">
@@ -47,11 +46,13 @@
                     <a href="file-dashboard/PEDOMAN AKADEMIK.pdf" class="text-white" download>
                       SK TA
                     </a>
-                    {{-- @if ($sk_ta->sk_ta_id !== null)
-                    <div class="text-white-50 small">SK TA Berlaku sampai : {{ $sk_ta->suratketeranganta->tanggal_berlaku }} </div>
+                    @if ($sk_ta !== null)
+                        @if ($sk_ta->suratketeranganta !== null)
+                            <div class="text-white-50 small">SK TA Berlaku sampai : {{ $sk_ta->suratketeranganta->tanggal_berlaku }} </div>
+                        @endif
                     @else
                     <div class="text-white-50 small">Tolong daftar TA terlebih dahulu.</div>  
-                    @endif --}}
+                    @endif
                   </div>
             </div>
         </div>
@@ -61,7 +62,7 @@
     @can('KoordinatorKaprodiDekan')
     
     <div class="row justify-content-center">
-        <div class="col-6">
+        <div class="col-12 col-lg-4 col-xl-4">
             <div class="card bg-primary text-white shadow">
                 <div class="card-body">
                     Pengajuan Tugas Akhir
@@ -69,7 +70,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-12 col-lg-4 col-xl-4">
             <div class="card bg-primary text-white shadow">
                 <div class="card-body">
                     Pengajuan Seminar Tugas Akhir
@@ -77,11 +78,30 @@
                 </div>
             </div>
         </div>
-        <div class="col-6 mt-3">
+        <div class="col-12 col-lg-4 col-xl-4">
             <div class="card bg-primary text-white shadow">
                 <div class="card-body">
                     Pengajuan Sidang Tugas Akhir
                   <div class="text-white-50 small">{{ $pengajuan_sidangta . " Mahasiswa yang sudah mendaftar" }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-3">
+        <div class="col-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="card bg-primary text-white shadow">
+                <div class="card-body">
+                    Mahasiswa Terdaftar
+                  <div class="text-white-50 small">{{ $mahasiswa . " Data Mahasiswa yang sudah terdaftar" }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="card bg-primary text-white shadow">
+                <div class="card-body">
+                    Dosen Terdaftar
+                  <div class="text-white-50 small">{{ $dosen . " Data Dosen yang sudah terdaftar" }}</div>
                 </div>
             </div>
         </div>

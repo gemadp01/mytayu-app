@@ -211,7 +211,7 @@
                             <div class="mb-3">
                                 <label for="draft_laporan" class="form-label @error('draft_laporan') is-invalid @enderror">Draft Laporan TA</label>
                                 <input class="form-control" type="file" name="draft_laporan" id="draft_laporan">
-                                <small class="text-body-secondary">.pdf, maks:5mb</small>
+                                <small class="text-body-secondary">.pdf, maks:15mb</small>
                               </div>
                             @error('draft_laporan')
                                 <div class="invalid-feedback">
@@ -263,7 +263,7 @@
                     <div class="mb-3">
                         <label for="sertifikat_kegiatan" class="form-label @error('sertifikat_kegiatan') is-invalid @enderror">Sertifikat Kegiatan</label>
                         <input class="form-control" type="file" name="sertifikat_kegiatan[]" id="sertifikat_kegiatan" multiple>
-                        <small class="text-body-secondary">.jpeg, .png, .jpg, maks:2mb, maks:10img</small>
+                        <small class="text-body-secondary">.jpeg, .png, .jpg, maks:2mb, maks:10files</small>
                       </div>
                     @error('sertifikat_kegiatan')
                         <div class="invalid-feedback">
@@ -272,7 +272,7 @@
                     @enderror
 
                     <div class="d-grid gap-2">
-                        <button class="btn btn-primary" type="submit">Ajukan Seminar TA</button>
+                        <button class="btn btn-primary" type="submit">Ajukan Sidang TA</button>
                     </div>
                 </form>
                 </div>

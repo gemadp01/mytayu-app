@@ -193,12 +193,13 @@
                                 @endif
                             </td>
                             <td class="text-center">
-                                @if ($pta->status_pengajuan_seminar === 0 || $pta->status_pengajuan_seminar === 2 || $pta->status_pengajuan_seminar === 3)
-                                    <a href="/dashboard/detail-pengajuan-seminarta/{{ $pta->id }}/edit" class="btn btn-warning btn-circle btn-sm d-none">
+                                @if ($pta->status_pengajuan_seminar === 1)
+                                    <a href="/dashboard/detail-pengajuan-seminarta/{{ $pta->id }}/edit" class="btn btn-warning btn-circle btn-sm">
                                         <i class="fas fa-edit"></i>
                                     </a>
+                                    
                                 @else
-                                    <a href="/dashboard/detail-pengajuan-seminarta/{{ $pta->id }}/edit" class="btn btn-warning btn-circle btn-sm">
+                                    <a href="/dashboard/detail-pengajuan-seminarta/{{ $pta->id }}/edit" class="btn btn-warning btn-circle btn-sm d-none">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                 @endif

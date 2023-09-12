@@ -81,10 +81,10 @@
                     efisien.</p>
             </div>
             <div class="col-12 col-md-12 d-md-flex justify-content-md-center d-grid gap-2 mx-auto">
-                <a href="#" class="outline-button">
+                <a href="/login" class="outline-button">
                     <span class="fill-button">GET STARTED</span>
                 </a>
-                <a href="#" class="outline-button">
+                <a href="#about" class="outline-button">
                     <span>ABOUT</span>
                 </a>
             </div>
@@ -163,8 +163,7 @@
                     </div>
                     <div>
                         <h5 class="icon-title fw-bold mb-1 mt-2">Pendaftaran TA</h5>
-                        <p class="icon-description text-body-secondary me-2">Lorem ipsum dolor sit, amet consectetur
-                            adipisicing elit. Aut, nostrum.</p>
+                        <p class="icon-description text-body-secondary me-2">Pendaftaran TA meliputi Pengajuan TA, Seminar dan Sidang.</p>
                     </div>
                 </div>
             </div>
@@ -182,8 +181,7 @@
                     </div>
                     <div>
                         <h5 class="icon-title fw-bold mb-1 mt-2">Penerimaan SK</h5>
-                        <p class="icon-description text-body-secondary me-2">Lorem ipsum dolor sit amet consectetur
-                            adipisicing elit. Porro, eos.</p>
+                        <p class="icon-description text-body-secondary me-2">Penerimaan SK terjadi setelah admin mengupload berkas SK mahasiswa.</p>
                     </div>
                 </div>
             </div>
@@ -201,8 +199,7 @@
                     </div>
                     <div>
                         <h5 class="icon-title fw-bold mb-1 mt-2">Penjadwalan</h5>
-                        <p class="icon-description text-body-secondary me-2">Lorem ipsum dolor sit amet consectetur
-                            adipisicing elit. Natus, debitis?</p>
+                        <p class="icon-description text-body-secondary me-2">Penjadwalan meliputi penjadwalan seminar dan sidang TA.</p>
                     </div>
                 </div>
             </div>
@@ -220,8 +217,7 @@
                     </div>
                     <div>
                         <h5 class="icon-title fw-bold mb-1 mt-2">Penilaian</h5>
-                        <p class="icon-description text-body-secondary me-2">Lorem ipsum, dolor sit amet consectetur
-                            adipisicing elit. Nam, necessitatibus.</p>
+                        <p class="icon-description text-body-secondary me-2">Penilaian meliputi penilaian seminar dan sidang oleh pembimbing maupun penguji</p>
                     </div>
                 </div>
             </div>
@@ -239,8 +235,7 @@
                     </div>
                     <div>
                         <h5 class="icon-title fw-bold mb-1 mt-2">Pengalokasian</h5>
-                        <p class="icon-description text-body-secondary me-2">Lorem ipsum, dolor sit amet consectetur
-                            adipisicing elit. Nam, necessitatibus.</p>
+                        <p class="icon-description text-body-secondary me-2">Pengalokasian dosen pembimbing dan penguji berdasarkan keahlian.</p>
                     </div>
                 </div>
             </div>
@@ -258,8 +253,7 @@
                     </div>
                     <div>
                         <h5 class="icon-title fw-bold mb-1 mt-2">Import Data</h5>
-                        <p class="icon-description text-body-secondary me-2">Lorem ipsum, dolor sit amet consectetur
-                            adipisicing elit. Nam, necessitatibus.</p>
+                        <p class="icon-description text-body-secondary me-2">Impor data untuk memudahkan dalam mengelola data.</p>
                     </div>
                 </div>
             </div>

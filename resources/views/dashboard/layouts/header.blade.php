@@ -1,3 +1,24 @@
+
+{{-- @dd(auth()->user()->pengajuantugasakhir[0]->suratketeranganta) --}}
+@can('IsMahasiswa')
+    @php
+    $saatIni = Carbon\Carbon::now('Asia/Jakarta')->format('Y-m-d');
+    $dateNow = Carbon\Carbon::createFromFormat('Y-m-d', $saatIni);
+
+    $tanggalBerakhirSk = App\Models\PengajuanTugasAkhir::with(['user', 'usulanDospemPertama', 'usulanDospemKedua'])->where('user_id', auth()->user()->id)->get();
+    // dd($tanggalBerakhirSk);
+    if ($tanggalBerakhirSk->count() > 0) {
+        if ($tanggalBerakhirSk[0]->suratketeranganta !== null) {
+            $dateSk = Carbon\Carbon::createFromFormat('Y-m-d', $tanggalBerakhirSk[0]->suratketeranganta->tanggal_berakhir);
+        }else {
+            $dateSk = "Belum ada SK TA";
+        }
+    }else {
+        $dateSk = "Belum ada SK TA";
+    }
+    @endphp
+@endcan
+
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
     <!-- Sidebar Toggle (Topbar) -->
     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -41,6 +62,23 @@
                 </form>
             </div>
         </li>
+
+        @can('IsMahasiswa')
+            <!-- Nav Item - infoSK -->
+            
+            @if ($tanggalBerakhirSk[0]->status_pengajuan === 4 && $tanggalBerakhirSk[0]->suratketeranganta !== null)
+                @if ($dateNow->year >= $dateSk->year && $dateNow->month >= $dateSk->month && $dateNow->day >= $dateSk->day)
+                    <li class="nav-item dropdown no-arrow mx-1">
+                        <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="badge text-bg-danger">Mohon daftar ulang TA!</span> 
+                        </a>
+                    </li>
+                @else
+                {{-- <span class="badge text-bg-success">diterima...</span> --}}
+                @endif    
+            @endif
+
+        @endcan
 
         <div class="topbar-divider d-none d-sm-block"></div>
 

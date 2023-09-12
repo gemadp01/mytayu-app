@@ -17,9 +17,12 @@ class PenilaianSeminarTugasAkhirController extends Controller
     public function index()
     {
         $pengajuanSeminarTa = PengajuanSeminarTugasAkhir::where('user_id', auth()->user()->id)->get()->first();
+        
         if ($pengajuanSeminarTa !== null) {
+            $penilaianSeminarTa = PenilaianSeminarTugasAkhir::where('pengajuan_seminarta_id', $pengajuanSeminarTa->id)->get()->first();
             return view('dashboard.penilaian_tugas_akhir.index', [
                 'jadwal_seminarta' => PenjadwalanSeminarTugasAkhir::where('pengajuan_seminarta_id', $pengajuanSeminarTa->id)->get()->first(),
+                'penilaian_seminarta' => $penilaianSeminarTa,
             ]);
         }else{
             return view('dashboard.penilaian_tugas_akhir.index');
@@ -91,8 +94,11 @@ class PenilaianSeminarTugasAkhirController extends Controller
         $datetimeRange = $id->tanggal_penjadwalan;
         $dates = explode(' ', $datetimeRange);
         $infoPenilaian = PenilaianSeminarTugasAkhir::where('pengajuan_seminarta_id', $id->id)->get()->first();
-        $dosenPertama = Dosen::where('id', $infoPenilaian->pembimbing1_id)->get()->first();
-        $dosenKedua = Dosen::where('id', $infoPenilaian->pembimbing2_id)->get()->first();
+
+        if ($infoPenilaian !== null) {
+            $dosenPertama = Dosen::where('id', $infoPenilaian->pembimbing1_id)->get()->first();
+            $dosenKedua = Dosen::where('id', $infoPenilaian->pembimbing2_id)->get()->first();
+        }
 
         return view('dashboard.berita-acara-seminar.index', [
             'infoSeminar' => $id->load('pengajuansta'),
