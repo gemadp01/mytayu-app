@@ -334,6 +334,18 @@
     </li>
 
     <hr class="sidebar-divider" />
+
+    <div class="sidebar-heading">Tahun Akademik</div>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item {{ Request::is('dashboard/tahun-akademik*') ? 'active' : '' }}">
+        <a class="nav-link active"
+        href="/dashboard/tahun-akademik">
+        <i class="fa fa-graduation-cap"></i>
+        <span>Tahun Akademik</span></a>
+    </li>
+
+    <hr class="sidebar-divider" />
     
     <!-- Heading -->
     <div class="sidebar-heading">Surat Pengantar</div>

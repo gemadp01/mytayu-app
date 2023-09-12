@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('tahun_akademiks', function (Blueprint $table) {
             $table->id();
-            $table->string('semester')->default('Semester Ganjil');
-            $table->string('tahun_akademik')->default('2022/2023');
+            $table->string('semester');
+            $table->string('tahun_akademik');
             $table->timestamps();
         });
     }

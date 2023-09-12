@@ -266,29 +266,55 @@
         <div class="row row-cols-1 row-cols-md-1 row-cols-lg-2 gx-5 gy-5">
             <div class="col d-flex flex-column justify-content-center text-center">
                 <h4>Tell us your Problem</h4>
-                <form action="" method="">
+                @if (Session::has('success'))
+                    <div class="alert alert-success">
+                        {{ Session::get('success') }}
+                    </div>
+                @endif
+                <form action="/contact" method="POST" id="contact-form">
+                    @csrf
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="floatingNama" name="nama"
-                            placeholder="Nama" />
+                            placeholder="Nama" value="{{ old('nama') }}"/>
                         <label for="floatingNama">Nama</label>
+                        @if ($errors->has('nama'))
+                            <span class="text-danger">
+                                {{ $errors->first('nama') }}
+                            </span>
+                        @endif
                     </div>
                     <div class="form-floating mb-3">
                         <input type="email" class="form-control" id="floatingEmail" name="email"
-                            placeholder="name@example.com" />
+                            placeholder="name@example.com" value="{{ old('email') }}"/>
                         <label for="floatingEmail">Email address</label>
+                        @if ($errors->has('email'))
+                            <span class="text-danger">
+                                {{ $errors->first('email') }}
+                            </span>
+                        @endif
                     </div>
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="floatingSubject" name="subject"
-                            placeholder="Subject" />
+                            placeholder="Subject" value="{{ old('subject') }}"/>
                         <label for="floatingSubject">Subject</label>
+                        @if ($errors->has('subject'))
+                            <span class="text-danger">
+                                {{ $errors->first('subject') }}
+                            </span>
+                        @endif
                     </div>
                     <div class="form-floating mb-3">
                         <textarea class="form-control" placeholder="Leave a message here" id="floatingMessage" name="message"
-                            style="height: 100px"></textarea>
+                            style="height: 100px" value="{{ old('message') }}"></textarea>
                         <label for="floatingMessage">Message...</label>
+                        @if ($errors->has('message'))
+                            <span class="text-danger">
+                                {{ $errors->first('message') }}
+                            </span>
+                        @endif
                     </div>
                     <div class="d-grid outline-button">
-                        <button class="fill-button">Submit</button>
+                        <button type="submit" class="fill-button">Submit</button>
                     </div>
                 </form>
             </div>

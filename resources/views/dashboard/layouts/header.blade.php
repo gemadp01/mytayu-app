@@ -66,7 +66,7 @@
         @can('IsMahasiswa')
             <!-- Nav Item - infoSK -->
             
-            @if ($tanggalBerakhirSk[0]->status_pengajuan === 4 && $tanggalBerakhirSk[0]->suratketeranganta !== null)
+            @if ($tanggalBerakhirSk->count() > 0 && $tanggalBerakhirSk[0]->status_pengajuan === 4 && $tanggalBerakhirSk[0]->suratketeranganta !== null)
                 @if ($dateNow->year >= $dateSk->year && $dateNow->month >= $dateSk->month && $dateNow->day >= $dateSk->day)
                     <li class="nav-item dropdown no-arrow mx-1">
                         <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

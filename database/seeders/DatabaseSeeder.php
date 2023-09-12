@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Dosen;
 use App\Models\Mahasiswa;
 use App\Models\Access;
+use App\Models\TahunAkademik;
 
 
 class DatabaseSeeder extends Seeder
@@ -75,8 +76,7 @@ class DatabaseSeeder extends Seeder
             'kelas' => 'Reguler',
             'prodi' => 'Informatika'
         ]);
-        // Access::factory(6)->create();
 
-        // User::factory(2)->create();
+        TahunAkademik::factory(1)->create();
     }
 }

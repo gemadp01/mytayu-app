@@ -23,10 +23,12 @@ use App\Http\Controllers\PenilaianSidangTugasAkhirController;
 use App\Http\Controllers\FormPerbaikanSidangController;
 use App\Http\Controllers\YudisiumController;
 use App\Http\Controllers\SuratKeteranganTugasAkhirController;
+use App\Http\Controllers\TahunAkademikController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MahasiswaTugasAkhirController;
 use App\Http\Controllers\MahasiswaSeminarController;
 use App\Http\Controllers\MahasiswaSidangController;
+use App\Http\Controllers\ContactController;
 use Carbon\Carbon;
 use App\Http\Controllers\Gate;
 
@@ -148,5 +150,7 @@ Route::middleware(['auth', 'check.user.status:kaprodi'])->group(function () {
 
 Route::middleware(['auth', 'check.user.status:admin'])->group(function () {
     Route::resource('/dashboard/sk-ta', SuratKeteranganTugasAkhirController::class)->only(['index','create','store','edit','update']);
+    Route::resource('/dashboard/tahun-akademik', TahunAkademikController::class);
 });
 
+Route::post('/contact', [ContactController::class, 'store']);
