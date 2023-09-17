@@ -64,6 +64,13 @@
     
                 <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
             </form>
+
+            <div class="text-center mt-2">
+                <a href="/" class="link-underline link-underline-opacity-0 mt-3 text-center">
+                    Kembali ke homepage
+                    {{-- <small class="text-body-secondary"></small> --}}
+                </a>
+            </div>
         </main>
     </div>
 @endsection

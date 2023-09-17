@@ -19,13 +19,15 @@
     @endphp
 @endcan
 
+{{-- @dd($pengajuanTa) --}}
+
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
     <!-- Sidebar Toggle (Topbar) -->
     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
         <i class="fa fa-bars"></i>
     </button>
 
-    <!-- Topbar Search -->
+    {{-- <!-- Topbar Search -->
     <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
         <div class="input-group">
             <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
@@ -36,7 +38,7 @@
                 </button>
             </div>
         </div>
-    </form>
+    </form> --}}
 
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
@@ -62,6 +64,126 @@
                 </form>
             </div>
         </li>
+
+        @can('KoordinatorKaprodiDekan')
+        
+            @if (auth()->user()->level_user === 'koordinator')
+                @php
+                    $pengajuanTa = App\Models\PengajuanTugasAkhir::where('status_pengajuan', 1)->count();
+                    $pengajuanSeminarTa = App\Models\PengajuanSeminarTugasAkhir::where('status_pengajuan_seminar', 1)->count();
+                    $pengajuanSidangTa = App\Models\PengajuanSidangTugasAkhir::where('status_pengajuan_sidang', 1)->count();
+                @endphp
+                <li class="nav-item dropdown no-arrow mx-1">
+                    <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button type="button" class="btn btn-primary">
+                            Pengajuan TA <span class="badge text-bg-secondary">
+                                {{ $pengajuanTa }}
+                            </span>
+                        </button>
+                    </a>
+                </li>
+
+                <li class="nav-item dropdown no-arrow mx-1">
+                    <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button type="button" class="btn btn-primary">
+                            Seminar TA <span class="badge text-bg-secondary">
+                                {{ $pengajuanSeminarTa }}
+                            </span>
+                        </button>
+                    </a>
+                </li>
+
+                <li class="nav-item dropdown no-arrow mx-1">
+                    <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button type="button" class="btn btn-primary">
+                            Sidang TA <span class="badge text-bg-secondary">
+                                {{ $pengajuanSidangTa }}
+                            </span>
+                        </button>
+                    </a>
+                </li>
+
+            @elseif (auth()->user()->level_user === 'kaprodi')
+            @php
+                $pengajuanTa = App\Models\PengajuanTugasAkhir::where('status_pengajuan', 2)->count();
+                // $pengajuanSeminarTa = App\Models\PengajuanSeminarTugasAkhir::where('status_pengajuan_seminar', 1)->count();
+                $pengajuanSidangTa = App\Models\PengajuanSidangTugasAkhir::where('status_pengajuan_sidang', 2)->count();
+            @endphp
+                <li class="nav-item dropdown no-arrow mx-1">
+                    <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button type="button" class="btn btn-primary">
+                            Pengajuan TA <span class="badge text-bg-secondary">
+                                {{ $pengajuanTa }}
+                            </span>
+                        </button>
+                    </a>
+                </li>
+
+                <li class="nav-item dropdown no-arrow mx-1">
+                    <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button type="button" class="btn btn-primary">
+                            Sidang TA <span class="badge text-bg-secondary">
+                                {{ $pengajuanSidangTa }}
+                            </span>
+                        </button>
+                    </a>
+                </li>
+
+            @elseif (auth()->user()->level_user === 'dekan')
+                @php
+                    $pengajuanTa = App\Models\PengajuanTugasAkhir::where('status_pengajuan', 3)->count();
+                    $pengajuanSeminarTa = App\Models\PengajuanSeminarTugasAkhir::where('status_pengajuan_seminar', 3)->count();
+                    $pengajuanSidangTa = App\Models\PengajuanSidangTugasAkhir::where('status_pengajuan_sidang', 3)->count();
+                @endphp
+                <li class="nav-item dropdown no-arrow mx-1">
+                    <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button type="button" class="btn btn-primary">
+                            Pengajuan TA <span class="badge text-bg-secondary">
+                                {{ $pengajuanTa }}
+                            </span>
+                        </button>
+                    </a>
+                </li>
+
+                <li class="nav-item dropdown no-arrow mx-1">
+                    <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button type="button" class="btn btn-primary">
+                            Seminar TA <span class="badge text-bg-secondary">
+                                {{ $pengajuanSeminarTa }}
+                            </span>
+                        </button>
+                    </a>
+                </li>
+
+                <li class="nav-item dropdown no-arrow mx-1">
+                    <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button type="button" class="btn btn-primary">
+                            Sidang TA <span class="badge text-bg-secondary">
+                                {{ $pengajuanSidangTa }}
+                            </span>
+                        </button>
+                    </a>
+                </li>
+
+            @endif
+
+        @endcan
+
+        @can('IsAdmin')
+
+            @php
+                $pengajuanTa = App\Models\PengajuanTugasAkhir::where('status_pengajuan', 4)->count();
+            @endphp
+            <li class="nav-item dropdown no-arrow mx-1">
+                <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button type="button" class="btn btn-primary">
+                        Pengajuan TA <span class="badge text-bg-secondary">
+                            {{ $pengajuanTa }}
+                        </span>
+                    </button>
+                </a>
+            </li>
+        @endcan
 
         @can('IsMahasiswa')
             <!-- Nav Item - infoSK -->

@@ -8,6 +8,7 @@ use App\Models\PengajuanTugasAkhir;
 use App\Models\Bimbingan;
 use App\Models\Appointment;
 use App\Models\User;
+use App\Models\TahunAkademik;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
@@ -63,15 +64,18 @@ class PengajuanSeminarTugasAkhirController extends Controller
                     'userid_seminar' => $userIdForSeminar,
                     'min_bimbingan' => $minimumRequiredBimbinganCount,
                     'approved_seminar' => $approvedBimbinganCounts,
+                    'tahunAkademik' => TahunAkademik::get()->first(),
                 ]);
             }else {
                 return view('dashboard.pengajuan_seminarta.index', [
                     'pengajuanseminarta' => PengajuanSeminarTugasAkhir::latest()->where('user_id', auth()->user()->id)->get(),
+                    'tahunAkademik' => TahunAkademik::get()->first(),
                 ]);
             }
         }elseif (Gate::allows('IsKoordinator') || Gate::allows('IsDekan')) {
             return view('dashboard.pengajuan_seminarta.index', [
                 'pengajuanseminartas' => PengajuanSeminarTugasAkhir::with(['detailpengajuanseminarta'])->latest()->paginate(10),
+                'tahunAkademik' => TahunAkademik::get()->first(),
             ]);
         }
     }

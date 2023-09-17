@@ -7,6 +7,7 @@ use App\Models\DetailPengajuanTugasAkhir;
 use Illuminate\Http\Request;
 use App\Models\Dosen;
 use App\Models\Mahasiswa;
+use App\Models\TahunAkademik;
 use Carbon\Carbon;
 
 
@@ -17,6 +18,7 @@ class PengajuanTugasAkhirController extends Controller
      */
     public function index()
     {
+
         $saatIni = Carbon::now('Asia/Jakarta')->format('Y-m-d');
         $dateNow = Carbon::createFromFormat('Y-m-d', $saatIni);
 
@@ -37,6 +39,7 @@ class PengajuanTugasAkhirController extends Controller
             'pengajuantas' => PengajuanTugasAkhir::with(['user', 'usulanDospemPertama', 'usulanDospemKedua', 'detailpengajuantugasakhir'])->latest()->paginate(10),
             'hariIni' => $dateNow,
             'tanggalBerakhirSk' => $dateSk,
+            'tahunAkademik' => TahunAkademik::get()->first(),
         ]);
     }
 

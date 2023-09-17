@@ -7,6 +7,7 @@ use App\Models\DetailPengajuanSidangTugasAkhir;
 use App\Models\PengajuanTugasAkhir;
 use App\Models\PengajuanSeminarTugasAkhir;
 use App\Models\Dosen;
+use App\Models\TahunAkademik;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
@@ -22,11 +23,13 @@ class PengajuanSidangTugasAkhirController extends Controller
             return view('dashboard.pengajuan_sidangta.index', [
                 'pengajuansidangta' => PengajuanSidangTugasAkhir::latest()->where('user_id', auth()->user()->id)->get(),
                 'pengajuanseminartas' => PengajuanSeminarTugasAkhir::all()->count(),
+                'tahunAkademik' => TahunAkademik::get()->first(),
             ]);
             
         }elseif (Gate::allows('IsKoordinator') || Gate::allows('IsKaprodi') || Gate::allows('IsDekan')) {
             return view('dashboard.pengajuan_sidangta.index', [
                 'pengajuansidangtas' => PengajuanSidangTugasAkhir::with(['detailpengajuansidangta'])->latest()->paginate(10),
+                'tahunAkademik' => TahunAkademik::get()->first(),
             ]);
         }
     }
