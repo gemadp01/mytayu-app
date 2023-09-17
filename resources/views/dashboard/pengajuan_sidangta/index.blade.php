@@ -16,12 +16,18 @@
 
 
         <div class="card-body">
+            @if($pengajuanseminartas > 0)
             <a href="/dashboard/pengajuan-sidangta/create" class="btn btn-primary btn-icon-split btn-sm">
                 <span class="icon text-white-50">
                     <i class="fa fa-plus" aria-hidden="true"></i>
                 </span>
                 <span class="text">Pengajuan Sidang Tugas Akhir</span>
             </a>
+            @else
+            <div class="alert alert-danger" role="alert">
+                Mohon lakukan Seminar Tugas Akhir Terlebih Dahulu!
+            </div>
+            @endif
 
             @if (session()->has('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">

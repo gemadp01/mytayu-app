@@ -44,12 +44,16 @@
                 <div class="col-5">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">Status Pengajuan : 
-                            @if ($detailpengajuanta->status_pengajuan === 0)
-                            <span class="badge text-bg-danger">revisi...</span>
-                            @elseif ($detailpengajuanta->status_pengajuan === 1)
-                            <span class="badge text-bg-warning">belum diperiksa...</span>
-                            @elseif ($detailpengajuanta->status_pengajuan === 2)
-                            <span class="badge text-bg-success">diterima...</span>
+                            @if ($detailpengajuanta->pengajuanta->status_pengajuan === 0)
+                                <span class="badge text-bg-danger">revisi...</span>
+                            @elseif ($detailpengajuanta->pengajuanta->status_pengajuan === 1)
+                                <span class="badge text-bg-warning">belum diperiksa oleh Koordinator KP/TA...</span>
+                            @elseif ($detailpengajuanta->pengajuanta->status_pengajuan === 2)
+                                <span class="badge text-bg-warning">belum diperiksa oleh Kaprodi...</span>
+                            @elseif ($detailpengajuanta->pengajuanta->status_pengajuan === 3)
+                                <span class="badge text-bg-warning">belum diperiksa oleh Dekan...</span>
+                            @elseif ($detailpengajuanta->pengajuanta->status_pengajuan === 4)
+                                <span class="badge text-bg-success">Pengajuan Diterima...</span>
                             @endif
                         </li>
                         <li class="list-group-item">Usulan Pembimbing 1 dari Mahasiswa :</li>
@@ -158,7 +162,7 @@
                                         <h6 class="m-0 font-weight-bold text-primary">Tanggapan</h6>
                                     </div>
                                     <div class="card-body">
-                                        <input type="text" class="form-control" name="tanggapan_koordinator" id="exampleFormControlInput1" placeholder="Berikan tanggapan..." value="{{ $detailpengajuanta->tanggapan, old('tanggapan_koordinator') }}">
+                                        <input type="text" class="form-control" name="tanggapan_koordinator" id="tanggapan_koordinator" placeholder="Berikan tanggapan..." value="{{ $detailpengajuanta->tanggapan, old('tanggapan_koordinator') }}">
                                     </div>
                                 </div>
                                 <div class="d-grid gap-2">
@@ -175,6 +179,7 @@
     @endcan
 
     @can('IsKaprodi')
+
     <div class="d-sm-flex align-items-center justify-content-between mb-2 bg-primary" style="border-radius: 5px">
         <h6 class="h6 mb-0 text-white p-2">
             No Pendaftaran : {{ $detailpengajuanta->pengajuanta->nomor_pengajuan }}
@@ -304,14 +309,21 @@
                                     <option value="{{ $detailpengajuanta->usulanDospemKaprodiPertama }}" selected>
                                         {{ $detailpengajuanta->usulanDospemKaprodiPertama->nama }}
                                     </option>
+
+                                    @elseif ($detailpengajuanta->usulan_pembimbing_kaprodi1_id !== null)
+                                    <option value="{{ $detailpengajuanta->usulan_pembimbing_kaprodi1_id }}">
+                                        {{  "$dospem_kaprodi1->singkatan --- $dospem_kaprodi1->nama --- $dospem_kaprodi1->keilmuan --- Kuota[$dospem_kaprodi1->kuota_pembimbing]" }}
+                                    </option>
+
                                     @else
 
-                                    <option selected>Choose...</option>
+                                    <option value="{{ $detailpengajuanta->pengajuanta->usulan_pembimbing_mhs1_id }}">{{  "$dospem_mhs1->singkatan --- $dospem_mhs1->nama --- $dospem_mhs1->keilmuan --- Kuota[$dospem_mhs1->kuota_pembimbing]" }}</option>
                                     @endif
 
-                                    
                                     @foreach ($dospems as $dospem)
-                                        <option value="{{ $dospem->id }}">{{  "$dospem->singkatan --- $dospem->nama --- $dospem->keilmuan --- Kuota[$dospem->kuota_pembimbing]" }}</option>
+                                        @if ($dospem->id !== $detailpengajuanta->pengajuanta->usulan_pembimbing_mhs1_id)
+                                            <option value="{{ $dospem->id }}">{{  "$dospem->singkatan --- $dospem->nama --- $dospem->keilmuan --- Kuota[$dospem->kuota_pembimbing]" }}</option>
+                                        @endif
                                     @endforeach
                                     </select>
                                 </div>
@@ -325,14 +337,16 @@
                                     <option value="{{ $detailpengajuanta->usulanDospemKaprodiKedua }}" selected>
                                         {{ $detailpengajuanta->usulanDospemKaprodiKedua->nama }}
                                     </option>
+                                    @elseif ($detailpengajuanta->usulan_pembimbing_kaprodi2_id !== null)
+                                    <option value="{{ $detailpengajuanta->usulan_pembimbing_kaprodi2_id }}">
+                                        {{  "$dospem_kaprodi2->singkatan --- $dospem_kaprodi2->nama --- $dospem_kaprodi2->keilmuan --- Kuota[$dospem_kaprodi2->kuota_pembimbing]" }}
+                                    </option>
                                     @else
 
-                                    <option selected>Choose...</option>
+                                    <option value="{{ $detailpengajuanta->pengajuanta->usulan_pembimbing_mhs2_id }}">
+                                        {{  "$dospem_mhs2->singkatan --- $dospem_mhs2->nama --- $dospem_mhs2->keilmuan --- Kuota[$dospem_mhs2->kuota_pembimbing]" }}
+                                    </option>
                                     @endif
-
-                                    @foreach ($dospems as $dospem)
-                                        <option value="{{ $dospem->id }}">{{  "$dospem->singkatan --- $dospem->nama --- $dospem->keilmuan --- Kuota[$dospem->kuota_pembimbing]" }}</option>
-                                    @endforeach
                                     </select>
                                 </div>
                                 <div class="d-grid gap-2">
@@ -347,5 +361,41 @@
         </div>
     </div>
     @endcan
+
+    @section('only-jquery')
+
+    <script>
+        // Mendengarkan perubahan pada dropdown pertama
+        document.getElementById('pembimbing_satu').addEventListener('change', function () {
+            let selectedValuePertama = this.value;
+            let pembimbing_dua = document.getElementById('pembimbing_dua');
+            
+            $.ajax({
+                url: '/get-dospems/' + selectedValuePertama, // Mengirim selectedValuePertama sebagai parameter
+                method: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    pembimbing_dua.innerHTML = '';
+                    
+                    for (let i = 0; i < data.length; i++) {
+                        let option = data[i];
+                        
+                        // Periksa apakah dosen sudah dipilih pada dropdown pertama
+                        if (option['id'] !== selectedValuePertama) {
+                            // Create an option element
+                            let optionElement = document.createElement('option');
+                            optionElement.value = option['id'];
+                            optionElement.text = `${option['singkatan']} --- ${option['nama']} --- ${option['keilmuan']} --- Kuota[${option['kuota_pembimbing']}]`;
+    
+                            // Append the option element to pembimbing_dua
+                            pembimbing_dua.appendChild(optionElement);
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+    
+    @endsection
 
 @endsection

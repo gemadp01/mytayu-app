@@ -78,6 +78,9 @@ Route::middleware(['auth'])->group(function() {
 
 Route::middleware(['auth', 'check.user.status:mahasiswa,koordinator,kaprodi,dekan'])->group(function () {
     Route::resource('/dashboard/pengajuan-ta', PengajuanTugasAkhirController::class);
+    Route::post('/dashboard/pengajuanta/{id_pengajuanta}/toggle-status', [PengajuanTugasAkhirController::class, 'toggleStatus']);
+    Route::get('/get-dospems/{selectedId}', [PengajuanTugasAkhirController::class, 'getDospems']);
+
     Route::resource('/dashboard/pengajuan-seminarta', PengajuanSeminarTugasAkhirController::class);
     Route::resource('/dashboard/pengajuan-sidangta', PengajuanSidangTugasAkhirController::class);
 });
@@ -101,6 +104,8 @@ Route::middleware(['auth', 'check.user.status:mahasiswa,koordinator,kaprodi,deka
 
 Route::middleware(['auth', 'check.user.status:koordinator,kaprodi,dekan,admin'])->group(function () {
     Route::resource('/dashboard/detail-pengajuan-ta', DetailPengajuanTugasAkhirController::class)->only(['show', 'edit', 'update']);
+    Route::get('/get-dospems', [DetailPengajuanTugasAkhirController::class, 'getDospems']);
+    
     Route::resource('/dashboard/detail-pengajuan-sidangta', DetailPengajuanSidangTugasAkhirController::class)->only(['show', 'edit', 'update']);
     Route::resource('/dashboard/usulan-penguji-sidang', InputUsulanPengujiSidangController::class);
     Route::resource('/dashboard/daftar-mahasiswa-ta', MahasiswaTugasAkhirController::class);

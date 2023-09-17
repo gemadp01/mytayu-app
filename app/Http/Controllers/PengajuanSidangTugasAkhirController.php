@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\PengajuanSidangTugasAkhir;
 use App\Models\DetailPengajuanSidangTugasAkhir;
 use App\Models\PengajuanTugasAkhir;
+use App\Models\PengajuanSeminarTugasAkhir;
 use App\Models\Dosen;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Gate;
@@ -20,6 +21,7 @@ class PengajuanSidangTugasAkhirController extends Controller
         if (Gate::allows('IsMahasiswa')) {
             return view('dashboard.pengajuan_sidangta.index', [
                 'pengajuansidangta' => PengajuanSidangTugasAkhir::latest()->where('user_id', auth()->user()->id)->get(),
+                'pengajuanseminartas' => PengajuanSeminarTugasAkhir::all()->count(),
             ]);
             
         }elseif (Gate::allows('IsKoordinator') || Gate::allows('IsKaprodi') || Gate::allows('IsDekan')) {

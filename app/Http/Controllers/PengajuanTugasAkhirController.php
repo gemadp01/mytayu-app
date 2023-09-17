@@ -67,12 +67,12 @@ class PengajuanTugasAkhirController extends Controller
             'nama' => 'required',
             'program_studi' => 'required',
             'kelas' => 'required',
-            'nomor_telepon' => 'nullable',
-            'email' => 'nullable',
-            'foto_kwitansi' => 'image|file|mimes:jpeg,png,jpg|max:2048',
-            'foto_ktm' => 'image|file|mimes:jpeg,png,jpg|max:2048',
-            'foto_khs' => 'image|file|mimes:jpeg,png,jpg|max:2048',
-            'foto_krs' => 'image|file|mimes:jpeg,png,jpg|max:2048',
+            'nomor_telepon' => 'required|nullable',
+            'email' => 'required|nullable',
+            'foto_kwitansi' => 'required|image|file|mimes:jpeg,png,jpg|max:2048',
+            'foto_ktm' => 'required|image|file|mimes:jpeg,png,jpg|max:2048',
+            'foto_khs' => 'required|image|file|mimes:jpeg,png,jpg|max:2048',
+            'foto_krs' => 'required|image|file|mimes:jpeg,png,jpg|max:2048',
             'topik_penelitian' => 'required|max:255',
             'proposal_ta' => 'required|mimes:pdf|max:2048',
             'usulan_pembimbing_mhs1_id' => 'required',
@@ -201,5 +201,20 @@ class PengajuanTugasAkhirController extends Controller
     public function destroy(PengajuanTugasAkhir $pengajuan_tum)
     {
         //
+    }
+
+    public function toggleStatus(PengajuanTugasAkhir $id_pengajuanta)
+    {
+        $id_pengajuanta->status_pengajuan = 2;
+        $id_pengajuanta->save();
+
+        return redirect('dashboard/pengajuan-ta')->with('success', 'Mahasiswa has been cancel!');
+    }
+
+    public function getDospems($selectedId)
+    {
+        $dospems = Dosen::where('id', '!=', $selectedId)->get();
+
+        return response()->json($dospems);
     }
 }

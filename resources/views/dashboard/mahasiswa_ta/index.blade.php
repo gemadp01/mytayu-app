@@ -65,9 +65,13 @@
                                 @if ($pta->status_pengajuan === 0)
                                     <span class="badge text-bg-danger">revisi...</span>
                                 @elseif ($pta->status_pengajuan === 1)
-                                    <span class="badge text-bg-warning">belum diperiksa...</span>
-                                @else
-                                    <span class="badge text-bg-success">diterima...</span>
+                                    <span class="badge text-bg-warning">belum diperiksa oleh Koordinator KP/TA...</span>
+                                @elseif ($pta->status_pengajuan === 2)
+                                    <span class="badge text-bg-warning">belum diperiksa oleh Kaprodi...</span>
+                                @elseif ($pta->status_pengajuan === 3)
+                                    <span class="badge text-bg-warning">belum diperiksa oleh Dekan...</span>
+                                @elseif ($pta->status_pengajuan === 4)
+                                    <span class="badge text-bg-success">Pengajuan Diterima...</span>
                                 @endif
                             </td>
                             <td class="text-center">

@@ -150,8 +150,8 @@ class AppointmentBimbinganController extends Controller
         if(isset(auth()->user()->pengajuantugasakhir[0]->detailpengajuantugasakhir)) {
             $mahasiswa = auth()->user()->pengajuantugasakhir[0]->detailpengajuantugasakhir;
             return view('dashboard.bimbingan.index',[
-                'dospemsatu' => Dosen::where('id', $mahasiswa->usulan_pembimbing_kaprodi1_id)->get()[0],
-                'dospemdua' => Dosen::where('id', $mahasiswa->usulan_pembimbing_kaprodi2_id)->get()[0],
+                'dospemsatu' => Dosen::where('id', $mahasiswa->usulan_pembimbing_kaprodi1_id)->get()->first(),
+                'dospemdua' => Dosen::where('id', $mahasiswa->usulan_pembimbing_kaprodi2_id)->get()->first(),
             ]);
         }else{
             return view('dashboard.bimbingan.index');

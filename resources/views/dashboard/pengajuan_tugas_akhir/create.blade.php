@@ -12,11 +12,11 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-12">
-                        <form method="post" action="/dashboard/pengajuan-ta" enctype="multipart/form-data">
+                        <form method="POST" action="/dashboard/pengajuan-ta" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
                                 <label for="npm" class="form-label @error('npm') is-invalid @enderror">Nomor Pokok Mahasiswa</label>
-                                <input type="number" class="form-control" name="npm" id="npm" placeholder="NPM" autofocus required value="{{ $mahasiswa[0]->npm, old('npm') }}">
+                                <input type="number" class="form-control" name="npm" id="npm" placeholder="NPM" required readonly value="{{ $mahasiswa[0]->npm, old('npm') }}">
                             </div>
                             @error('npm')
                                 <div class="invalid-feedback">
@@ -25,7 +25,7 @@
                             @enderror
                             <div class="mb-3">
                                 <label for="nama" class="form-label @error('nama') is-invalid @enderror">Nama Mahasiswa</label>
-                                <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama" required value="{{ $mahasiswa[0]->nama, old('nama') }}">
+                                <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama" required readonly value="{{ $mahasiswa[0]->nama, old('nama') }}">
                             </div>
                             @error('nama')
                                 <div class="invalid-feedback">
@@ -73,36 +73,37 @@
                             </div>
                             @enderror
                             <div class="mb-3">
-                                <label for="nomor_telepon" class="form-label @error('nomor_telepon') is-invalid @enderror">Nomor Telepon</label>
-                                <input type="number" class="form-control" name="nomor_telepon" id="nomor_telepon" placeholder="Nomor Telepon" value="{{ old('nomor_telepon') }}">
+                                <label for="nomor_telepon" class="form-label">Nomor Telepon</label>
+                                <input type="number" class="form-control @error('nomor_telepon') is-invalid @enderror" name="nomor_telepon" id="nomor_telepon" placeholder="Nomor Telepon" value="{{ old('nomor_telepon') }}">
+
+                                @error('nomor_telepon')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
-                            @error('nomor_telepon')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+
                             <div class="mb-3">
-                                <label for="email" class="form-label @error('email') is-invalid @enderror">Email</label>
-                                <input type="text" class="form-control" name="email" id="email" placeholder="Email" value="{{ old('email') }}">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" id="email" placeholder="Email" value="{{ old('email') }}">
+
+                                @error('email')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
-                            @error('email')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+
                             <label for="" class="fw-bold">Usulan Pembimbing</label>
                             <div>
                                 <label for="pembimbing_satu">Pembimbing 1</label>
                             </div>
                             <div class="input-group mb-3">
                                 <select class="form-select" name="usulan_pembimbing_mhs1_id" id="pembimbing_satu">
-                                  <option selected>Choose...</option>
+                                  <option value="">Choose...</option>
                                   @foreach ($dospems as $dospem)
                                   
                                     <option value="{{ $dospem->id }}">{{  "$dospem->singkatan --- $dospem->nama --- $dospem->keilmuan --- Kuota[$dospem->kuota_pembimbing]" }}</option>
-                                    {{-- @if ($dospem->kuota)
-                                        
-                                    @endif --}}
                                   @endforeach
                                 </select>
                             </div>
@@ -112,10 +113,10 @@
                             </div>
                             <div class="input-group mb-3">
                                 <select class="form-select" name="usulan_pembimbing_mhs2_id" id="pembimbing_dua">
-                                  <option selected>Choose...</option>
-                                  @foreach ($dospems as $dospem)
+                                  <option value="">Choose...</option>
+                                  {{-- @foreach ($dospems as $dospem)
                                     <option value="{{ $dospem->id }}">{{  "$dospem->singkatan --- $dospem->nama --- $dospem->keilmuan --- Kuota[$dospem->kuota_pembimbing]" }}</option>
-                                  @endforeach
+                                  @endforeach --}}
                                 </select>
                             </div>
                     </div>
@@ -134,73 +135,79 @@
                 <div class="row">
                     <div class="col-12">
                             <div class="mb-3">
-                                <label for="foto_kwitansi" class="form-label @error('foto_kwitansi') is-invalid @enderror">Upload Kwitansi Pembayaran TA</label>
-                                <input class="form-control" type="file" name="foto_kwitansi" id="foto_kwitansi">
+                                <label for="foto_kwitansi" class="form-label">Upload Kwitansi Pembayaran TA</label>
+                                <input class="form-control @error('foto_kwitansi') is-invalid @enderror" type="file" name="foto_kwitansi" id="foto_kwitansi">
                                 <small class="text-body-secondary">.jped, .png, .jpg, maks:2mb</small>
-                              </div>
-                            @error('foto_kwitansi')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+
+                                @error('foto_kwitansi')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
 
                             <div class="mb-3">
-                                <label for="foto_khs" class="form-label @error('foto_khs') is-invalid @enderror">Upload KHS Terakhir</label>
-                                <input class="form-control" type="file" name="foto_khs" id="foto_khs">
+                                <label for="foto_khs" class="form-label">Upload KHS Terakhir</label>
+                                <input class="form-control @error('foto_khs') is-invalid @enderror" type="file" name="foto_khs" id="foto_khs">
                                 <small class="text-body-secondary">.jped, .png, .jpg. maks:2mb</small>
-                              </div>
-                            @error('foto_khs')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+
+                                @error('foto_khs')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
 
                             <div class="mb-3">
-                                <label for="foto_krs" class="form-label @error('foto_krs') is-invalid @enderror">Upload KRS Semester Berjalan</label>
-                                <input class="form-control" type="file" name="foto_krs" id="foto_krs">
+                                <label for="foto_krs" class="form-label">Upload KRS Semester Berjalan</label>
+                                <input class="form-control @error('foto_krs') is-invalid @enderror" type="file" name="foto_krs" id="foto_krs">
                                 <small class="text-body-secondary">.jped, .png, .jpg, maks:2mb</small>
-                              </div>
-                            @error('foto_krs')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+
+                                @error('foto_krs')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
 
                             <div class="mb-3">
-                                <label for="foto_ktm" class="form-label @error('foto_ktm') is-invalid @enderror">Upload KTM</label>
-                                <input class="form-control" type="file" name="foto_ktm" id="foto_ktm">
+                                <label for="foto_ktm" class="form-label">Upload KTM</label>
+                                <input class="form-control @error('foto_ktm') is-invalid @enderror" type="file" name="foto_ktm" id="foto_ktm">
                                 <small class="text-body-secondary">.jped, .png, .jpg, maks:2mb</small>
-                              </div>
-                            @error('foto_ktm')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+
+                                @error('foto_ktm')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
 
                             <label for="" class="fw-bold">Outline Proposal TA/Skripsi</label>
                             <div class="mb-3">
-                                <label for="topik_penelitian" class="form-label @error('topik_penelitian') is-invalid @enderror">Topik Penelitian</label>
-                                <input type="text" class="form-control" name="topik_penelitian" id="topik_penelitian" placeholder="Topik Penelitian" required value="{{ old('topik_penelitian') }}">
+                                <label for="topik_penelitian" class="form-label">Topik Penelitian</label>
+                                <input type="text" class="form-control @error('topik_penelitian') is-invalid @enderror" name="topik_penelitian" id="topik_penelitian" placeholder="Topik Penelitian" required value="{{ old('topik_penelitian') }}">
+
+                                @error('topik_penelitian')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
-                            @error('topik_penelitian')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
                             
                             <div class="mb-3">
-                                <label for="proposal_ta" class="form-label @error('proposal_ta') is-invalid @enderror">Upload Outline Proposal TA/Skripsi</label>
-                                <input class="form-control" type="file" name="proposal_ta" id="proposal_ta">
+                                <label for="proposal_ta" class="form-label">Upload Outline Proposal TA/Skripsi</label>
+                                <input class="form-control @error('proposal_ta') is-invalid @enderror" type="file" name="proposal_ta" id="proposal_ta">
                                 <small class="text-body-secondary">.pdf, maks:2mb</small>
-                              </div>
-                            @error('proposal_ta')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+                                
+                                @error('proposal_ta')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
                             
                             <div class="d-grid gap-2">
-                                <button class="btn btn-primary" type="submit">Ajukan</button>
+                                <button type="submit" class="btn btn-primary">Ajukan</button>
                             </div>
                         </form>
                     </div>
@@ -211,6 +218,40 @@
     </div>
 </div>
 
+@section('only-jquery')
 
+<script>
+    // Mendengarkan perubahan pada dropdown pertama
+    document.getElementById('pembimbing_satu').addEventListener('change', function () {
+        let selectedValuePertama = this.value;
+        let pembimbing_dua = document.getElementById('pembimbing_dua');
+        
+        $.ajax({
+            url: '/get-dospems/' + selectedValuePertama, // Mengirim selectedValuePertama sebagai parameter
+            method: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                pembimbing_dua.innerHTML = '';
+                
+                for (let i = 0; i < data.length; i++) {
+                    let option = data[i];
+                    
+                    // Periksa apakah dosen sudah dipilih pada dropdown pertama
+                    if (option['id'] !== selectedValuePertama) {
+                        // Create an option element
+                        let optionElement = document.createElement('option');
+                        optionElement.value = option['id'];
+                        optionElement.text = `${option['singkatan']} --- ${option['nama']} --- ${option['keilmuan']} --- Kuota[${option['kuota_pembimbing']}]`;
+
+                        // Append the option element to pembimbing_dua
+                        pembimbing_dua.appendChild(optionElement);
+                    }
+                }
+            }
+        });
+    });
+</script>
+
+@endsection
 
 @endsection

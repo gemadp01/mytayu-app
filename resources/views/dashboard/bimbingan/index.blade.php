@@ -10,7 +10,7 @@
     </div>
     <div class="card-body d-flex justify-content-center">
         {{-- @dd(auth()->user()->pengajuantugasakhir[0]->status_pengajuan === 4) --}}
-        @if (isset(auth()->user()->pengajuantugasakhir[0]->status_pengajuan))
+        @if (isset(auth()->user()->pengajuantugasakhir[0]->status_pengajuan) && auth()->user()->pengajuantugasakhir[0]->status_pengajuan === 4)
         <dl class="row">
             <dt class="col-sm-3">NIDN</dt>
             <dd class="col-sm-9">{{ $dospemsatu->nidn }}</dd>

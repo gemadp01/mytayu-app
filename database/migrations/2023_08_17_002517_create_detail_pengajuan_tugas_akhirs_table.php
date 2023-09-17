@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('ket_khs')->nullable();
             $table->string('ket_krs')->nullable();
             $table->string('tanggapan')->nullable();
+            $table->json('tanggapan_data')->nullable();
             $table->string('tanggal_penerimaan')->nullable();
             $table->foreignId('usulan_pembimbing_kaprodi1_id')->nullable();
             $table->foreignId('usulan_pembimbing_kaprodi2_id')->nullable();

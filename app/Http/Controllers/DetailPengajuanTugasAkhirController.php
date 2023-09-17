@@ -51,8 +51,19 @@ class DetailPengajuanTugasAkhirController extends Controller
      */
     public function edit(DetailPengajuanTugasAkhir $detail_pengajuan_tum)
     {
+        if($detail_pengajuan_tum->usulan_pembimbing_kaprodi1_id !== null && $detail_pengajuan_tum->usulan_pembimbing_kaprodi2_id !== null) {
+            $dospem_kaprodi1 = Dosen::where('id', $detail_pengajuan_tum->usulan_pembimbing_kaprodi1_id)->get()->first();
+            $dospem_kaprodi2 = Dosen::where('id', $detail_pengajuan_tum->usulan_pembimbing_kaprodi2_id)->get()->first();
+        }else {
+            $dospem_kaprodi1 = "";
+            $dospem_kaprodi2 = "";
+        }
         return view('dashboard.detail_pengajuan_tugas_akhir.edit', [
             'dospems' => Dosen::all(),
+            'dospem_mhs1' => Dosen::where('id', $detail_pengajuan_tum->pengajuanta->usulan_pembimbing_mhs1_id)->get()->first(),
+            'dospem_mhs2' => Dosen::where('id', $detail_pengajuan_tum->pengajuanta->usulan_pembimbing_mhs2_id)->get()->first(),
+            'dospem_kaprodi1' => $dospem_kaprodi1,
+            'dospem_kaprodi2' => $dospem_kaprodi2,
             'detailpengajuanta' => $detail_pengajuan_tum->load('pengajuanta'),
         ]);
     }
@@ -61,8 +72,8 @@ class DetailPengajuanTugasAkhirController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, DetailPengajuanTugasAkhir $detail_pengajuan_tum)
-    {
-        // dd($request);
+    {   
+
         if(Gate::allows('IsKoordinator')) {
             $inputs = $request->all();
 
@@ -97,12 +108,21 @@ class DetailPengajuanTugasAkhirController extends Controller
                 }
                 $detail_pengajuan_tum->pengajuanta->foto_krs = "";
             }
+
             $detail_pengajuan_tum->tanggapan = $request->input('tanggapan_koordinator');
+            $currentTanggapanData = json_decode($detail_pengajuan_tum->tanggapan_data, true) ?? [];
+            $newTanggapan = $detail_pengajuan_tum->tanggapan;
+
+            $currentTanggapanData[] = $newTanggapan;
+            $detail_pengajuan_tum->tanggapan_data = json_encode($currentTanggapanData);
+            
+            
             $detail_pengajuan_tum->ket_kwitansi = $request->input('ket_kwitansi') === "Diterima" ? true : false;
             $detail_pengajuan_tum->ket_ktm = $request->input('ket_ktm') === "Diterima" ? true : false;
             $detail_pengajuan_tum->ket_khs = $request->input('ket_khs') === "Diterima" ? true : false;
             $detail_pengajuan_tum->ket_krs = $request->input('ket_krs') === "Diterima" ? true : false;
             
+
 
             if (in_array(false, [
                     $detail_pengajuan_tum->ket_kwitansi,
@@ -118,7 +138,8 @@ class DetailPengajuanTugasAkhirController extends Controller
                     $detail_pengajuan_tum->tanggal_penerimaan = Carbon::now('Asia/Jakarta')->format('d-m-Y');
                 }
                 
-            // dd($request->input('tanggapan_koordinator'));
+
+
             $detail_pengajuan_tum->pengajuanta->save(); // Simpan perubahan pada objek terkait
             $detail_pengajuan_tum->save(); // Simpan perubahan pada objek DetailPengajuanTugasAkhir
             
@@ -176,5 +197,12 @@ class DetailPengajuanTugasAkhirController extends Controller
     public function destroy(DetailPengajuanTugasAkhir $detail_pengajuan_tum)
     {
         //
+    }
+
+    public function getDospems()
+    {
+        $dospems = Dosen::all();
+
+        return response()->json($dospems);
     }
 }

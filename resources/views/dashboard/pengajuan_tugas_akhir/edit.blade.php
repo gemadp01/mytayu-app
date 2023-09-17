@@ -137,7 +137,7 @@
                                         <div class="card-body text-center">
                                             @if (!$detailpengajuanta->detailpengajuantugasakhir->ket_kwitansi)
                                             <span class="badge text-bg-danger">
-                                                    Revisi
+                                                    Revisi Kwitansi
                                                 </span>
                                             @endif
                                         </div>
@@ -170,7 +170,7 @@
                                         <div class="card-body text-center">
                                             @if (!$detailpengajuanta->detailpengajuantugasakhir->ket_ktm)
                                             <span class="badge text-bg-danger">
-                                                Revisi
+                                                Revisi KTM
                                             </span>
                                             @endif
                                         </div>
@@ -203,7 +203,7 @@
                                         <div class="card-body text-center">
                                             @if (!$detailpengajuanta->detailpengajuantugasakhir->ket_khs)
                                             <span class="badge text-bg-danger">
-                                                Revisi
+                                                Revisi KHS
                                             </span>
                                             @endif
                                         </div>
@@ -236,7 +236,7 @@
                                         <div class="card-body text-center">
                                             @if (!$detailpengajuanta->detailpengajuantugasakhir->ket_krs)
                                             <span class="badge text-bg-danger">
-                                                Revisi
+                                                Revisi KRS
                                             </span>
                                             @endif
                                         </div>
@@ -270,8 +270,14 @@
                                         </strong>
                                     </p>
                                     @else
-                                    <input type="file" class="form-control" name="foto_kwitansi" id="foto_kwitansi">
+                                    <input type="file" class="form-control @error('foto_kwitansi') is-invalid @enderror" name="foto_kwitansi" id="foto_kwitansi">
                                     <small class="text-body-secondary">.jped, .png, .jpg, maks:2mb</small>
+
+                                    @error('foto_kwitansi')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                     @endif
                                 </div>
 
@@ -284,8 +290,14 @@
                                         </strong>
                                     </p>
                                     @else 
-                                    <input type="file" class="form-control" name="foto_ktm" id="ktm">
+                                    <input type="file" class="form-control @error('foto_ktm') is-invalid @enderror" name="foto_ktm" id="ktm">
                                     <small class="text-body-secondary">.jped, .png, .jpg. maks:2mb</small>
+
+                                    @error('foto_ktm')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                     @endif
                                 </div>
 
@@ -298,8 +310,14 @@
                                         </strong>
                                     </p>
                                     @else
-                                    <input type="file" class="form-control" name="foto_khs" id="khs">
-                                    <small class="text-body-secondary">.jped, .png, .jpg, maks:2mb</small>    
+                                    <input type="file" class="form-control @error('foto_khs') is-invalid @enderror" name="foto_khs" id="khs">
+                                    <small class="text-body-secondary">.jped, .png, .jpg, maks:2mb</small>
+                                    
+                                    @error('foto_khs')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                     @endif
                                 </div>
 
@@ -312,8 +330,14 @@
                                         </strong>
                                     </p>
                                     @else
-                                    <input type="file" class="form-control" name="foto_krs" id="krs">
-                                    <small class="text-body-secondary">.jped, .png, .jpg, maks:2mb</small> 
+                                    <input type="file" class="form-control @error('foto_krs') is-invalid @enderror" name="foto_krs" id="krs">
+                                    <small class="text-body-secondary">.jped, .png, .jpg, maks:2mb</small>
+                                    
+                                    @error('foto_krs')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 @endif
                                 </div>
                                 

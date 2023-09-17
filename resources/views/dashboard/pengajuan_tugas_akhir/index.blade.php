@@ -57,6 +57,26 @@
                             <td>{{ $pta->tanggal_pengajuan }}</td>
                             <td>
                                 @if ($pta->status_pengajuan === 0)
+                                    <span class="badge text-bg-danger">revisi...</span>
+                                @elseif ($pta->status_pengajuan === 1)
+                                    <span class="badge text-bg-warning">belum diperiksa oleh Koordinator KP/TA...</span>
+                                @elseif ($pta->status_pengajuan === 2)
+                                    <span class="badge text-bg-warning">belum diperiksa oleh Kaprodi...</span>
+                                @elseif ($pta->status_pengajuan === 3)
+                                    <span class="badge text-bg-warning">belum diperiksa oleh Dekan...</span>
+                                @elseif ($pta->status_pengajuan === 4)
+                                    <span class="badge text-bg-success">Pengajuan Diterima...</span>
+                                @elseif ($pta->status_pengajuan === 4 && $pta->suratketeranganta !== null)
+                                    @if ($hariIni->year >= $tanggalBerakhirSk->year && $hariIni->month >= $tanggalBerakhirSk->month && $hariIni->day >= $tanggalBerakhirSk->day)
+                                        <span class="badge text-bg-danger">Masa berlaku SK sudah berakhir.</span>
+                                    @else
+                                    <span class="badge text-bg-success">diterima...</span>
+                                    @endif
+                                @elseif ($pta->status_pengajuan === 5)
+                                    <span class="badge text-bg-warning">Sedang diperiksa Kaprodi...</span>
+                                @endif
+
+                                {{-- @if ($pta->status_pengajuan === 0)
                                     <span class="badge text-bg-danger">direvisi...</span>
                                 @elseif ($pta->status_pengajuan === 1)
                                     <span class="badge text-bg-warning">diproses...</span>
@@ -70,7 +90,7 @@
                                 <span class="badge text-bg-warning">Sedang diperiksa kaprodi...</span>
                                 @else
                                     <span class="badge text-bg-success">diterima...</span>
-                                @endif
+                                @endif --}}
                             </td>
                             <td class="text-center">
                                 @if ($pta->status_pengajuan === 1 || $pta->status_pengajuan === 2 || $pta->status_pengajuan === 3)
@@ -200,8 +220,12 @@
                                     <span class="badge text-bg-danger">revisi...</span>
                                 @elseif ($pta->status_pengajuan === 1)
                                     <span class="badge text-bg-warning">belum diperiksa...</span>
-                                @else
-                                    <span class="badge text-bg-success">diterima...</span>
+                                @elseif ($pta->status_pengajuan === 2)
+                                    <span class="badge text-bg-warning">belum diperiksa oleh Kaprodi...</span>
+                                @elseif ($pta->status_pengajuan === 3)
+                                    <span class="badge text-bg-warning">belum diperiksa oleh Dekan...</span>
+                                @elseif ($pta->status_pengajuan === 4)
+                                    <span class="badge text-bg-success">Pengajuan Diterima...</span>
                                 @endif
                             </td>
                             <td class="text-center">
@@ -424,6 +448,14 @@
                                 <button type="button" class="btn btn-success btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                     <i class="fas fa-check"></i>
                                 </button>
+
+                                <form method="post" action="/dashboard/pengajuanta/{{ $pta->id }}/toggle-status" >
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger btn-circle btn-sm">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                        
+                                </form>
 
                                 {{-- Modal --}}
                                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

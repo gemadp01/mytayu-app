@@ -12,9 +12,16 @@
 </div>
 
 <div class="card shadow mb-4 m-0">
-    <div class="card-header py-3 d-flex">
-        <i class="fa fa-user pe-2" aria-hidden="true"></i>
-        <h6 class="m-0 font-weight-bold text-primary">Detail Pengajuan Tugas Akhir</h6>
+    <div class="card-header py-3 d-flex align-items-center justify-content-between">
+        <div class="w-25">
+            <i class="fa fa-user pe-2" aria-hidden="true"></i>
+            <h6 class="m-0 font-weight-bold text-primary d-inline">Detail Pengajuan Tugas Akhir</h6>
+        </div>
+        @if($detailpengajuanta->detailpengajuantugasakhir->tanggal_approve !== null)
+            <h6 class="m-0 font-weight-bold text-primary">
+                Tanggal Penerimaan : {{ $detailpengajuanta->detailpengajuantugasakhir->tanggal_approve }}
+            </h6>
+        @endif
     </div>
     <div class="card-body">
         <div class="row">
@@ -43,14 +50,19 @@
             </div>
             <div class="col-12 col-lg-5">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Status Pengajuan : 
+                    <li class="list-group-item">Status Pengajuan :
                         @if ($detailpengajuanta->status_pengajuan === 0)
                             <span class="badge text-bg-danger">revisi...</span>
                         @elseif ($detailpengajuanta->status_pengajuan === 1)
-                            <span class="badge text-bg-warning">belum diperiksa...</span>
-                        @else
-                            <span class="badge text-bg-success">diterima...</span>
+                            <span class="badge text-bg-warning">belum diperiksa oleh Koordinator KP/TA...</span>
+                        @elseif ($detailpengajuanta->status_pengajuan === 2)
+                            <span class="badge text-bg-warning">belum diperiksa oleh Kaprodi...</span>
+                        @elseif ($detailpengajuanta->status_pengajuan === 3)
+                            <span class="badge text-bg-warning">belum diperiksa oleh Dekan...</span>
+                        @elseif ($detailpengajuanta->status_pengajuan === 4)
+                            <span class="badge text-bg-success">Pengajuan Diterima...</span>
                         @endif
+                        
                     </li>
                     <li class="list-group-item">Usulan Pembimbing 1 dari Mahasiswa :</li>
                     <li class="list-group-item">{{ "( ". ($detailpengajuanta->usulanDospemPertama->singkatan ?? 'Default Singkatan') ." ) " . ($detailpengajuanta->usulanDospemPertama->nama ?? 'Default nama') }}</li>
@@ -80,6 +92,27 @@
                                 <p>
                                     {{ $detailpengajuanta->detailpengajuantugasakhir->tanggapan }}
                                 </p>
+                                @else
+                                <p>
+                                    ...
+                                </p>
+                                @endif
+                                
+                            </div>
+                        </div>
+
+                        <div class="card shadow mb-4 m-0">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Riwayat Tanggapan Koordinator</h6>
+                            </div>
+                            <div class="card-body">
+                                @if ($detailpengajuanta->detailpengajuantugasakhir->tanggapan_data)
+                                <ol class="list-group list-group-numbered">
+                                    @foreach(json_decode($detailpengajuanta->detailpengajuantugasakhir->tanggapan_data) as $tanggapan)
+                                        <li class="list-group-item">{{ $tanggapan }}</li>
+                                    @endforeach
+                                    
+                                </ol>
                                 @else
                                 <p>
                                     ...
@@ -145,6 +178,7 @@
                                         <span class="badge text-bg-danger">
                                             @if (!$detailpengajuanta->detailpengajuantugasakhir->ket_kwitansi)
                                                 Revisi
+                                                Kwitansi
                                             @endif
                                         </span>
                                     </div>
@@ -179,7 +213,7 @@
                                     <div class="card-body text-center">
                                         <span class="badge text-bg-danger">
                                             @if (!$detailpengajuanta->detailpengajuantugasakhir->ket_ktm)
-                                                Revisi
+                                                Revisi KTM
                                             @endif
                                         </span>
                                     </div>
@@ -214,7 +248,7 @@
                                     <div class="card-body text-center">
                                         <span class="badge text-bg-danger">
                                             @if (!$detailpengajuanta->detailpengajuantugasakhir->ket_khs)
-                                                Revisi
+                                                Revisi KHS
                                             @endif
                                         </span>
                                     </div>
@@ -249,7 +283,7 @@
                                     <div class="card-body text-center">
                                         <span class="badge text-bg-danger">
                                             @if (!$detailpengajuanta->detailpengajuantugasakhir->ket_krs)
-                                                Revisi
+                                                Revisi KRS
                                             @endif
                                         </span>
                                     </div>
