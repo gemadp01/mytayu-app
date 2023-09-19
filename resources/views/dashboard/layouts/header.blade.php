@@ -8,7 +8,7 @@
     $tanggalBerakhirSk = App\Models\PengajuanTugasAkhir::with(['user', 'usulanDospemPertama', 'usulanDospemKedua'])->where('user_id', auth()->user()->id)->get();
     // dd($tanggalBerakhirSk);
     if ($tanggalBerakhirSk->count() > 0) {
-        if ($tanggalBerakhirSk[0]->suratketeranganta !== null) {
+        if ($tanggalBerakhirSk[0]->suratketeranganta->tanggal_berakhir !== null) {
             $dateSk = Carbon\Carbon::createFromFormat('Y-m-d', $tanggalBerakhirSk[0]->suratketeranganta->tanggal_berakhir);
         }else {
             $dateSk = "Belum ada SK TA";
@@ -188,7 +188,7 @@
         @can('IsMahasiswa')
             <!-- Nav Item - infoSK -->
             
-            @if ($tanggalBerakhirSk->count() > 0 && $tanggalBerakhirSk[0]->status_pengajuan === 4 && $tanggalBerakhirSk[0]->suratketeranganta !== null)
+            @if ($tanggalBerakhirSk->count() > 0 && $tanggalBerakhirSk[0]->status_pengajuan === 4 && $tanggalBerakhirSk[0]->suratketeranganta->tanggal_berakhir !== null)
                 @if ($dateNow->year >= $dateSk->year && $dateNow->month >= $dateSk->month && $dateNow->day >= $dateSk->day)
                     <li class="nav-item dropdown no-arrow mx-1">
                         <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

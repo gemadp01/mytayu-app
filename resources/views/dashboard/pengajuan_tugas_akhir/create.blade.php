@@ -95,6 +95,31 @@
                             </div>
 
                             <label for="" class="fw-bold">Usulan Pembimbing</label>
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr class="text-center">
+                                            <th colspan="2">Pembimbing 1</th>
+                                            <th colspan="2">Pembimbing 2</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Keilmuan</th>
+                                            <th>Kuota</th>
+                                            <th>Keilmuan</th>
+                                            <th>Kuota</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td id="keilmuan1">test</td>
+                                            <td id="kuota1">test</td>
+                                            <td id="keilmuan2">test</td>
+                                            <td id="kuota2">test</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
                             <div>
                                 <label for="pembimbing_satu">Pembimbing 1</label>
                             </div>
@@ -225,7 +250,12 @@
     document.getElementById('pembimbing_satu').addEventListener('change', function () {
         let selectedValuePertama = this.value;
         let pembimbing_dua = document.getElementById('pembimbing_dua');
-        
+        let pembimbing_satu = document.getElementById('pembimbing_satu');
+        let keilmuanSatu = document.getElementById('keilmuan1');
+        let kuotaSatu = document.getElementById('kuota1');
+        let keilmuanDua = document.getElementById('keilmuan2');
+        let kuotaDua = document.getElementById('kuota2');
+
         $.ajax({
             url: '/get-dospems/' + selectedValuePertama, // Mengirim selectedValuePertama sebagai parameter
             method: 'GET',

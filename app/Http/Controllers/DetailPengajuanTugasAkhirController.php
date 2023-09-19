@@ -175,8 +175,8 @@ class DetailPengajuanTugasAkhirController extends Controller
                         Storage::delete($fileName);
                     }
                     $detail_pengajuan_tum->pengajuanta->suratketeranganta->sk_ta = "";
-                    SuratKeteranganTugasAkhir::destroy($detail_pengajuan_tum->pengajuanta->sk_ta_id);
-                    $detail_pengajuan_tum->pengajuanta->sk_ta_id = null;
+                    // SuratKeteranganTugasAkhir::destroy($detail_pengajuan_tum->pengajuanta->sk_ta_id);
+                    // $detail_pengajuan_tum->pengajuanta->sk_ta_id = null;
                 }
             }
 

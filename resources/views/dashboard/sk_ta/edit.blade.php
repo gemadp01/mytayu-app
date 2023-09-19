@@ -14,7 +14,7 @@
                     @csrf
                     <div class="mb-3">
                         <label for="npm" class="form-label @error('npm') is-invalid @enderror">NPM</label>
-                        <input type="number" class="form-control" name="npm" id="npm" placeholder="NPM" autofocus required value="{{ $detail_sk_ta->npm }}">
+                        <input type="number" class="form-control" name="npm" id="npm" placeholder="NPM" autofocus required value="{{ $detail_sk_ta->npm }}" readonly>
                     </div>
                     @error('npm')
                         <div class="invalid-feedback">
@@ -23,7 +23,7 @@
                     @enderror
                     <div class="mb-3">
                         <label for="nama" class="form-label @error('nama') is-invalid @enderror">Nama</label>
-                        <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama" required value="{{ $detail_sk_ta->nama }}">
+                        <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama" required value="{{ $detail_sk_ta->nama }}" readonly>
                     </div>
                     @error('nama')
                         <div class="invalid-feedback">

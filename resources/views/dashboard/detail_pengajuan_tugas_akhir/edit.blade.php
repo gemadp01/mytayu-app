@@ -220,11 +220,22 @@
                 <div class="col-12 col-lg-5">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">Status Pengajuan : 
-                            @if ($detailpengajuanta->pengajuanta->status_pengajuan === 2)
+                            @if ($detailpengajuanta->pengajuanta->status_pengajuan === 0)
+                                <span class="badge text-bg-danger">revisi...</span>
+                            @elseif ($detailpengajuanta->pengajuanta->status_pengajuan === 1)
+                                <span class="badge text-bg-warning">belum diperiksa oleh Koordinator KP/TA...</span>
+                            @elseif ($detailpengajuanta->pengajuanta->status_pengajuan === 2)
+                                <span class="badge text-bg-warning">belum diperiksa oleh Kaprodi...</span>
+                            @elseif ($detailpengajuanta->pengajuanta->status_pengajuan === 3)
+                                <span class="badge text-bg-warning">belum diperiksa oleh Dekan...</span>
+                            @elseif ($detailpengajuanta->pengajuanta->status_pengajuan === 4)
+                                <span class="badge text-bg-success">Pengajuan Diterima...</span>
+                            @endif
+                            {{-- @if ($detailpengajuanta->pengajuanta->status_pengajuan === 2)
                             <span class="badge text-bg-success">diterima oleh koordinator...</span>
                             @elseif ($detailpengajuanta->pengajuanta->status_pengajuan === 5)
                             <span class="badge text-bg-danger">Pengajuan ulang pembimbing...</span>
-                            @endif
+                            @endif --}}
                         </li>
                         <li class="list-group-item">Usulan Pembimbing 1 dari Mahasiswa :</li>
                         <li class="list-group-item">{{ "( ". $detailpengajuanta->pengajuanta->usulanDospemPertama->singkatan ." ) " . $detailpengajuanta->pengajuanta->usulanDospemPertama->nama }}</li>

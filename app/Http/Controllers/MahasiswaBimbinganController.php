@@ -16,6 +16,7 @@ class MahasiswaBimbinganController extends Controller
     public function index()
     {
         $dosen = auth()->user()->dosen;
+
         return view('dashboard.mahasiswa_bimbingan.index', [
             'dospemsatu' => DetailPengajuanTugasAkhir::where('usulan_pembimbing_kaprodi1_id', $dosen->id)
                     ->orWhere('usulan_pembimbing_kaprodi1_id', $dosen->id)
@@ -23,6 +24,7 @@ class MahasiswaBimbinganController extends Controller
             'dospemdua' => DetailPengajuanTugasAkhir::where('usulan_pembimbing_kaprodi2_id', $dosen->id)
                     ->orWhere('usulan_pembimbing_kaprodi2_id', $dosen->id)
                     ->paginate(5),
+            'infoPengajuanTa' => PengajuanTugasAkhir::all()->count(),
         ]);
     }
 

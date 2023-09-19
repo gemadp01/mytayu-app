@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Dosen;
 use App\Models\Mahasiswa;
 use App\Models\TahunAkademik;
+use App\Models\SuratKeteranganTugasAkhir;
 use Carbon\Carbon;
 
 
@@ -25,7 +26,7 @@ class PengajuanTugasAkhirController extends Controller
         $tanggalBerakhirSk = PengajuanTugasAkhir::with(['user', 'usulanDospemPertama', 'usulanDospemKedua'])->where('user_id', auth()->user()->id)->get();
         // dd($tanggalBerakhirSk !== null);
         if ($tanggalBerakhirSk->count() > 0) {
-            if ($tanggalBerakhirSk[0]->suratketeranganta !== null) {
+            if ($tanggalBerakhirSk[0]->suratketeranganta->tanggal_berakhir !== null) {
                 $dateSk = Carbon::createFromFormat('Y-m-d', $tanggalBerakhirSk[0]->suratketeranganta->tanggal_berakhir);
             }else {
                 $dateSk = "Belum ada SK TA";
@@ -98,8 +99,16 @@ class PengajuanTugasAkhirController extends Controller
 
         $pengajuanta = PengajuanTugasAkhir::create($validatedData);
 
+        $pengajuanta->sk_ta_id = $pengajuanta->id;
+        $pengajuanta->save();
+
         DetailPengajuanTugasAkhir::create([
             'pengajuan_tugas_akhir_id' => $pengajuanta->id,
+        ]);
+
+        SuratKeteranganTugasAkhir::create([
+            'npm' => $pengajuanta->npm,
+            'nama' => $pengajuanta->nama,
         ]);
 
         return redirect('dashboard/pengajuan-ta')->with('success', 'New Pengajuan Tugas Akhir has been added!');

@@ -57,25 +57,23 @@
                             <td>{{ $pta->npm }}</td>
                             <td>{{ $pta->nama }}</td>
                             <td>{{ $pta->tanggal_pengajuan }}</td>
-                            <td>
+                            <td class="mw-50">
                                 @if ($pta->status_pengajuan === 0)
                                     <span class="badge text-bg-danger">revisi...</span>
                                 @elseif ($pta->status_pengajuan === 1)
-                                    <span class="badge text-bg-warning">belum diperiksa oleh Koordinator KP/TA...</span>
+                                    <span class="badge text-bg-warning text-start">belum diperiksa <div>oleh Koordinator KP/TA...</div></span>
                                 @elseif ($pta->status_pengajuan === 2)
-                                    <span class="badge text-bg-warning">belum diperiksa oleh Kaprodi...</span>
+                                    <span class="badge text-bg-warning text-start">belum diperiksa <div>oleh Kaprodi...</div></span>
                                 @elseif ($pta->status_pengajuan === 3)
-                                    <span class="badge text-bg-warning">belum diperiksa oleh Dekan...</span>
+                                    <span class="badge text-bg-warning text-start">belum diperiksa <div>oleh Dekan...</div></span>
                                 @elseif ($pta->status_pengajuan === 4)
-                                    <span class="badge text-bg-success">Pengajuan Diterima...</span>
-                                @elseif ($pta->status_pengajuan === 4 && $pta->suratketeranganta !== null)
                                     @if ($hariIni->year >= $tanggalBerakhirSk->year && $hariIni->month >= $tanggalBerakhirSk->month && $hariIni->day >= $tanggalBerakhirSk->day)
-                                        <span class="badge text-bg-danger">Masa berlaku SK sudah berakhir.</span>
+                                        <span class="badge text-bg-danger text-start">Masa berlaku SK <div>sudah berakhir.</div></span>
                                     @else
-                                    <span class="badge text-bg-success">diterima...</span>
-                                    @endif
+                                    <span class="badge text-bg-success">Pengajuan Diterima...</span>
+                                    @endif    
                                 @elseif ($pta->status_pengajuan === 5)
-                                    <span class="badge text-bg-warning">Sedang diperiksa Kaprodi...</span>
+                                    <span class="badge text-bg-warning text-start">Sedang diperiksa <div>Kaprodi...</div></span>
                                 @endif
 
                                 {{-- @if ($pta->status_pengajuan === 0)
@@ -115,7 +113,7 @@
 
                                 @endif
 
-                                @if ($pta->suratketeranganta !== null)
+                                @if ($pta->suratketeranganta->sk_ta !== null)
                                     <a href="{{ asset('storage/' . $pta->suratketeranganta->sk_ta) }}" class="btn btn-primary btn-circle btn-sm" download>
                                         <i class="fa fa-download"></i>
                                     </a>
@@ -223,9 +221,9 @@
                                 @elseif ($pta->status_pengajuan === 1)
                                     <span class="badge text-bg-warning">belum diperiksa...</span>
                                 @elseif ($pta->status_pengajuan === 2)
-                                    <span class="badge text-bg-warning">belum diperiksa oleh Kaprodi...</span>
+                                    <span class="badge text-bg-warning text-start">belum diperiksa <div>oleh Kaprodi...</div></span>
                                 @elseif ($pta->status_pengajuan === 3)
-                                    <span class="badge text-bg-warning">belum diperiksa oleh Dekan...</span>
+                                    <span class="badge text-bg-warning text-start">belum diperiksa <div>oleh Dekan...</div></span>
                                 @elseif ($pta->status_pengajuan === 4)
                                     <span class="badge text-bg-success">Pengajuan Diterima...</span>
                                 @endif
@@ -298,16 +296,21 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>NPM</th>
-                            <th>Nama</th>
-                            <th>Program Studi</th>
-                            <th>Usulan Pembimbing 1</th>
-                            <th>Usulan Pembimbing 2</th>
-                            <th>Hasil Pembimbing 1</th>
-                            <th>Hasil Pembimbing 2</th>
-                            <th>Status</th>
-                            <th>Aksi</th>
+                            <th rowspan="2">#</th>
+                            <th rowspan="2">NPM</th>
+                            <th rowspan="2">Nama</th>
+                            <th rowspan="2">Program Studi</th>
+                            <th colspan="2" class="text-center">Usulan Mahasiswa</th>
+                            <th colspan="2" class="text-center">Hasil Usulan Kaprodi</th>
+                            <th rowspan="2">Status</th>
+                            <th rowspan="2">Aksi</th>
+                        </tr>
+                        <tr>
+                            <th>Pembimbing 1</th>
+                            <th>Pembimbing 2</th>
+                            <th>Pembimbing 1</th>
+                            <th>Pembimbing 2</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -336,13 +339,13 @@
                             </td>
                             <td>
                                 @if ($pta->status_pengajuan === 0 || $pta->status_pengajuan === 1)
-                                    <span class="badge text-bg-danger">sedang diproses koordinator...</span>
+                                    <span class="badge text-bg-danger text-start">sedang diproses <div>koordinator...</div></span>
                                 @elseif ($pta->status_pengajuan === 2)
                                     <span class="badge text-bg-warning">belum diperiksa...</span>
                                 @elseif ($pta->status_pengajuan === 3 || $pta->status_pengajuan === 4)
                                     <span class="badge text-bg-success">telah diperiksa...</span>
                                 @elseif ($pta->status_pengajuan === 5)
-                                <span class="badge text-bg-danger">Pengajuan ulang pembimbing...</span>
+                                <span class="badge text-bg-danger text-start">Pengajuan ulang <div>pembimbing...</div></span>
                                 @endif
                             </td>
                             <td class="text-center">

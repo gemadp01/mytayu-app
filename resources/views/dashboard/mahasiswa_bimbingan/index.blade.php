@@ -43,22 +43,24 @@
                     </thead>
                     <tbody>
                         
-                        @foreach($dospemsatu as $dps)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $dps->pengajuanta->npm }}</td>
-                            <td>{{ $dps->pengajuanta->nama }}</td>
-                            <td>{{ $dps->pengajuanta->program_studi }}</td>
-                            <td>{{ $dps->pengajuanta->kelas }}</td>
-                            <td>{{ $dps->usulanDospemKaprodiPertama->nama }}</td>
-                            <td class="text-center">
+                        @if ($infoPengajuanTa > 0)
+                            @foreach($dospemsatu as $dps)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $dps->pengajuanta->npm }}</td>
+                                <td>{{ $dps->pengajuanta->nama }}</td>
+                                <td>{{ $dps->pengajuanta->program_studi }}</td>
+                                <td>{{ $dps->pengajuanta->kelas }}</td>
+                                <td>{{ $dps->usulanDospemKaprodiPertama->nama }}</td>
+                                <td class="text-center">
 
-                                <a href="/form-bimbingan/{{ $dps->pengajuanta->user_id }}/{{ $dps->usulan_pembimbing_kaprodi1_id }}" class="btn btn-warning btn-circle btn-sm">
-                                    <i class="fa fa-address-book"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        @endforeach
+                                    <a href="/form-bimbingan/{{ $dps->pengajuanta->user_id }}/{{ $dps->usulan_pembimbing_kaprodi1_id }}" class="btn btn-warning btn-circle btn-sm">
+                                        <i class="fa fa-address-book"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>
@@ -107,22 +109,24 @@
                     </thead>
                     <tbody>
                         
-                        @foreach($dospemdua as $dps)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $dps->pengajuanta->npm }}</td>
-                            <td>{{ $dps->pengajuanta->nama }}</td>
-                            <td>{{ $dps->pengajuanta->program_studi }}</td>
-                            <td>{{ $dps->pengajuanta->kelas }}</td>
-                            <td>{{ $dps->usulanDospemKaprodiKedua->nama }}</td>
-                            <td class="text-center">
+                        @if ($infoPengajuanTa > 0)
+                            @foreach($dospemdua as $dps)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $dps->pengajuanta->npm }}</td>
+                                <td>{{ $dps->pengajuanta->nama }}</td>
+                                <td>{{ $dps->pengajuanta->program_studi }}</td>
+                                <td>{{ $dps->pengajuanta->kelas }}</td>
+                                <td>{{ $dps->usulanDospemKaprodiKedua->nama }}</td>
+                                <td class="text-center">
 
-                                <a href="/form-bimbingan/{{ $dps->pengajuanta->user_id }}/{{ $dps->usulan_pembimbing_kaprodi2_id }}" class="btn btn-warning btn-circle btn-sm">
-                                    <i class="fa fa-address-book"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        @endforeach
+                                    <a href="/form-bimbingan/{{ $dps->pengajuanta->user_id }}/{{ $dps->usulan_pembimbing_kaprodi2_id }}" class="btn btn-warning btn-circle btn-sm">
+                                        <i class="fa fa-address-book"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>

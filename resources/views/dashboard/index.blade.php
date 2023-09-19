@@ -64,26 +64,58 @@
     <div class="row justify-content-center">
         <div class="col-12 col-lg-4 col-xl-4">
             <div class="card bg-primary text-white shadow">
-                <div class="card-body">
-                    Pengajuan Tugas Akhir
-                  <div class="text-white-50 small">{{ $pengajuan_ta . " Mahasiswa yang sudah mendaftar" }}</div>
-                </div>
+                <a href="/dashboard/pengajuan-ta" class="link-light link-offset-2 link-underline link-underline-opacity-0">
+                    <div class="card-body">
+                        Pengajuan Tugas Akhir
+                      <div class="text-white-50 small">{{ $pengajuan_ta . " Mahasiswa yang sudah mendaftar" }}</div>
+                    </div>
+                </a>
             </div>
         </div>
         <div class="col-12 col-lg-4 col-xl-4">
             <div class="card bg-primary text-white shadow">
+                @can('IsKoordinator')
+                <a href="/dashboard/pengajuan-seminarta" class="link-light link-offset-2 link-underline link-underline-opacity-0">
+                    <div class="card-body">
+                        Pengajuan Seminar Tugas Akhir
+                      <div class="text-white-50 small">{{ $pengajuan_seminarta . " Mahasiswa yang sudah mendaftar" }}</div>
+                    </div>
+                </a>
+                @endcan
+                @can('IsDekan')
+                <a href="/dashboard/pengajuan-seminarta" class="link-light link-offset-2 link-underline link-underline-opacity-0">
+                    <div class="card-body">
+                        Pengajuan Seminar Tugas Akhir
+                      <div class="text-white-50 small">{{ $pengajuan_seminarta . " Mahasiswa yang sudah mendaftar" }}</div>
+                    </div>
+                </a>
+                @endcan
+                @can('IsKaprodi')
                 <div class="card-body">
                     Pengajuan Seminar Tugas Akhir
                   <div class="text-white-50 small">{{ $pengajuan_seminarta . " Mahasiswa yang sudah mendaftar" }}</div>
                 </div>
+                @endcan
             </div>
         </div>
         <div class="col-12 col-lg-4 col-xl-4">
             <div class="card bg-primary text-white shadow">
-                <div class="card-body">
-                    Pengajuan Sidang Tugas Akhir
-                  <div class="text-white-50 small">{{ $pengajuan_sidangta . " Mahasiswa yang sudah mendaftar" }}</div>
-                </div>
+                @can('IsKoordinator')
+                <a href="/dashboard/pengajuan-sidangta" class="link-light link-offset-2 link-underline link-underline-opacity-0">
+                    <div class="card-body">
+                        Pengajuan Sidang Tugas Akhir
+                      <div class="text-white-50 small">{{ $pengajuan_sidangta . " Mahasiswa yang sudah mendaftar" }}</div>
+                    </div>
+                </a>
+                @endcan
+                @can('KaprodiDekan')
+                <a href="/dashboard/usulan-penguji-sidang" class="link-light link-offset-2 link-underline link-underline-opacity-0">
+                    <div class="card-body">
+                        Pengajuan Sidang Tugas Akhir
+                      <div class="text-white-50 small">{{ $pengajuan_sidangta . " Mahasiswa yang sudah mendaftar" }}</div>
+                    </div>
+                </a>
+                @endcan
             </div>
         </div>
     </div>
@@ -91,18 +123,40 @@
     <div class="row justify-content-center mt-3">
         <div class="col-12 col-md-6 col-lg-6 col-xl-6">
             <div class="card bg-primary text-white shadow">
+                @can('IsKoordinator')
+                <a href="/dashboard/mahasiswa" class="link-light link-offset-2 link-underline link-underline-opacity-0">
+                    <div class="card-body">
+                        Mahasiswa Terdaftar
+                      <div class="text-white-50 small">{{ $mahasiswa . " Data Mahasiswa yang sudah terdaftar" }}</div>
+                    </div>
+                </a>
+                @endcan
+
+                @can('KaprodiDekan')
                 <div class="card-body">
                     Mahasiswa Terdaftar
                   <div class="text-white-50 small">{{ $mahasiswa . " Data Mahasiswa yang sudah terdaftar" }}</div>
                 </div>
+                @endcan
             </div>
         </div>
         <div class="col-12 col-md-6 col-lg-6 col-xl-6">
             <div class="card bg-primary text-white shadow">
+                @can('IsKoordinator')
+                <a href="/dashboard/dosen" class="link-light link-offset-2 link-underline link-underline-opacity-0">
+                    <div class="card-body">
+                        Dosen Terdaftar
+                      <div class="text-white-50 small">{{ $dosen . " Data Dosen yang sudah terdaftar" }}</div>
+                    </div>
+                </a>
+                @endcan
+                
+                @can('KaprodiDekan')
                 <div class="card-body">
                     Dosen Terdaftar
                   <div class="text-white-50 small">{{ $dosen . " Data Dosen yang sudah terdaftar" }}</div>
                 </div>
+                @endcan
             </div>
         </div>
     </div>
