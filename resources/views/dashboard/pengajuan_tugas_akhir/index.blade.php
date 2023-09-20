@@ -9,7 +9,7 @@
 
     <div class="card shadow mb-4">
         @can('IsMahasiswa')
-        {{-- @dd($hariIni->year >= $tanggalBerakhirSk->year && $hariIni->month >= $tanggalBerakhirSk->month && $hariIni->day >= $tanggalBerakhirSk->day) --}}
+        {{-- @dd($tanggalBerakhirSk) --}}
         
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Pengajuan Skripsi/Tugas Akhir</h6>
@@ -67,11 +67,13 @@
                                 @elseif ($pta->status_pengajuan === 3)
                                     <span class="badge text-bg-warning text-start">belum diperiksa <div>oleh Dekan...</div></span>
                                 @elseif ($pta->status_pengajuan === 4)
-                                    @if ($hariIni->year >= $tanggalBerakhirSk->year && $hariIni->month >= $tanggalBerakhirSk->month && $hariIni->day >= $tanggalBerakhirSk->day)
-                                        <span class="badge text-bg-danger text-start">Masa berlaku SK <div>sudah berakhir.</div></span>
+                                    @if ($tanggalBerakhirSk !== "Belum ada SK TA")
+                                        @if ($hariIni->year >= $tanggalBerakhirSk->year && $hariIni->month >= $tanggalBerakhirSk->month && $hariIni->day >= $tanggalBerakhirSk->day)
+                                            <span class="badge text-bg-danger text-start">Masa berlaku SK <div>sudah berakhir.</div></span>
+                                        @endif
                                     @else
-                                    <span class="badge text-bg-success">Pengajuan Diterima...</span>
-                                    @endif    
+                                    <span class="badge text-bg-success">Pengajuan Diterima...</span>    
+                                    @endif
                                 @elseif ($pta->status_pengajuan === 5)
                                     <span class="badge text-bg-warning text-start">Sedang diperiksa <div>Kaprodi...</div></span>
                                 @endif
@@ -99,11 +101,13 @@
                                     </a>
                                 @elseif ($pta->status_pengajuan === 4 && $pta->suratketeranganta !== null)
 
-                                    @if ($hariIni->year >= $tanggalBerakhirSk->year && $hariIni->month >= $tanggalBerakhirSk->month && $hariIni->day >= $tanggalBerakhirSk->day)
+                                    @if ($tanggalBerakhirSk !== "Belum ada SK TA")
+                                        @if ($hariIni->year >= $tanggalBerakhirSk->year && $hariIni->month >= $tanggalBerakhirSk->month && $hariIni->day >= $tanggalBerakhirSk->day)
 
-                                    <a href="/dashboard/pengajuan-ta/{{ $pta->id }}/edit" class="btn btn-warning btn-circle btn-sm">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
+                                        <a href="/dashboard/pengajuan-ta/{{ $pta->id }}/edit" class="btn btn-warning btn-circle btn-sm">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        @endif
                                     @endif
                                 
                                 @elseif ($pta->status_pengajuan === 0)

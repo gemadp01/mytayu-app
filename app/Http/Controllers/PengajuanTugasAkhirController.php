@@ -35,6 +35,8 @@ class PengajuanTugasAkhirController extends Controller
             $dateSk = "Belum ada SK TA";
         }
 
+        // dd($dateNow->year);
+
         return view('dashboard.pengajuan_tugas_akhir.index', [
             'pengajuanta' => PengajuanTugasAkhir::with(['user', 'usulanDospemPertama', 'usulanDospemKedua'])->latest()->where('user_id', auth()->user()->id)->get(),
             'pengajuantas' => PengajuanTugasAkhir::with(['user', 'usulanDospemPertama', 'usulanDospemKedua', 'detailpengajuantugasakhir'])->latest()->paginate(10),
