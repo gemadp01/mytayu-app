@@ -12,9 +12,16 @@
 </div>
 
 <div class="card shadow mb-4 m-0">
-    <div class="card-header py-3 d-flex">
-        <i class="fa fa-user pe-2" aria-hidden="true"></i>
-        <h6 class="m-0 font-weight-bold text-primary">Detail Pengajuan Seminar Tugas Akhir</h6>
+    <div class="card-header py-3 d-flex align-items-center justify-content-between">
+        <div class="w-25">
+            <i class="fa fa-user pe-2" aria-hidden="true"></i>
+            <h6 class="m-0 font-weight-bold text-primary d-inline">Detail Pengajuan Seminar Tugas Akhir</h6>
+        </div>
+        @if($detailpengajuan_seminarta->detailpengajuanseminarta->tanggal_penerimaan !== null)
+            <h6 class="m-0 font-weight-bold text-primary">
+                Tanggal Penerimaan : {{ $detailpengajuan_seminarta->detailpengajuanseminarta->tanggal_penerimaan }}
+            </h6>
+        @endif
     </div>
     <div class="card-body">
         <div class="row">
@@ -37,19 +44,28 @@
                     <li class="list-group-item">{{ $detailpengajuan_seminarta->kelas }}</li>
                     <li class="list-group-item">{{ $detailpengajuan_seminarta->nomor_telepon }}</li>
                     <li class="list-group-item">{{ $detailpengajuan_seminarta->email }}</li>
-                    <li class="list-group-item">Semester Ganjil - 2022/2023</li>
+                    <li class="list-group-item">{{ $detailpengajuan_seminarta->tahun_akademik }}</li>
                 </ul>
                 
             </div>
             <div class="col-12 col-lg-5">
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">Status Pengajuan : 
-                        @if ($detailpengajuan_seminarta->status_pengajuan_seminar === 0)
+                        {{-- @if ($detailpengajuan_seminarta->status_pengajuan_seminar === 0)
                             <span class="badge text-bg-danger">revisi...</span>
                         @elseif ($detailpengajuan_seminarta->status_pengajuan_seminar === 1)
                             <span class="badge text-bg-warning">belum diperiksa...</span>
                         @else
                             <span class="badge text-bg-success">diterima...</span>
+                        @endif --}}
+                        @if ($detailpengajuan_seminarta->status_pengajuan_seminar === 0)
+                            <span class="badge text-bg-danger text-start">revisi...</span>
+                        @elseif ($detailpengajuan_seminarta->status_pengajuan_seminar === 1)
+                            <span class="badge text-bg-warning text-start">belum diperiksa <div>oleh Koordinator...</div></span>
+                        @elseif ($detailpengajuan_seminarta->status_pengajuan_seminar === 3)
+                            <span class="badge text-bg-warning text-start">belum diperiksa <div>oleh Dekan...</div></span>
+                        @elseif ($detailpengajuan_seminarta->status_pengajuan_seminar === 4)
+                            <span class="badge text-bg-success text-start">Pengajuan Diterima...</span>
                         @endif
                     </li>
                 </ul>
@@ -69,6 +85,26 @@
                                 <p>
                                     {{ $detailpengajuan_seminarta->detailpengajuanseminarta->tanggapan }}
                                 </p>
+                                @else
+                                <p>
+                                    ...
+                                </p>
+                                @endif
+                                
+                            </div>
+                        </div>
+                        <div class="card shadow mb-4 m-0">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Riwayat Tanggapan Koordinator</h6>
+                            </div>
+                            <div class="card-body">
+                                @if ($detailpengajuan_seminarta->detailpengajuanseminarta->tanggapan_data)
+                                <ol class="list-group list-group-numbered">
+                                    @foreach(json_decode($detailpengajuan_seminarta->detailpengajuanseminarta->tanggapan_data) as $tanggapan)
+                                        <li class="list-group-item">{{ $tanggapan }}</li>
+                                    @endforeach
+                                    
+                                </ol>
                                 @else
                                 <p>
                                     ...

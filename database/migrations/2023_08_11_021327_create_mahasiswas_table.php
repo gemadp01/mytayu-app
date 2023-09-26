@@ -18,7 +18,7 @@ return new class extends Migration
             $table->boolean('status_user')->default(false);
             $table->string('npm')->unique();
             $table->string('nama')->unique();
-            $table->string('email')->nullable();
+            $table->string('email')->unique()->nullable();
             $table->string('kelas')->nullable();
             $table->string('prodi')->nullable();
             $table->timestamps();

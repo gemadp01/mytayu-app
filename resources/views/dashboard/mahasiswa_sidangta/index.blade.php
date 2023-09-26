@@ -44,12 +44,23 @@
                         <td>{{ $psta->kelas }}</td>
                         <td>{{ $psta->email }}</td>
                         <td>
-                            @if ($psta->status_pengajuan_sidang === 0)
+                            {{-- @if ($psta->status_pengajuan_sidang === 0)
                                 <span class="badge text-bg-danger">revisi...</span>
                             @elseif ($psta->status_pengajuan_sidang === 1)
                                 <span class="badge text-bg-warning">belum diperiksa...</span>
                             @else
                                 <span class="badge text-bg-success">diterima...</span>
+                            @endif --}}
+                            @if ($psta->status_pengajuan_sidang === 0)
+                                <span class="badge text-bg-danger">revisi...</span>
+                            @elseif ($psta->status_pengajuan_sidang === 1)
+                                <span class="badge text-bg-warning">belum diperiksa oleh Koordinator KP/TA...</span>
+                            @elseif ($psta->status_pengajuan_sidang === 2)
+                                <span class="badge text-bg-warning">belum diperiksa oleh Kaprodi...</span>
+                            @elseif ($psta->status_pengajuan_sidang === 3)
+                                <span class="badge text-bg-warning">belum diperiksa oleh Dekan...</span>
+                            @elseif ($psta->status_pengajuan_sidang === 4)
+                                <span class="badge text-bg-success">Pengajuan Diterima...</span>
                             @endif
                         </td>
                         <td class="text-center">

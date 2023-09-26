@@ -272,7 +272,6 @@
                     </div>
                 @endif
                 <form action="/contact" method="POST" id="contact-form">
-                    @csrf
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="floatingNama" name="nama"
                             placeholder="Nama" value="{{ old('nama') }}"/>
@@ -335,4 +334,47 @@
             <h6 class="fw-lighter">@ 2023 Fakultas Teknologi dan Informatika UNIBI</h6>
         </div>
     </footer>
+@endsection
+
+@section('only-jquery')
+    <script>
+        $(document).ready(function() {
+
+            $('#contact-form').submit(function(e) {
+                e.preventDefault();
+                let formData = $(this).serialize();
+
+                $.ajaxSetup({
+                    headers: {
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                    }
+                })
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/contact',
+                    data: formData,
+                    success: function (response) {
+                        if (response.success) {
+                            Swal.fire({
+                                title: 'Success',
+                                text: response.success,
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            }).then((result) => {
+                                if(result.isConfirmed) {
+                                    location.href = "/"
+                                }
+                            })
+                        } else {
+                            // Form tidak berhasil dikirim, tampilkan pesan kesalahan jika perlu.
+                            alert('Something went wrong. Please try again later.');
+                        }
+                    }
+                });
+            })
+
+            
+        })
+    </script>
 @endsection

@@ -22,7 +22,7 @@ class PengajuanSidangTugasAkhirController extends Controller
         if (Gate::allows('IsMahasiswa')) {
             return view('dashboard.pengajuan_sidangta.index', [
                 'pengajuansidangta' => PengajuanSidangTugasAkhir::latest()->where('user_id', auth()->user()->id)->get(),
-                'pengajuanseminartas' => PengajuanSeminarTugasAkhir::all()->count(),
+                'pengajuanseminartas' => PengajuanSeminarTugasAkhir::where('user_id', auth()->user()->id)->count(),
                 'tahunAkademik' => TahunAkademik::get()->first(),
             ]);
             
@@ -57,20 +57,20 @@ class PengajuanSidangTugasAkhirController extends Controller
             'kelas' => 'required',
             'nomor_telepon' => 'nullable',
             'email' => 'nullable',
-            'foto_kwitansi_wisuda' => 'image|file|mimes:jpeg,png,jpg|max:2048',
-            'foto_kwitansi_ta' => 'image|file|mimes:jpeg,png,jpg|max:2048',
-            'khs' => 'image|file|mimes:jpeg,png,jpg|max:2048',
-            'krs' => 'image|file|mimes:jpeg,png,jpg|max:2048',
-            'ktm' => 'image|file|mimes:jpeg,png,jpg|max:2048',
+            'foto_kwitansi_wisuda' => 'required|image|file|mimes:jpeg,png,jpg|max:2048',
+            'foto_kwitansi_ta' => 'required|image|file|mimes:jpeg,png,jpg|max:2048',
+            'khs' => 'required|image|file|mimes:jpeg,png,jpg|max:2048',
+            'krs' => 'required|image|file|mimes:jpeg,png,jpg|max:2048',
+            'ktm' => 'required|image|file|mimes:jpeg,png,jpg|max:2048',
             'sk_pembimbing' => 'required|file|mimes:pdf|max:2048',
             'sbb' => 'image|file|mimes:jpeg,png,jpg|max:2048|nullable',
             'sbb_perpustakaan' => 'image|file|mimes:jpeg,png,jpg|max:2048|nullable',
-            'foto_ijazah_sma' => 'image|file|mimes:jpeg,png,jpg|max:2048',
-            'lembar_persetujuan_sidang' => 'image|file|mimes:jpeg,png,jpg|max:2048',
+            'foto_ijazah_sma' => 'required|image|file|mimes:jpeg,png,jpg|max:2048',
+            'lembar_persetujuan_sidang' => 'required|image|file|mimes:jpeg,png,jpg|max:2048',
             'judul_sdta' => 'required',
             'draft_laporan' => 'required|file|mimes:pdf|max:15360',
-            'sertifikat_pkkmb' => 'image|file|mimes:jpeg,png,jpg|max:2048',
-            'sertifikat_toefl' => 'image|file|mimes:jpeg,png,jpg|max:2048',
+            'sertifikat_pkkmb' => 'required|image|file|mimes:jpeg,png,jpg|max:2048',
+            'sertifikat_toefl' => 'required|image|file|mimes:jpeg,png,jpg|max:2048',
             'sertifikat_kegiatan.*' => 'image|file|mimes:jpeg,png,jpg|max:2048', 
             'sertifikat_kegiatan' => 'max:10', 
         ]);
@@ -109,6 +109,10 @@ class PengajuanSidangTugasAkhirController extends Controller
         $validatedData['user_id'] = auth()->user()->id;
         $validatedData['no_pengajuan_sidang'] = 'SDTA' . rand(100000, 999999);
         $validatedData['tanggal_pengajuan'] = Carbon::now('Asia/Jakarta')->format('d-m-Y');
+        
+        $tahunAkademik = TahunAkademik::get()->first();
+        $validatedData['tahun_akademik'] = "Semester " . $tahunAkademik->semester . " - " . $tahunAkademik->tahun_akademik;
+        
         $validatedData['status_pengajuan_sidang'] = 1;
 
         $pengajuansidangta = PengajuanSidangTugasAkhir::create($validatedData);
@@ -161,7 +165,7 @@ class PengajuanSidangTugasAkhirController extends Controller
             'sbb_perpustakaan' => 'image|file|mimes:jpeg,png,jpg|max:2048',
             'foto_ijazah_sma' => 'image|file|mimes:jpeg,png,jpg|max:2048',
             'lembar_persetujuan_sidang' => 'image|file|mimes:jpeg,png,jpg|max:2048',
-            'draft_laporan' => 'required|file|mimes:pdf|max:15360',
+            'draft_laporan' => 'file|mimes:pdf|max:15360',
             'sertifikat_pkkmb' => 'image|file|mimes:jpeg,png,jpg|max:2048',
             'sertifikat_toefl' => 'image|file|mimes:jpeg,png,jpg|max:2048',
             'sertifikat_kegiatan.*' => 'image|file|mimes:jpeg,png,jpg|max:2048', 

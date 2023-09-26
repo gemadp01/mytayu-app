@@ -29,6 +29,7 @@ use App\Http\Controllers\MahasiswaTugasAkhirController;
 use App\Http\Controllers\MahasiswaSeminarController;
 use App\Http\Controllers\MahasiswaSidangController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\SuratPengantarPenelitianController;
 use Carbon\Carbon;
 use App\Http\Controllers\Gate;
 
@@ -80,8 +81,11 @@ Route::middleware(['auth', 'check.user.status:mahasiswa,koordinator,kaprodi,deka
     Route::resource('/dashboard/pengajuan-ta', PengajuanTugasAkhirController::class);
     Route::post('/dashboard/pengajuanta/{id_pengajuanta}/toggle-status', [PengajuanTugasAkhirController::class, 'toggleStatus']);
     Route::get('/get-dospems/{selectedId}', [PengajuanTugasAkhirController::class, 'getDospems']);
+    Route::get('/dashboard/pengajuanta/getUbah/{id}', [PengajuanTugasAkhirController::class, 'getUbah']);
 
     Route::resource('/dashboard/pengajuan-seminarta', PengajuanSeminarTugasAkhirController::class);
+    Route::get('/dashboard/pengajuanseminarta/getUbah/{id}', [PengajuanSeminarTugasAkhirController::class, 'getUbah']);
+
     Route::resource('/dashboard/pengajuan-sidangta', PengajuanSidangTugasAkhirController::class);
 });
 
@@ -108,6 +112,8 @@ Route::middleware(['auth', 'check.user.status:koordinator,kaprodi,dekan,admin'])
     
     Route::resource('/dashboard/detail-pengajuan-sidangta', DetailPengajuanSidangTugasAkhirController::class)->only(['show', 'edit', 'update']);
     Route::resource('/dashboard/usulan-penguji-sidang', InputUsulanPengujiSidangController::class);
+    Route::get('/dashboard/usulan-penguji-sidang/get-penguji/{selectedPembimbingSatu}/{selectedPembimbingDua}', [InputUsulanPengujiSidangController::class, 'getPenguji']);
+
     Route::resource('/dashboard/daftar-mahasiswa-ta', MahasiswaTugasAkhirController::class);
     Route::resource('/dashboard/daftar-mahasiswa-seminarta', MahasiswaSeminarController::class)->only(['index']);
     Route::resource('/dashboard/daftar-mahasiswa-sidangta', MahasiswaSidangController::class)->only(['index']);
@@ -130,7 +136,8 @@ Route::middleware(['auth', 'check.user.status:koordinator'])->group(function () 
     Route::get('/mahasiswa/export-to-excel', [MahasiswaController::class, 'exportToExcel']);
     Route::get('/mahasiswa/export-to-pdf', [MahasiswaController::class, 'exportToPDF']);
 
-    
+    Route::get('/pencarian-dosen', [DosenController::class, 'pencarian']);
+    Route::get('/pencarian-mahasiswa', [MahasiswaController::class, 'pencarian']);
 });
 
 Route::middleware(['auth', 'check.user.status:mahasiswa,dospem'])->group(function () {
@@ -156,6 +163,10 @@ Route::middleware(['auth', 'check.user.status:kaprodi'])->group(function () {
 Route::middleware(['auth', 'check.user.status:admin'])->group(function () {
     Route::resource('/dashboard/sk-ta', SuratKeteranganTugasAkhirController::class)->only(['index','create','store','edit','update']);
     Route::resource('/dashboard/tahun-akademik', TahunAkademikController::class);
+});
+
+Route::middleware(['auth', 'check.user.status:mahasiswa,admin'])->group(function() {
+    Route::resource('/dashboard/pengantar-penelitian', SuratPengantarPenelitianController::class);
 });
 
 Route::post('/contact', [ContactController::class, 'store']);

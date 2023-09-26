@@ -6,6 +6,7 @@ use App\Models\PenjadwalanSidangTugasAkhir;
 use App\Models\PengajuanSidangTugasAkhir;
 use App\Models\PengajuanTugasAkhir;
 use App\Models\Dosen;
+use App\Models\TahunAkademik;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
@@ -22,11 +23,13 @@ class InputUsulanPengujiSidangController extends Controller
             return view('dashboard.usulan_penguji_sidang.index', [
                 'penguji_sidang' => $penjadwalanSidang,
                 'infoDosen' => Dosen::all(),
+                'tahunAkademik' => TahunAkademik::get()->first(),
             ]);
         }elseif (Gate::allows('IsDekan')) {
             return view('dashboard.usulan_penguji_sidang.index', [
                 'data_pengajuan' => PenjadwalanSidangTugasAkhir::latest()->paginate(5),
                 'infoDosen' => Dosen::all(),
+                'tahunAkademik' => TahunAkademik::get()->first(),
             ]);
         }
     }
@@ -61,6 +64,7 @@ class InputUsulanPengujiSidangController extends Controller
     public function edit(PenjadwalanSidangTugasAkhir $usulan_penguji_sidang)
     {
         if (Gate::allows('IsKaprodi')) {
+            // dd($usulan_penguji_sidang);
             $userTerkait = PengajuanTugasAkhir::where('user_id', $usulan_penguji_sidang->pengajuansidangta->user_id)->get()->first();
             $dosenPertama = Dosen::where('id', $userTerkait->detailpengajuantugasakhir->usulan_pembimbing_kaprodi1_id)->get()->first();
             $dosenKedua = Dosen::where('id', $userTerkait->detailpengajuantugasakhir->usulan_pembimbing_kaprodi2_id)->get()->first();
@@ -85,17 +89,17 @@ class InputUsulanPengujiSidangController extends Controller
     {
         if (Gate::allows('IsKaprodi')) {
             $validatedData = $request->validate([
-            'penguji1_id' => 'required',
-            'penguji2_id' => 'required',
-        ]);
+                'penguji1_id' => 'required',
+                'penguji2_id' => 'required',
+            ]);
 
-        $validatedData['tanggal_input_penguji'] = Carbon::now('Asia/Jakarta')->format('d-m-Y');
+            $validatedData['tanggal_input_penguji'] = Carbon::now('Asia/Jakarta')->format('d-m-Y');
 
-        $usulan_penguji_sidang->update($validatedData);
-        $usulan_penguji_sidang->pengajuansidangta->status_pengajuan_sidang = 3;
-        $usulan_penguji_sidang->pengajuansidangta->save();
+            $usulan_penguji_sidang->update($validatedData);
+            $usulan_penguji_sidang->pengajuansidangta->status_pengajuan_sidang = 3;
+            $usulan_penguji_sidang->pengajuansidangta->save();
 
-        return redirect('dashboard/usulan-penguji-sidang')->with('success', 'New Penguji Sidang Tugas Akhir has been added!');
+            return redirect('dashboard/usulan-penguji-sidang')->with('success', 'New Penguji Sidang Tugas Akhir has been added!');
 
         }elseif (Gate::allows('IsDekan')) {
             // dd($request);
@@ -121,5 +125,13 @@ class InputUsulanPengujiSidangController extends Controller
     public function destroy(PenjadwalanSidangTugasAkhir $usulan_penguji_sidang)
     {
         //
+    }
+
+    public function getPenguji($selectedPembimbingSatu, $selectedPembimbingDua) {
+        $dosenPertama = Dosen::where('id', $selectedPembimbingSatu)->get()->first();
+        $dosenKedua = Dosen::where('id', $selectedPembimbingDua)->get()->first();
+        $pilihanPenguji = Dosen::whereNotIn('id', [$dosenPertama->id, $dosenKedua->id])->get();
+
+        return json_encode($pilihanPenguji);
     }
 }

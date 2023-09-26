@@ -52,7 +52,7 @@ class DetailPengajuanSeminarTugasAkhirController extends Controller
     {
         // dd($detail_pengajuan_seminartum->pengajuanseminarta());
         return view('dashboard.detail_pengajuan_seminarta.edit', [
-            'detailpengajuan_seminarta' => $detail_pengajuan_seminartum->with(['pengajuanseminarta'])->get(),
+            'detailpengajuan_seminarta' => $detail_pengajuan_seminartum->load(['pengajuanseminarta']),
         ]);
     }
 
@@ -159,6 +159,13 @@ class DetailPengajuanSeminarTugasAkhirController extends Controller
             $detail_pengajuan_seminartum->ket_sertifikat_kegiatan = $request->input('ket_sertifikat_kegiatan') === "Diterima" ? true : false;
             
             $detail_pengajuan_seminartum->tanggapan = $request->input('tanggapan');
+            $currentTanggapanData = json_decode($detail_pengajuan_seminartum->tanggapan_data, true) ?? [];
+            $newTanggapan = $detail_pengajuan_seminartum->tanggapan;
+
+            $currentTanggapanData[] = $newTanggapan;
+            $detail_pengajuan_seminartum->tanggapan_data = json_encode($currentTanggapanData);
+
+            // dd($detail_pengajuan_seminartum->tanggapan_data);
 
             if (in_array(false, [
                     $detail_pengajuan_seminartum->ket_kwitansi,

@@ -76,12 +76,21 @@
                             <td>{{ $pta->nama }}</td>
                             <td>{{ $pta->tanggal_pengajuan }}</td>
                             <td>
-                                @if ($pta->status_pengajuan_seminar === 0)
+                                {{-- @if ($pta->status_pengajuan_seminar === 0)
                                     <span class="badge text-bg-danger">direvisi...</span>
                                 @elseif ($pta->status_pengajuan_seminar === 1)
                                     <span class="badge text-bg-warning">diproses...</span>
                                 @else
                                     <span class="badge text-bg-success">diterima...</span>
+                                @endif --}}
+                                @if ($pta->status_pengajuan_seminar === 0)
+                                    <span class="badge text-bg-danger text-start">revisi...</span>
+                                @elseif ($pta->status_pengajuan_seminar === 1)
+                                    <span class="badge text-bg-warning text-start">belum diperiksa <div>oleh Koordinator...</div></span>
+                                @elseif ($pta->status_pengajuan_seminar === 3)
+                                    <span class="badge text-bg-warning text-start">belum diperiksa <div>oleh Dekan...</div></span>
+                                @elseif ($pta->status_pengajuan_seminar === 4)
+                                    <span class="badge text-bg-success text-start">Pengajuan Diterima...</span>
                                 @endif
                             </td>
                             <td class="text-center">
@@ -115,7 +124,7 @@
 
         <div class="card-body">
             <div class="row py-1">
-                <div class="col-12 col-md-6">
+                {{-- <div class="col-12 col-md-6">
                     <form action="/pengajuan-ta/import" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-2">
@@ -134,7 +143,7 @@
                         <span class="text">Import data pengajuan seminar ta</span>
                     </button>
                     </form>
-                </div>
+                </div> --}}
                 <div class="col-12 col-md-6">
                     <a href="/pengajuan-ta/export-to-pdf" class="btn btn-primary btn-icon-split btn-sm">
                         <span class="icon text-white-50">
@@ -186,12 +195,21 @@
                             <td>{{ $pta->kelas }}</td>
                             <td>{{ $pta->email }}</td>
                             <td>
-                                @if ($pta->status_pengajuan_seminar === 0)
+                                {{-- @if ($pta->status_pengajuan_seminar === 0)
                                     <span class="badge text-bg-danger">revisi...</span>
                                 @elseif ($pta->status_pengajuan_seminar === 1)
                                     <span class="badge text-bg-warning">belum diperiksa...</span>
                                 @else
                                     <span class="badge text-bg-success">diterima...</span>
+                                @endif --}}
+                                @if ($pta->status_pengajuan_seminar === 0)
+                                    <span class="badge text-bg-danger text-start">revisi...</span>
+                                @elseif ($pta->status_pengajuan_seminar === 1)
+                                    <span class="badge text-bg-warning text-start">belum diperiksa...</span>
+                                @elseif ($pta->status_pengajuan_seminar === 3)
+                                    <span class="badge text-bg-warning text-start">belum diperiksa <div>oleh Dekan...</div></span>
+                                @elseif ($pta->status_pengajuan_seminar === 4)
+                                    <span class="badge text-bg-success text-start">Pengajuan Diterima...</span>
                                 @endif
                             </td>
                             <td class="text-center">
@@ -279,9 +297,9 @@
                             </td>
                             <td class="text-center">
                                 
-                                <button type="button" class="btn btn-success btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <a href="/dashboard/pengajuanseminarta/getUbah/{{ $pta->id }}" type="button" class="btn btn-success btn-circle btn-sm tampilModalUbah" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="{{ $pta->id }}">
                                     <i class="fas fa-check"></i>
-                                </button>
+                                </a>
 
                                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -296,7 +314,7 @@
                                                 @csrf
                                                 <div class="mb-3">
                                                     <label for="nama" class="form-label">Nama Mahasiswa</label>
-                                                    <input type="email" class="form-control" name="nama" id="nama" value="{{ $pta->nama }}" readonly>
+                                                    <input type="text" class="form-control" name="nama" id="nama" readonly>
                                                 </div>
                                             
                                         </div>
@@ -327,4 +345,25 @@
         @endcan
 
     </div>
+@endsection
+
+@section('only-jquery')
+    <script>
+        $(document).ready(function() {
+            $('.tampilModalUbah').on('click', function() {
+                const id = $(this).data('id');
+                $('.modal-body form').attr('action', '/dashboard/detail-pengajuan-seminarta/' + id);
+
+                $.ajax({
+                    type: "GET",
+                    url: "/dashboard/pengajuanseminarta/getUbah/" + id,
+                    // data: {id: id},
+                    dataType: "json",
+                    success: function (data) {
+                        $('#nama').val(data.nama);
+                    }
+                });
+            })
+        })
+    </script>
 @endsection

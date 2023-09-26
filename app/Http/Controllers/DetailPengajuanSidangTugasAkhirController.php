@@ -210,6 +210,12 @@ class DetailPengajuanSidangTugasAkhirController extends Controller
             
             $detail_pengajuan_sidangtum->tanggapan = $request->input('tanggapan');
 
+            $currentTanggapanData = json_decode($detail_pengajuan_sidangtum->tanggapan_data, true) ?? [];
+            $newTanggapan = $detail_pengajuan_sidangtum->tanggapan;
+
+            $currentTanggapanData[] = $newTanggapan;
+            $detail_pengajuan_sidangtum->tanggapan_data = json_encode($currentTanggapanData);
+
             if (in_array(false, [
                     $detail_pengajuan_sidangtum->ket_lampiran_kwitansi_wisuda,
                     $detail_pengajuan_sidangtum->ket_lampiran_kwitansi_ta,
@@ -245,11 +251,13 @@ class DetailPengajuanSidangTugasAkhirController extends Controller
             $userTerkait = PengajuanTugasAkhir::where('user_id', $detail_pengajuan_sidangtum->pengajuansidangta->user_id)->get()->first();
             $dosenPertama = Dosen::where('id', $userTerkait->detailpengajuantugasakhir->usulan_pembimbing_kaprodi1_id)->get()->first();
             $dosenKedua = Dosen::where('id', $userTerkait->detailpengajuantugasakhir->usulan_pembimbing_kaprodi2_id)->get()->first();
-            PenjadwalanSidangTugasAkhir::create([
-                'pengajuan_sidang_tugas_akhir_id' => $detail_pengajuan_sidangtum->pengajuansidangta->id,
-                'pembimbing1_id' => $dosenPertama->id,
-                'pembimbing2_id' => $dosenKedua->id,
-            ]);
+            if ($detail_pengajuan_sidangtum->pengajuansidangta->status_pengajuan_sidang === 2) {
+                PenjadwalanSidangTugasAkhir::create([
+                    'pengajuan_sidang_tugas_akhir_id' => $detail_pengajuan_sidangtum->pengajuansidangta->id,
+                    'pembimbing1_id' => $dosenPertama->id,
+                    'pembimbing2_id' => $dosenKedua->id,
+                ]);
+            }
             
             return redirect('dashboard/pengajuan-sidangta')->with('success', 'Data Pengajuan sidang Mahasiswa has been Updated!');
             

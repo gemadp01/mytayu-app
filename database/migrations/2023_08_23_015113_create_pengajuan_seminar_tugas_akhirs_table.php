@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->string('no_pengajuan_seminar');
             $table->string('tanggal_pengajuan');
+            $table->string('tahun_akademik');
             $table->string('npm');
             $table->string('nama');
             $table->string('program_studi');

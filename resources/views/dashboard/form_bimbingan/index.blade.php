@@ -9,7 +9,9 @@
         <div class="row">
             <div class="col-12">
                 <h6 class="font-weight-bolder text-center">LAPORAN BIMBINGAN TUGAS AKHIR</h6>
-                <p class="text-center">Tahun Akademik 2022/2023</p>
+                <p class="text-center">
+                    Tahun Akademik {{ $tahunAkademik }}
+                </p>
             </div>
             <div class="col-12">
                 <ul class="list-unstyled">

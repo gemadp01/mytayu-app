@@ -43,12 +43,21 @@
                             <td>{{ $pta->kelas }}</td>
                             <td>{{ $pta->email }}</td>
                             <td>
-                                @if ($pta->status_pengajuan_seminar === 0)
+                                {{-- @if ($pta->status_pengajuan_seminar === 0)
                                     <span class="badge text-bg-danger">revisi...</span>
                                 @elseif ($pta->status_pengajuan_seminar === 1)
                                     <span class="badge text-bg-warning">belum diperiksa...</span>
                                 @else
                                     <span class="badge text-bg-success">diterima...</span>
+                                @endif --}}
+                                @if ($pta->status_pengajuan_seminar === 0)
+                                    <span class="badge text-bg-danger text-start">revisi...</span>
+                                @elseif ($pta->status_pengajuan_seminar === 1)
+                                    <span class="badge text-bg-warning text-start">belum diperiksa...</span>
+                                @elseif ($pta->status_pengajuan_seminar === 3)
+                                    <span class="badge text-bg-warning text-start">belum diperiksa <div>oleh Dekan...</div></span>
+                                @elseif ($pta->status_pengajuan_seminar === 4)
+                                    <span class="badge text-bg-success text-start">Pengajuan Diterima...</span>
                                 @endif
                             </td>
                             <td></td>

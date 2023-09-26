@@ -12,9 +12,16 @@
 </div>
 
 <div class="card shadow mb-4 m-0">
-    <div class="card-header py-3 d-flex">
-        <i class="fa fa-user pe-2" aria-hidden="true"></i>
-        <h6 class="m-0 font-weight-bold text-primary">Detail Pengajuan Sidang Tugas Akhir</h6>
+    <div class="card-header py-3 d-flex align-items-center justify-content-between">
+        <div class="w-25">
+            <i class="fa fa-user pe-2" aria-hidden="true"></i>
+            <h6 class="m-0 font-weight-bold text-primary d-inline">Detail Pengajuan Sidang Tugas Akhir</h6>
+        </div>
+        @if($detailpengajuan_sidang->detailpengajuansidangta->tanggal_penerimaan !== null)
+            <h6 class="m-0 font-weight-bold text-primary">
+                Tanggal Penerimaan : {{ $detailpengajuan_sidang->detailpengajuansidangta->tanggal_penerimaan }}
+            </h6>
+        @endif
     </div>
     <div class="card-body">
         <div class="row">
@@ -37,19 +44,32 @@
                     <li class="list-group-item">{{ $detailpengajuan_sidang->kelas }}</li>
                     <li class="list-group-item">{{ $detailpengajuan_sidang->nomor_telepon }}</li>
                     <li class="list-group-item">{{ $detailpengajuan_sidang->email }}</li>
-                    <li class="list-group-item">Semester Ganjil - 2022/2023</li>
+                    <li class="list-group-item">{{ $detailpengajuan_sidang->tahun_akademik }}</li>
                 </ul>
                 
             </div>
             <div class="col-12 col-lg-5">
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">Status Pengajuan : 
-                        @if ($detailpengajuan_sidang->status_pengajuan_sidang === 0)
+                        {{-- @if ($detailpengajuan_sidang->status_pengajuan_sidang === 0)
                             <span class="badge text-bg-danger">revisi...</span>
                         @elseif ($detailpengajuan_sidang->status_pengajuan_sidang === 1)
                             <span class="badge text-bg-warning">belum diperiksa...</span>
                         @else
                             <span class="badge text-bg-success">diterima...</span>
+                        @endif --}}
+                        @if ($detailpengajuan_sidang->status_pengajuan_sidang === 0)
+                            <span class="badge text-bg-danger">revisi...</span>
+                        @elseif ($detailpengajuan_sidang->status_pengajuan_sidang === 1)
+                            <span class="badge text-bg-warning text-start">belum diperiksa <div>oleh Koordinator...</div></span>
+                        @elseif ($detailpengajuan_sidang->status_pengajuan_sidang === 2)
+                            <span class="badge text-bg-warning text-start">belum diperiksa <div>oleh Kaprodi...</div></span>
+                        @elseif ($detailpengajuan_sidang->status_pengajuan_sidang === 3)
+                            <span class="badge text-bg-warning text-start">belum diperiksa <div>oleh Dekan...</div></span>
+                        @elseif ($detailpengajuan_sidang->status_pengajuan_sidang === 4)
+                            <span class="badge text-bg-success">Pengajuan Diterima...</span>
+                        @elseif ($detailpengajuan_sidang->status_pengajuan_sidang === 5)
+                            <span class="badge text-bg-warning text-start">Pengajuan ulang <div>sedang diproses...</div></span>
                         @endif
                     </li>
                 </ul>
@@ -69,6 +89,27 @@
                                 <p>
                                     {{ $detailpengajuan_sidang->detailpengajuansidangta->tanggapan }}
                                 </p>
+                                @else
+                                <p>
+                                    ...
+                                </p>
+                                @endif
+                                
+                            </div>
+                        </div>
+
+                        <div class="card shadow mb-4 m-0">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Riwayat Tanggapan Koordinator</h6>
+                            </div>
+                            <div class="card-body">
+                                @if ($detailpengajuan_sidang->detailpengajuansidangta->tanggapan_data)
+                                <ol class="list-group list-group-numbered">
+                                    @foreach(json_decode($detailpengajuan_sidang->detailpengajuansidangta->tanggapan_data) as $tanggapan)
+                                        <li class="list-group-item">{{ $tanggapan }}</li>
+                                    @endforeach
+                                    
+                                </ol>
                                 @else
                                 <p>
                                     ...
@@ -612,7 +653,7 @@
 
                         <div class="row justify-content-evenly">
                             
-                            @if ($detailpengajuan_sidang->sertifikat_kegiatan)
+                            @if ($detailpengajuan_sidang->sertifikat_kegiatan !== "[]")
                                 @foreach(json_decode($detailpengajuan_sidang->sertifikat_kegiatan) as $sertifikat)
 
                                 <div class="col-12 col-sm-5 col-md-3 col-md-5 col-xl-2">
@@ -629,13 +670,11 @@
                                         </div>
                                     </div>
                                     @endif
-                                
-                            
                                 </div>
                                 
                                 @endforeach
                             @else
-                            <span class="badge text-bg-danger">
+                            <span class="badge text-bg-danger mt-5">
                                 Revisi
                             </span>
                             <p class="text-center">

@@ -103,13 +103,13 @@ class PengajuanSeminarTugasAkhirController extends Controller
             'kelas' => 'required',
             'nomor_telepon' => 'nullable',
             'email' => 'nullable',
-            'foto_kwitansi' => 'image|file|mimes:jpeg,png,jpg|max:2048',
-            'foto_khs' => 'image|file|mimes:jpeg,png,jpg|max:2048',
-            'foto_krs' => 'image|file|mimes:jpeg,png,jpg|max:2048',
+            'foto_kwitansi' => 'required|image|file|mimes:jpeg,png,jpg|max:2048',
+            'foto_khs' => 'required|image|file|mimes:jpeg,png,jpg|max:2048',
+            'foto_krs' => 'required|image|file|mimes:jpeg,png,jpg|max:2048',
             'sk_ta' => 'required|mimes:pdf|max:1024',
-            'lembar_persetujuan_seminarta' => 'image|file|mimes:jpeg,png,jpg|max:2048',
-            'lembar_bimbingan1' => 'image|file|mimes:jpeg,png,jpg|max:2048',
-            'lembar_bimbingan2' => 'image|file|mimes:jpeg,png,jpg|max:2048',
+            'lembar_persetujuan_seminarta' => 'required|image|file|mimes:jpeg,png,jpg|max:2048',
+            'lembar_bimbingan1' => 'required|image|file|mimes:jpeg,png,jpg|max:2048',
+            'lembar_bimbingan2' => 'required|image|file|mimes:jpeg,png,jpg|max:2048',
             'judul_smta' => 'required',
             'draft_laporan' => 'required|mimes:pdf|max:5120',
             'sertifikat_kegiatan.*' => 'image|file|mimes:jpeg,png,jpg|max:2048', 
@@ -146,6 +146,10 @@ class PengajuanSeminarTugasAkhirController extends Controller
         $validatedData['user_id'] = auth()->user()->id;
         $validatedData['no_pengajuan_seminar'] = 'SMTA' . rand(100000, 999999);
         $validatedData['tanggal_pengajuan'] = Carbon::now('Asia/Jakarta')->format('d-m-Y');
+
+        $tahunAkademik = TahunAkademik::get()->first();
+        $validatedData['tahun_akademik'] = "Semester " . $tahunAkademik->semester . " - " . $tahunAkademik->tahun_akademik;
+        
         $validatedData['status_pengajuan_seminar'] = 1;
 
         $pengajuanseminarta = PengajuanSeminarTugasAkhir::create($validatedData);
@@ -183,6 +187,7 @@ class PengajuanSeminarTugasAkhirController extends Controller
      */
     public function update(Request $request, PengajuanSeminarTugasAkhir $pengajuan_seminartum)
     {
+
         $validatedData = $request->validate([
             'foto_kwitansi' => 'image|file|mimes:jpeg,png,jpg|max:2048',
             'foto_khs' => 'image|file|mimes:jpeg,png,jpg|max:2048',
@@ -190,11 +195,12 @@ class PengajuanSeminarTugasAkhirController extends Controller
             'lembar_persetujuan_seminarta' => 'image|file|mimes:jpeg,png,jpg|max:2048',
             'lembar_bimbingan1' => 'image|file|mimes:jpeg,png,jpg|max:2048',
             'lembar_bimbingan2' => 'image|file|mimes:jpeg,png,jpg|max:2048',
-            'sk_ta' => 'required|mimes:pdf|max:1024',
-            'draft_laporan' => 'required|mimes:pdf|max:5120',
+            'sk_ta' => 'mimes:pdf|max:1024',
+            'draft_laporan' => 'mimes:pdf|max:5120',
             'sertifikat_kegiatan.*' => 'image|file|mimes:jpeg,png,jpg|max:2048', 
             'sertifikat_kegiatan' => 'max:5',
         ]);
+
 
         if($pengajuan_seminartum->detailpengajuanseminarta->ket_kwitansi){
             $validatedData['foto_kwitansi'] = $pengajuan_seminartum->foto_kwitansi;
@@ -279,4 +285,9 @@ class PengajuanSeminarTugasAkhirController extends Controller
     {
         //
     }
+
+    public function getUbah(PengajuanSeminarTugasAkhir $id) {
+        return json_encode($id);
+    }
 }
+

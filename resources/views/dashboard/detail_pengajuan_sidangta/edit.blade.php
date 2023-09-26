@@ -20,7 +20,7 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-5">
+                <div class="col-5 col-md-6 col-lg-3">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">NPM</li>
                         <li class="list-group-item">Nama</li>
@@ -31,7 +31,7 @@
                         <li class="list-group-item">Tahun Akademik</li>
                     </ul>
                 </div>
-                <div class="col-7">
+                <div class="col-7 col-md-6 col-lg-4">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">{{ $detailpengajuan_sidangta->pengajuansidangta->npm }}</li>
                         <li class="list-group-item">{{ $detailpengajuan_sidangta->pengajuansidangta->nama }}</li>
@@ -39,19 +39,30 @@
                         <li class="list-group-item">{{ $detailpengajuan_sidangta->pengajuansidangta->kelas }}</li>
                         <li class="list-group-item">{{ $detailpengajuan_sidangta->pengajuansidangta->nomor_telepon }}</li>
                         <li class="list-group-item">{{ $detailpengajuan_sidangta->pengajuansidangta->email }}</li>
-                        <li class="list-group-item">Semester Ganjil - 2022/2023</li>
+                        <li class="list-group-item">{{ $detailpengajuan_sidangta->pengajuansidangta->tahun_akademik }}</li>
                     </ul>
                     
                 </div>
-                <div class="col-12">
+                <div class="col-12 col-lg-5">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">Status Pengajuan : 
-                            @if ($detailpengajuan_sidangta->pengajuansidangta->status_pengajuan_sidang === 0)
+                            {{-- @if ($detailpengajuan_sidangta->pengajuansidangta->status_pengajuan_sidang === 0)
                             <span class="badge text-bg-danger">revisi...</span>
                             @elseif ($detailpengajuan_sidangta->pengajuansidangta->status_pengajuan_sidang === 1)
                             <span class="badge text-bg-warning">belum diperiksa...</span>
                             @elseif ($detailpengajuan_sidangta->pengajuansidangta->status_pengajuan_sidang === 2)
                             <span class="badge text-bg-success">diterima...</span>
+                            @endif --}}
+                            @if ($detailpengajuan_sidangta->pengajuansidangta->status_pengajuan_sidang === 0)
+                                <span class="badge text-bg-danger">revisi...</span>
+                            @elseif ($detailpengajuan_sidangta->pengajuansidangta->status_pengajuan_sidang === 1)
+                                <span class="badge text-bg-warning">belum diperiksa oleh Koordinator KP/TA...</span>
+                            @elseif ($detailpengajuan_sidangta->pengajuansidangta->status_pengajuan_sidang === 2)
+                                <span class="badge text-bg-warning">belum diperiksa oleh Kaprodi...</span>
+                            @elseif ($detailpengajuan_sidangta->pengajuansidangta->status_pengajuan_sidang === 3)
+                                <span class="badge text-bg-warning">belum diperiksa oleh Dekan...</span>
+                            @elseif ($detailpengajuan_sidangta->pengajuansidangta->status_pengajuan_sidang === 4)
+                                <span class="badge text-bg-success">Pengajuan Diterima...</span>
                             @endif
                         </li>
                     </ul>

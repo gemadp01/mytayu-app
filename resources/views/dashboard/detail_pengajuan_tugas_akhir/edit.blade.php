@@ -37,7 +37,7 @@
                         <li class="list-group-item">{{ $detailpengajuanta->pengajuanta->kelas }}</li>
                         <li class="list-group-item">{{ $detailpengajuanta->pengajuanta->nomor_telepon }}</li>
                         <li class="list-group-item">{{ $detailpengajuanta->pengajuanta->email }}</li>
-                        <li class="list-group-item">Semester Ganjil - 2022/2023</li>
+                        <li class="list-group-item">{{ $detailpengajuanta->pengajuanta->tahun_akademik }}</li>
                     </ul>
                     
                 </div>
@@ -213,7 +213,7 @@
                         <li class="list-group-item">{{ $detailpengajuanta->pengajuanta->kelas }}</li>
                         <li class="list-group-item">{{ $detailpengajuanta->pengajuanta->nomor_telepon }}</li>
                         <li class="list-group-item">{{ $detailpengajuanta->pengajuanta->email }}</li>
-                        <li class="list-group-item">Semester Ganjil - 2022/2023</li>
+                        <li class="list-group-item">{{ $detailpengajuanta->pengajuanta->tahun_akademik }}</li>
                     </ul>
                     
                 </div>
@@ -317,8 +317,8 @@
                                 <div class="input-group mb-3">
                                     <select class="form-select" name="usulan_pembimbing_kaprodi1_id" id="pembimbing_satu">
                                     @if ($detailpengajuanta->pengajuanta->status_pengajuan === 5)    
-                                    <option value="{{ $detailpengajuanta->usulanDospemKaprodiPertama }}" selected>
-                                        {{ $detailpengajuanta->usulanDospemKaprodiPertama->nama }}
+                                    <option value="{{ $detailpengajuanta->usulanDospemKaprodiPertama->id }}" selected>
+                                        {{  "$dospem_kaprodi1->singkatan --- $dospem_kaprodi1->nama --- $dospem_kaprodi1->keilmuan --- Kuota[$dospem_kaprodi1->kuota_pembimbing]" }}
                                     </option>
 
                                     @elseif ($detailpengajuanta->usulan_pembimbing_kaprodi1_id !== null)
@@ -345,8 +345,8 @@
                                 <div class="input-group mb-3">
                                     <select class="form-select" name="usulan_pembimbing_kaprodi2_id" id="pembimbing_dua">
                                     @if ($detailpengajuanta->pengajuanta->status_pengajuan === 5)    
-                                    <option value="{{ $detailpengajuanta->usulanDospemKaprodiKedua }}" selected>
-                                        {{ $detailpengajuanta->usulanDospemKaprodiKedua->nama }}
+                                    <option value="{{ $detailpengajuanta->usulan_pembimbing_kaprodi2_id }}">
+                                        {{  "$dospem_kaprodi2->singkatan --- $dospem_kaprodi2->nama --- $dospem_kaprodi2->keilmuan --- Kuota[$dospem_kaprodi2->kuota_pembimbing]" }}
                                     </option>
                                     @elseif ($detailpengajuanta->usulan_pembimbing_kaprodi2_id !== null)
                                     <option value="{{ $detailpengajuanta->usulan_pembimbing_kaprodi2_id }}">

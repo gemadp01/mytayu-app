@@ -52,16 +52,21 @@
                                 {{ $message }}
                             </div>
                             @enderror
+
+                            @php
+                                $npm = auth()->user()->mahasiswa->npm;
+                                $programStudi = str_split($npm);
+                            @endphp
                             <div class="mb-3">
                                 <label for="program_studi" class="form-label @error('program_studi') is-invalid @enderror">Program Studi</label>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="program_studi" id="informatika" value="Informatika">
+                                    <input class="form-check-input" type="radio" name="program_studi" id="informatika" value="Informatika" @if ($programStudi[3] == 1) checked @endif>
                                     <label class="form-check-label" for="informatika">
                                         Informatika
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="program_studi" id="sistem_informasi" value="Sistem Informasi">
+                                    <input class="form-check-input" type="radio" name="program_studi" id="sistem_informasi" value="Sistem Informasi" @if ($programStudi[3] == 2) checked @endif>
                                     <label class="form-check-label" for="sistem_informasi">
                                         Sistem Informasi
                                     </label>
@@ -247,39 +252,42 @@
 
 <script>
     // Mendengarkan perubahan pada dropdown pertama
-    document.getElementById('pembimbing_satu').addEventListener('change', function () {
-        let selectedValuePertama = this.value;
-        let pembimbing_dua = document.getElementById('pembimbing_dua');
-        let pembimbing_satu = document.getElementById('pembimbing_satu');
-        let keilmuanSatu = document.getElementById('keilmuan1');
-        let kuotaSatu = document.getElementById('kuota1');
-        let keilmuanDua = document.getElementById('keilmuan2');
-        let kuotaDua = document.getElementById('kuota2');
+    $(document).ready(function() {
+        document.getElementById('pembimbing_satu').addEventListener('change', function () {
+            let selectedValuePertama = this.value;
+            let pembimbing_dua = document.getElementById('pembimbing_dua');
+            let pembimbing_satu = document.getElementById('pembimbing_satu');
+            let keilmuanSatu = document.getElementById('keilmuan1');
+            let kuotaSatu = document.getElementById('kuota1');
+            let keilmuanDua = document.getElementById('keilmuan2');
+            let kuotaDua = document.getElementById('kuota2');
 
-        $.ajax({
-            url: '/get-dospems/' + selectedValuePertama, // Mengirim selectedValuePertama sebagai parameter
-            method: 'GET',
-            dataType: 'json',
-            success: function (data) {
-                pembimbing_dua.innerHTML = '';
-                
-                for (let i = 0; i < data.length; i++) {
-                    let option = data[i];
+            $.ajax({
+                url: '/get-dospems/' + selectedValuePertama, // Mengirim selectedValuePertama sebagai parameter
+                method: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    pembimbing_dua.innerHTML = '';
                     
-                    // Periksa apakah dosen sudah dipilih pada dropdown pertama
-                    if (option['id'] !== selectedValuePertama) {
-                        // Create an option element
-                        let optionElement = document.createElement('option');
-                        optionElement.value = option['id'];
-                        optionElement.text = `${option['singkatan']} --- ${option['nama']} --- ${option['keilmuan']} --- Kuota[${option['kuota_pembimbing']}]`;
+                    for (let i = 0; i < data.length; i++) {
+                        let option = data[i];
+                        
+                        // Periksa apakah dosen sudah dipilih pada dropdown pertama
+                        if (option['id'] !== selectedValuePertama) {
+                            // Create an option element
+                            let optionElement = document.createElement('option');
+                            optionElement.value = option['id'];
+                            optionElement.text = `${option['singkatan']} --- ${option['nama']} --- ${option['keilmuan']} --- Kuota[${option['kuota_pembimbing']}]`;
 
-                        // Append the option element to pembimbing_dua
-                        pembimbing_dua.appendChild(optionElement);
+                            // console.log(pembimbing_dua);
+                            // Append the option element to pembimbing_dua
+                            pembimbing_dua.appendChild(optionElement);
+                        }
                     }
                 }
-            }
+            });
         });
-    });
+    })
 </script>
 
 @endsection

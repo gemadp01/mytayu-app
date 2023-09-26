@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PengajuanTugasAkhir;
 use App\Models\SuratKeteranganTugasAkhir;
+use App\Models\TahunAkademik;
 use Illuminate\Http\Request;
 
 class MahasiswaTugasAkhirController extends Controller
@@ -15,6 +16,7 @@ class MahasiswaTugasAkhirController extends Controller
     {
         return view('dashboard.mahasiswa_ta.index', [
             'pengajuantas' => PengajuanTugasAkhir::latest()->paginate(5),
+            'tahunAkademik' => TahunAkademik::get()->first(),
         ]);
     }
 

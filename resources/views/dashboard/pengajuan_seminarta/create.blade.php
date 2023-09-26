@@ -17,23 +17,23 @@
                         <form method="post" action="/dashboard/pengajuan-seminarta" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
-                                <label for="npm" class="form-label @error('npm') is-invalid @enderror">Nomor Pokok Mahasiswa</label>
-                                <input type="number" class="form-control" name="npm" id="npm" placeholder="NPM" value="{{ $data_ta->npm }}" readonly>
+                                <label for="npm" class="form-label">Nomor Pokok Mahasiswa</label>
+                                <input type="number" class="form-control @error('npm') is-invalid @enderror" name="npm" id="npm" placeholder="NPM" value="{{ $data_ta->npm }}" readonly>
+                                @error('npm')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
-                            @error('npm')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
                             <div class="mb-3">
-                                <label for="nama" class="form-label @error('nama') is-invalid @enderror">Nama Mahasiswa</label>
-                                <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama" value="{{ $data_ta->nama }}" readonly>
+                                <label for="nama" class="form-label">Nama Mahasiswa</label>
+                                <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" id="nama" placeholder="Nama" value="{{ $data_ta->nama }}" readonly>
+                                @error('nama')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
-                            @error('nama')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
                             <div class="mb-3">
                                 <label for="kelas" class="form-label">Kelas</label>
                                 <div class="form-check">
@@ -65,23 +65,23 @@
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label for="nomor_telepon" class="form-label @error('nomor_telepon') is-invalid @enderror">Nomor Telepon</label>
-                                <input type="number" class="form-control" name="nomor_telepon" id="nomor_telepon" placeholder="Nomor Telepon" value="{{ $data_ta->nomor_telepon, old('nomor_telepon') }}" readonly>
+                                <label for="nomor_telepon" class="form-label">Nomor Telepon</label>
+                                <input type="number" class="form-control @error('nomor_telepon') is-invalid @enderror" name="nomor_telepon" id="nomor_telepon" placeholder="Nomor Telepon" value="{{ $data_ta->nomor_telepon, old('nomor_telepon') }}" readonly>
+                                @error('nomor_telepon')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
-                            @error('nomor_telepon')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
                             <div class="mb-3">
-                                <label for="email" class="form-label @error('email') is-invalid @enderror">Email</label>
-                                <input type="text" class="form-control" name="email" id="email" placeholder="Email" value="{{ $data_ta->email, old('email') }}" readonly>
+                                <label for="email" class="form-label">Email</label>
+                                <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" id="email" placeholder="Email" value="{{ $data_ta->email, old('email') }}" readonly>
+                                @error('email')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
-                            @error('email')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
                             
                     </div>
                 </div>
@@ -99,114 +99,114 @@
                 <div class="row">
                     <div class="col-12">
                             <div class="mb-3">
-                                <label for="foto_kwitansi" class="form-label @error('foto_kwitansi') is-invalid @enderror">Upload Kwitansi Pembayaran TA</label>
-                                <input class="form-control" type="file" name="foto_kwitansi" id="foto_kwitansi">
+                                <label for="foto_kwitansi" class="form-label">Upload Kwitansi Pembayaran TA</label>
+                                <input class="form-control @error('foto_kwitansi') is-invalid @enderror" type="file" name="foto_kwitansi" id="foto_kwitansi">
                                 <small class="text-body-secondary">.jpeg, .png, .jpg, maks:2mb</small>
-                              </div>
-                            @error('foto_kwitansi')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+                                @error('foto_kwitansi')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
 
                             <div class="mb-3">
-                                <label for="foto_khs" class="form-label @error('foto_khs') is-invalid @enderror">Upload KHS Terakhir</label>
-                                <input class="form-control" type="file" name="foto_khs" id="foto_khs">
+                                <label for="foto_khs" class="form-label">Upload KHS Terakhir</label>
+                                <input class="form-control @error('foto_khs') is-invalid @enderror" type="file" name="foto_khs" id="foto_khs">
                                 <small class="text-body-secondary">.jpeg, .png, .jpg. maks:2mb</small>
-                              </div>
-                            @error('foto_khs')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+                                @error('foto_khs')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
 
                             <div class="mb-3">
-                                <label for="foto_krs" class="form-label @error('foto_krs') is-invalid @enderror">Upload KRS Semester Berjalan</label>
-                                <input class="form-control" type="file" name="foto_krs" id="foto_krs">
+                                <label for="foto_krs" class="form-label">Upload KRS Semester Berjalan</label>
+                                <input class="form-control @error('foto_krs') is-invalid @enderror" type="file" name="foto_krs" id="foto_krs">
                                 <small class="text-body-secondary">.jpeg, .png, .jpg, maks:2mb</small>
-                              </div>
-                            @error('foto_krs')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+                                @error('foto_krs')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
 
                             <div class="mb-3">
-                                <label for="lembar_persetujuan_seminarta" class="form-label @error('lembar_persetujuan_seminarta') is-invalid @enderror">Lembar Persetujuan Seminar Tugas Akhir</label>
-                                <input class="form-control" type="file" name="lembar_persetujuan_seminarta" id="lembar_persetujuan_seminarta">
+                                <label for="lembar_persetujuan_seminarta" class="form-label">Lembar Persetujuan Seminar Tugas Akhir</label>
+                                <input class="form-control @error('lembar_persetujuan_seminarta') is-invalid @enderror" type="file" name="lembar_persetujuan_seminarta" id="lembar_persetujuan_seminarta">
                                 <small class="text-body-secondary">.jpeg, .png, .jpg, maks:2mb</small>
-                              </div>
-                            @error('lembar_persetujuan_seminarta')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+                                @error('lembar_persetujuan_seminarta')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
 
                             <div class="mb-3">
-                                <label for="lembar_bimbingan1" class="form-label @error('lembar_bimbingan1') is-invalid @enderror">Lembar Bimbingan Pertama</label>
-                                <input class="form-control" type="file" name="lembar_bimbingan1" id="lembar_bimbingan1">
+                                <label for="lembar_bimbingan1" class="form-label">Lembar Bimbingan Pertama</label>
+                                <input class="form-control @error('lembar_bimbingan1') is-invalid @enderror" type="file" name="lembar_bimbingan1" id="lembar_bimbingan1">
                                 <small class="text-body-secondary">.jpeg, .png, .jpg, maks:2mb</small>
-                              </div>
-                            @error('lembar_bimbingan1')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+                                @error('lembar_bimbingan1')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
 
                             <div class="mb-3">
-                                <label for="lembar_bimbingan2" class="form-label @error('lembar_bimbingan2') is-invalid @enderror">Lembar Bimbingan Kedua</label>
-                                <input class="form-control" type="file" name="lembar_bimbingan2" id="lembar_bimbingan2">
+                                <label for="lembar_bimbingan2" class="form-label">Lembar Bimbingan Kedua</label>
+                                <input class="form-control @error('lembar_bimbingan2') is-invalid @enderror" type="file" name="lembar_bimbingan2" id="lembar_bimbingan2">
                                 <small class="text-body-secondary">.jpeg, .png, .jpg, maks:2mb</small>
-                              </div>
-                            @error('lembar_bimbingan2')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+                                @error('lembar_bimbingan2')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
 
                             <div class="mb-3">
-                                <label for="sertifikat_kegiatan" class="form-label @error('sertifikat_kegiatan') is-invalid @enderror">Sertifikat Kegiatan</label>
-                                <input class="form-control" type="file" name="sertifikat_kegiatan[]" id="sertifikat_kegiatan" multiple>
+                                <label for="sertifikat_kegiatan" class="form-label">Sertifikat Kegiatan</label>
+                                <input class="form-control @error('sertifikat_kegiatan') is-invalid @enderror" type="file" name="sertifikat_kegiatan[]" id="sertifikat_kegiatan" multiple>
                                 <small class="text-body-secondary">.jpeg, .png, .jpg, maks:2mb, maks:5img</small>
-                              </div>
-                            @error('sertifikat_kegiatan')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+                                @error('sertifikat_kegiatan')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
 
                             <div class="mb-3">
-                                <label for="sk_ta" class="form-label @error('sk_ta') is-invalid @enderror">SK TA</label>
-                                <input class="form-control" type="file" name="sk_ta" id="sk_ta">
+                                <label for="sk_ta" class="form-label">SK TA</label>
+                                <input class="form-control @error('sk_ta') is-invalid @enderror" type="file" name="sk_ta" id="sk_ta">
                                 <small class="text-body-secondary">.pdf, maks:2mb</small>
-                              </div>
-                            @error('sk_ta')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+                                @error('sk_ta')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
 
                             <label for="" class="fw-bold">Judul Tugas Akhir Mahasiswa</label>
                             <div class="mb-3">
-                                <label for="judul_smta" class="form-label @error('judul_smta') is-invalid @enderror">Judul Seminar Tugas Akhir</label>
-                                <input type="text" class="form-control" name="judul_smta" id="judul_smta" placeholder="Topik Penelitian" value="{{ $data_ta->topik_penelitian, old('judul_smta') }}" readonly>
+                                <label for="judul_smta" class="form-label">Judul Seminar Tugas Akhir</label>
+                                <input type="text" class="form-control @error('judul_smta') is-invalid @enderror" name="judul_smta" id="judul_smta" placeholder="Topik Penelitian" value="{{ $data_ta->topik_penelitian, old('judul_smta') }}" readonly>
+                                @error('judul_smta')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
-                            @error('judul_smta')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
                             
                             <div class="mb-3">
-                                <label for="draft_laporan" class="form-label @error('draft_laporan') is-invalid @enderror">Draft Laporan TA</label>
-                                <input class="form-control" type="file" name="draft_laporan" id="draft_laporan">
+                                <label for="draft_laporan" class="form-label">Draft Laporan TA</label>
+                                <input class="form-control @error('draft_laporan') is-invalid @enderror" type="file" name="draft_laporan" id="draft_laporan">
                                 <small class="text-body-secondary">.pdf, maks:5mb</small>
-                              </div>
-                            @error('draft_laporan')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+                                @error('draft_laporan')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
                             
                             <div class="d-grid gap-2">
                                 <button class="btn btn-primary" type="submit">Ajukan Seminar TA</button>

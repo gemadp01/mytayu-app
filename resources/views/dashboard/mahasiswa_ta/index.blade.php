@@ -3,7 +3,9 @@
 @section('page-heading')
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Data Pengajuan Mahasiswa Tugas Akhir</h1>
-    <h1 class="h3 mb-2 text-gray-800">Tahun Akademik Semester Ganjil - 2022/2023</h1>
+    <h1 class="h3 mb-2 text-gray-800">
+        Tahun Akademik Semester {{ $tahunAkademik->semester }} - {{ $tahunAkademik->tahun_akademik }} 
+    </h1>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -11,7 +13,7 @@
         </div>
         <div class="card-body">
             <div class="row py-1">
-                <div class="col-12 col-md-6">
+                {{-- <div class="col-12 col-md-6">
                     <a href="/pengajuan-ta/export-to-pdf" class="btn btn-primary btn-icon-split btn-sm">
                         <span class="icon text-white-50">
                             <i class="fa fa-download" aria-hidden="true"></i>
@@ -24,7 +26,7 @@
                         </span>
                         <span class="text">Export to Excel</span>
                     </a>
-                </div>   
+                </div>    --}}
             </div>
 
             @if (session()->has('success'))

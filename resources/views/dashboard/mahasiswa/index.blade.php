@@ -57,6 +57,13 @@
                         <span class="text">Export to Excel</span>
                     </a>
                 </div>
+
+                <div class="col-6 d-flex justify-content-end">
+                    <form action="">
+                        <input type="text" class="form-control" name="keyword" id="keyword" size="40" placeholder="Masukkan Keyword Pencarian..." autofocus autocomplete="off">
+                        <button type="submit" class="btn btn-primary" name="cari" id="tombol-cari">Cari!</button>
+                    </form>
+                </div>
             </div>
             @if (session()->has('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -138,5 +145,52 @@
     </div>
     
 
+@endsection
+
+@section('only-jquery')
+
+<script>
+    $(document).ready(function() {
+        $('#tombol-cari').hide();
+
+        $('#keyword').keyup(function() {
+            var keyword = $(this).val();
+
+            $.ajax({
+                url: '/pencarian-mahasiswa',
+                method: 'GET',
+                data: { keyword: keyword },
+                success: function(response) {
+                    var tbody = $('#dataTable tbody');
+                    tbody.empty();
+
+                    $.each(response.mahasiswas, function(index, mahasiswa) {
+                        var row = '<tr>' +
+                            '<td>' + (index + 1) + '</td>' +
+                            '<td>' + mahasiswa.npm + '</td>' +
+                            '<td>' + mahasiswa.nama + '</td>' +
+                            '<td>' + mahasiswa.kelas + '</td>' +
+                            '<td>' + mahasiswa.prodi + '</td>' +
+                            '<td>' + (mahasiswa.status_user == 1 ? '<span class="badge text-bg-success">Active</span>' : '<span class="badge text-bg-secondary">Inactive</span>') + '</td>' +
+                            '<td class="text-center">' +
+                                '<form method="post" action="/dashboard/mahasiswa/' + mahasiswa.id + '/toggle-status">' +
+                                    '@csrf' +
+                                    (mahasiswa.status_user === 1 ?
+                                        '<button type="submit" class="btn btn-danger btn-circle btn-sm"><i class="fa fa-times"></i></button>' :
+                                        '<button type="submit" class="btn btn-success btn-circle btn-sm"><i class="fas fa-check"></i></button>'
+                                    ) +
+                                '</form>' +
+                            '</td>'
+
+                            '</tr>';
+
+                        tbody.append(row);
+                    });
+                }
+            });
+        });
+    });
+</script>
+    
 @endsection
 

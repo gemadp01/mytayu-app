@@ -1,10 +1,12 @@
 @extends('dashboard.layouts.main')
 
 @section('page-heading')
-    
+
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Data Pengajuan Seminar Tugas Akhir Mahasiswa</h1>
-    <h1 class="h3 mb-2 text-gray-800">Tahun Akademik Semester Ganjil - 2022/2023</h1>
+    <h1 class="h3 mb-2 text-gray-800">
+        Tahun Akademik Semester {{ $tahunAkademik->semester }} - {{ $tahunAkademik->tahun_akademik }}
+    </h1>
 
     <div class="card shadow mb-4">
 
@@ -15,17 +17,6 @@
 
         <div class="card-body">
             <div class="row py-1">
-                <div class="col-12 col-md-6">
-                    <form action="/pengajuan-ta/import" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="mb-2">
-                            @error('excel_file')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
-                            <input type="file" name="excel_file" class="form-control">
-                            <small class="text-body-secondary">.xlsx(excel)</small>
-                        </div>
-                    </div>
                 <div class="col-12 col-md-6">
                     <a href="/pengajuan-ta/export-to-pdf" class="btn btn-primary btn-icon-split btn-sm">
                         <span class="icon text-white-50">
@@ -77,12 +68,26 @@
                             <td>{{ $infoDosen->where('id', $psd->penguji1_id)->pluck('singkatan')->first() }}</td>
                             <td>{{ $infoDosen->where('id', $psd->penguji2_id)->pluck('singkatan')->first() }}</td>
                             <td>
-                                @if ($psd->pengajuansidangta->status_pengajuan_sidang === 0)
+                                {{-- @if ($psd->pengajuansidangta->status_pengajuan_sidang === 0)
                                     <span class="badge text-bg-danger">revisi...</span>
                                 @elseif ($psd->pengajuansidangta->status_pengajuan_sidang === 1 || $psd->pengajuansidangta->status_pengajuan_sidang === 2)
                                     <span class="badge text-bg-warning">belum diperiksa...</span>
                                 @else
                                     <span class="badge text-bg-success">diterima...</span>
+                                @endif --}}
+
+                                @if ($psd->pengajuansidangta->status_pengajuan_sidang === 0)
+                                    <span class="badge text-bg-danger">revisi...</span>
+                                @elseif ($psd->pengajuansidangta->status_pengajuan_sidang === 1)
+                                    <span class="badge text-bg-warning text-start">belum diperiksa <div>oleh Koordinator</div></span>
+                                @elseif ($psd->pengajuansidangta->status_pengajuan_sidang === 2)
+                                    <span class="badge text-bg-warning text-start">belum diperiksa <div>oleh Kaprodi...</div></span>
+                                @elseif ($psd->pengajuansidangta->status_pengajuan_sidang === 3)
+                                    <span class="badge text-bg-warning text-start">belum diperiksa <div>oleh Dekan...</div></span>
+                                @elseif ($psd->pengajuansidangta->status_pengajuan_sidang === 4)
+                                    <span class="badge text-bg-success">Pengajuan Diterima...</span>
+                                @elseif ($psd->pengajuansidangta->status_pengajuan_sidang === 5)
+                                    <span class="badge text-bg-warning text-start">Pengajuan ulang <div>sedang diproses...</div></span>
                                 @endif
                             </td>
                             <td class="text-center">
@@ -209,3 +214,4 @@
 
     </div>
 @endsection
+

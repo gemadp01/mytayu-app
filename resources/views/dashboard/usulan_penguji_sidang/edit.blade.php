@@ -5,6 +5,7 @@
 {{-- @dd($pilihanPenguji) --}}
 
 @can('IsKaprodi')
+{{-- @dd($data_pengajuan->id) --}}
 <div class="d-sm-flex align-items-center justify-content-between mb-2 bg-primary" style="border-radius: 5px">
     <h6 class="h6 mb-0 text-white p-2">
         No Pendaftaran : {{ $data_pengajuan->pengajuansidangta->no_pengajuan_sidang }}
@@ -45,12 +46,25 @@
             <div class="col-12 col-lg-5">
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">Status Pengajuan : 
-                        @if ($data_pengajuan->pengajuansidangta->status_pengajuan_sidang === 0)
+                        {{-- @if ($data_pengajuan->pengajuansidangta->status_pengajuan_sidang === 0)
                             <span class="badge text-bg-danger">revisi...</span>
                         @elseif ($data_pengajuan->pengajuansidangta->status_pengajuan_sidang === 1)
                             <span class="badge text-bg-warning">belum diperiksa...</span>
                         @else
                             <span class="badge text-bg-success">diterima...</span>
+                        @endif --}}
+                        @if ($data_pengajuan->pengajuansidangta->status_pengajuan_sidang === 0)
+                            <span class="badge text-bg-danger">revisi...</span>
+                        @elseif ($data_pengajuan->pengajuansidangta->status_pengajuan_sidang === 1)
+                            <span class="badge text-bg-warning text-start">belum diperiksa <div>oleh Koordinator</div></span>
+                        @elseif ($data_pengajuan->pengajuansidangta->status_pengajuan_sidang === 2)
+                            <span class="badge text-bg-warning text-start">belum diperiksa <div>oleh Kaprodi...</div></span>
+                        @elseif ($data_pengajuan->pengajuansidangta->status_pengajuan_sidang === 3)
+                            <span class="badge text-bg-warning text-start">belum diperiksa <div>oleh Dekan...</div></span>
+                        @elseif ($data_pengajuan->pengajuansidangta->status_pengajuan_sidang === 4)
+                            <span class="badge text-bg-success">Pengajuan Diterima...</span>
+                        @elseif ($data_pengajuan->pengajuansidangta->status_pengajuan_sidang === 5)
+                            <span class="badge text-bg-warning text-start">Pengajuan ulang <div>sedang diproses...</div></span>
                         @endif
                     </li>
                 </ul>
@@ -99,6 +113,8 @@
                                         </div>
                                         <div class="input-group mb-3">
                                             <select class="form-select" name="penguji1_id" id="penguji1_id">
+                                                <option value="">Choose...</option>
+
                                                 @foreach ($pilihanPenguji as $pp)
                                                 <option value="{{ $pp->id }}">
                                                     {{ $pp->nama }}
@@ -114,11 +130,7 @@
                                         </div>
                                         <div class="input-group mb-3">
                                             <select class="form-select" name="penguji2_id" id="penguji2_id">
-                                                @foreach ($pilihanPenguji as $pp)
-                                                <option value="{{ $pp->id }}">
-                                                    {{ $pp->nama }}
-                                                </option>
-                                                @endforeach
+                                                
                                             </select>
                                         </div>
                                     </div>
@@ -183,12 +195,25 @@
             <div class="col-12 col-lg-5">
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">Status Pengajuan : 
-                        @if ($data_pengajuan->pengajuansidangta->status_pengajuan_sidang === 0)
+                        {{-- @if ($data_pengajuan->pengajuansidangta->status_pengajuan_sidang === 0)
                             <span class="badge text-bg-danger">revisi...</span>
                         @elseif ($data_pengajuan->pengajuansidangta->status_pengajuan_sidang === 1)
                             <span class="badge text-bg-warning">belum diperiksa...</span>
                         @else
                             <span class="badge text-bg-success">diterima...</span>
+                        @endif --}}
+                        @if ($data_pengajuan->pengajuansidangta->status_pengajuan_sidang === 0)
+                            <span class="badge text-bg-danger">revisi...</span>
+                        @elseif ($data_pengajuan->pengajuansidangta->status_pengajuan_sidang === 1)
+                            <span class="badge text-bg-warning text-start">belum diperiksa <div>oleh Koordinator</div></span>
+                        @elseif ($data_pengajuan->pengajuansidangta->status_pengajuan_sidang === 2)
+                            <span class="badge text-bg-warning text-start">belum diperiksa <div>oleh Kaprodi...</div></span>
+                        @elseif ($data_pengajuan->pengajuansidangta->status_pengajuan_sidang === 3)
+                            <span class="badge text-bg-warning text-start">belum diperiksa <div>oleh Dekan...</div></span>
+                        @elseif ($data_pengajuan->pengajuansidangta->status_pengajuan_sidang === 4)
+                            <span class="badge text-bg-success">Pengajuan Diterima...</span>
+                        @elseif ($data_pengajuan->pengajuansidangta->status_pengajuan_sidang === 5)
+                            <span class="badge text-bg-warning text-start">Pengajuan ulang <div>sedang diproses...</div></span>
                         @endif
                     </li>
                 </ul>
@@ -327,4 +352,45 @@
 
 @endcan
 
+@endsection
+
+@section('only-jquery')
+<script>
+    $(document).ready(function() {
+        // Mendengarkan perubahan pada dropdown pertama
+        document.getElementById('penguji1_id').addEventListener('change', function () {
+            let selectedValuePertama = this.value;
+            let pembimbing1_id = document.getElementById('pembimbing1_id').value;
+            let pembimbing2_id = document.getElementById('pembimbing2_id').value;
+            let penguji2_id = document.getElementById('penguji2_id');
+
+            // console.log(selectedValuePertama);
+
+            $.ajax({
+                url: '/dashboard/usulan-penguji-sidang/get-penguji/' + pembimbing1_id + '/' + pembimbing2_id, // Mengirim selectedValuePertama sebagai parameter
+                method: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    // console.log(data);
+                    penguji2_id.innerHTML = '';
+                    
+                    for (let i = 0; i < data.length; i++) {
+                        let option = data[i];
+                        
+                        // Periksa apakah dosen sudah dipilih pada dropdown pertama
+                        if (option['id'] != selectedValuePertama) {
+                            // Create an option element
+                            let optionElement = document.createElement('option');
+                            optionElement.value = option['id'];
+                            optionElement.text = `${option['nama']}`;
+
+                            // Append the option element to pembimbing_dua
+                            penguji2_id.appendChild(optionElement);
+                        }
+                    }
+                }
+            });
+        });
+    })
+</script>
 @endsection

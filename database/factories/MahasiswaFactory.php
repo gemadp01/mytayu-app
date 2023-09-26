@@ -33,7 +33,8 @@ class MahasiswaFactory extends Factory
             'user_id' => User::factory()->create()->id,
             'level_user' => 'mahasiswa',
             
-            'npm' => $this->faker->randomNumber(8, false),
+            // 'npm' => $this->faker->randomNumber(2, false),
+            'npm' => "1" . $this->faker->numberBetween(7, 9) . "1110" . $this->faker->randomDigit() . $this->faker->randomDigitNot(0),
             'nama' => $this->faker->name(),
             'kelas' => $this->faker->randomElement($this->kelas),
             'prodi' => $this->faker->randomElement($this->prodi),

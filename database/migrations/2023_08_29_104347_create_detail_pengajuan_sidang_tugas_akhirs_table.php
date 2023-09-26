@@ -31,6 +31,7 @@ return new class extends Migration
             $table->string('ket_lampiran_sertifikat_pkkmb')->nullable();
             $table->string('ket_lampiran_sertifikat_toefl')->nullable();
             $table->string('tanggapan')->nullable();
+            $table->json('tanggapan_data')->nullable();
             $table->string('tanggal_penerimaan')->nullable();
             $table->timestamps();
         });

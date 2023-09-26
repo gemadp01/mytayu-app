@@ -274,7 +274,7 @@
                                             </p>
                                             @else
                                             <input type="file" class="form-control" name="draft_laporan" id="draft_laporan">
-                                            <small class="text-body-secondary">.pdf, maks:2mb</small>
+                                            <small class="text-body-secondary">.pdf, maks:15mb</small>
                                             @endif
                                         </div> 
         

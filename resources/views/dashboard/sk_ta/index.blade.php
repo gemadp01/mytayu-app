@@ -42,19 +42,24 @@
                 </thead>
                 <tbody>
                     @foreach ($data_sk_ta as $sk_ta)
-                        
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $sk_ta->npm }}</td>
-                        <td>{{ $sk_ta->nama }}</td>
-                        <td>{{ $sk_ta->tanggal_berlaku }}</td>
-                        <td>{{ $sk_ta->tanggal_berakhir }}</td>
-                        <td>
-                            <a href="/dashboard/sk-ta/{{ $sk_ta->id }}/edit" class="btn btn-warning btn-circle btn-sm">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                        </td>
-                    </tr>
+                        @php
+                            $dataUser = App\Models\PengajuanTugasAkhir::where('id', $sk_ta->id)->get()->first();
+                        @endphp
+
+                        @if ($dataUser->status_pengajuan === 4)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $sk_ta->npm }}</td>
+                            <td>{{ $sk_ta->nama }}</td>
+                            <td>{{ $sk_ta->tanggal_berlaku }}</td>
+                            <td>{{ $sk_ta->tanggal_berakhir }}</td>
+                            <td>
+                                <a href="/dashboard/sk-ta/{{ $sk_ta->id }}/edit" class="btn btn-warning btn-circle btn-sm">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        @endif
                     @endforeach
                 </tbody>
             </table>

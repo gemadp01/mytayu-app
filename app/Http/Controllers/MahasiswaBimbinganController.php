@@ -6,6 +6,7 @@ use App\Models\DetailPengajuanTugasAkhir;
 use App\Models\Bimbingan;
 use App\Models\PengajuanTugasAkhir;
 use App\Models\Dosen;
+use App\Models\TahunAkademik;
 use Illuminate\Http\Request;
 
 class MahasiswaBimbinganController extends Controller
@@ -25,6 +26,7 @@ class MahasiswaBimbinganController extends Controller
                     ->orWhere('usulan_pembimbing_kaprodi2_id', $dosen->id)
                     ->paginate(5),
             'infoPengajuanTa' => PengajuanTugasAkhir::all()->count(),
+            'tahunAkademik' => TahunAkademik::get()->first(),
         ]);
     }
 
@@ -82,11 +84,14 @@ class MahasiswaBimbinganController extends Controller
         $dosenKedua = Dosen::where('id', $userTerkait->detailpengajuantugasakhir->usulan_pembimbing_kaprodi2_id)->get()->first();
         $bimbinganMahasiswa = Bimbingan::where('user_id', $idUser)->where('pembimbing_id', $idDospem)->latest()->paginate(5);
 
+        $tahunAkademik = explode(' ', $userTerkait->tahun_akademik);
+
         return view('dashboard.form_bimbingan.index', [
             'bimbingans' => $bimbinganMahasiswa,
             'infoMahasiswa' => $userTerkait,
             'dospem1' => $dosenPertama,
             'dospem2' => $dosenKedua,
+            'tahunAkademik' => $tahunAkademik[3],
         ]);
     }
 }

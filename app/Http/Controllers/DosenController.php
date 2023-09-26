@@ -188,39 +188,83 @@ class DosenController extends Controller
             $data[] = $rowData;
         }
 
-        
+        $headers = array_shift($data); // Ambil baris pertama sebagai header
 
-        $header = array_shift($data); // Ambil baris pertama sebagai header
+        foreach ($headers as $header) {
+            $newHeader[] = Str::lower($header);
+        }
 
         // Cari indeks kolom yang sesuai dengan nama-nama header
-        $nidnIndex = array_search('NIDN', $header);
-        $namaIndex = array_search('Nama', $header);
-        $emailIndex = array_search('Email', $header);
-        $singkatanIndex = array_search('Singkatan', $header);
-        $nomorTeleponIndex = array_search('Nomor Telepon', $header);
-        $kuotaPembimbingIndex = array_search('Kuota Pembimbing', $header);
-        $keilmuanIndex = array_search('Keilmuan', $header);
+        // $nidnIndex = array_search('NIDN', $header);
+        // $namaIndex = array_search('Nama', $header);
+        // $emailIndex = array_search('Email', $header);
+        // $singkatanIndex = array_search('Singkatan', $header);
+        // $nomorTeleponIndex = array_search('Nomor Telepon', $header);
+        // $kuotaPembimbingIndex = array_search('Kuota Pembimbing', $header);
+        // $keilmuanIndex = array_search('Keilmuan', $header);
+
+        $nidnIndex = array_search('nidn', $newHeader);
+        $namaIndex = array_search('nama', $newHeader);
+        $emailIndex = array_search('email', $newHeader);
+        $singkatanIndex = array_search('singkatan', $newHeader);
+        $nomorTeleponIndex = array_search('nomor telepon', $newHeader);
+        $kuotaPembimbingIndex = array_search('kuota pembimbing', $newHeader);
+        $keilmuanIndex = array_search('keilmuan', $newHeader);
+
+        $users = User::all();
+        // $dosen = Dosen::all();
 
         foreach ($data as $row) {
-            $user = new User();
+            $username = $row[$nidnIndex] . Str::lower($row[$singkatanIndex]);
+            $nidn = $row[$nidnIndex];
 
-            $user->level_user = 'dospem';
-            $user->status_user = false;
-            $user->name = $row[$namaIndex];
-            $user->username = $row[$nidnIndex] . Str::lower($row[$singkatanIndex]);
-            $user->password = Hash::make($row[$nidnIndex]);
-            $user->save();
+            // dd($users->contains('username', $row[$nidnIndex] . Str::lower($row[$singkatanIndex])));
+            if (!$users->contains('username', $username)) {
+                $user = new User();
 
-            $dosen = Dosen::create([
-                'user_id' => $user->id, // Assign user_id with the newly created user's id
-                'level_user' => 'dospem',
-                'nidn' => $row[$nidnIndex],
-                'nama' => $row[$namaIndex],
-                'singkatan' => Str::upper($row[$singkatanIndex]),
-                'nomor_telepon' => $row[$nomorTeleponIndex],
-                'kuota_pembimbing' => $row[$kuotaPembimbingIndex],
-                'keilmuan' => $row[$keilmuanIndex],
-            ]);
+                $user->level_user = 'dospem';
+                $user->status_user = false;
+                $user->name = $row[$namaIndex];
+                $user->username = $row[$nidnIndex] . Str::lower($row[$singkatanIndex]);
+                $user->password = Hash::make($row[$nidnIndex]);
+                $user->save();
+                // $user = User::create([
+                //     'level_user' => 'dospem',
+                //     'status_user' => false,
+                //     'name' => $row[$namaIndex],
+                //     'username' => $username,
+                //     'password' => Hash::make($row[$nidnIndex]),
+                // ]);
+                
+                Dosen::create([
+                    'user_id' => $user->id, 
+                    'level_user' => $user->level_user,
+                    'status_user' => $user->status_user,
+                    'nidn' => $row[$nidnIndex],
+                    'nama' => $row[$namaIndex],
+                    'singkatan' => Str::upper($row[$singkatanIndex]),
+                    'nomor_telepon' => $row[$nomorTeleponIndex],
+                    'kuota_pembimbing' => $row[$kuotaPembimbingIndex],
+                    'keilmuan' => $row[$keilmuanIndex],
+                ]);
+            }else {
+                User::where('username', $username)->update([
+                    'name' => $row[$namaIndex],
+                    'username' => $row[$nidnIndex] . Str::lower($row[$singkatanIndex]),
+                    'password' => Hash::make($row[$nidnIndex]),
+                ]);
+
+                Dosen::where('nidn', $nidn)->update([
+                    'nidn' => $row[$nidnIndex],
+                    'nama' => $row[$namaIndex],
+                    'singkatan' => Str::upper($row[$singkatanIndex]),
+                    'nomor_telepon' => $row[$nomorTeleponIndex],
+                    'kuota_pembimbing' => $row[$kuotaPembimbingIndex],
+                    'keilmuan' => $row[$keilmuanIndex],
+                ]);
+            }
+
+            
         }
 
         if ($file->isValid()) {
@@ -260,8 +304,8 @@ class DosenController extends Controller
         $worksheet->setCellValue('A1', 'ID');
         $worksheet->setCellValue('B1', 'NIDN');
         $worksheet->setCellValue('C1', 'Nama');
-        $worksheet->setCellValue('D1', 'Email');
-        $worksheet->setCellValue('E1', 'Singkatan');
+        $worksheet->setCellValue('D1', 'Singkatan');
+        $worksheet->setCellValue('E1', 'Email');
         $worksheet->setCellValue('F1', 'Nomor Telepon');
         $worksheet->setCellValue('G1', 'Kuota Pembimbing');
         $worksheet->setCellValue('H1', 'Keilmuan');
@@ -272,8 +316,8 @@ class DosenController extends Controller
             $worksheet->setCellValue('A' . $rowIndex, $dosen->id);
             $worksheet->setCellValue('B' . $rowIndex, $dosen->nidn);
             $worksheet->setCellValue('C' . $rowIndex, $dosen->nama);
-            $worksheet->setCellValue('D' . $rowIndex, $dosen->email);
-            $worksheet->setCellValue('E' . $rowIndex, $dosen->singkatan);
+            $worksheet->setCellValue('D' . $rowIndex, $dosen->singkatan);
+            $worksheet->setCellValue('E' . $rowIndex, $dosen->email);
             $worksheet->setCellValue('F' . $rowIndex, $dosen->nomor_telepon);
             $worksheet->setCellValue('G' . $rowIndex, $dosen->kuota_pembimbing);
             $worksheet->setCellValue('H' . $rowIndex, $dosen->keilmuan);
@@ -285,4 +329,16 @@ class DosenController extends Controller
 
         return response()->download('dosen_data.xlsx')->deleteFileAfterSend();
     }
+
+    public function pencarian(Request $request)
+    {
+        $keyword = $request->input('keyword');
+        
+        $dosens = Dosen::where('nama', 'LIKE', "%$keyword%")
+                        ->orWhere('nidn', 'LIKE', "%$keyword%")
+                        ->get();
+
+        return response()->json(['dosens' => $dosens]);
+    }
+
 }

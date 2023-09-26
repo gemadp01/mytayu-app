@@ -172,17 +172,22 @@ class MahasiswaController extends Controller
 
         
 
-        $header = array_shift($data); // Ambil baris pertama sebagai header
+        $headers = array_shift($data); // Ambil baris pertama sebagai header
+
+        foreach ($headers as $header) {
+            $newHeader[] = Str::lower($header);
+        }
 
         // Cari indeks kolom yang sesuai dengan nama-nama header
-        $npmIndex = array_search('NPM', $header);
-        $namaIndex = array_search('Nama', $header);
-        $kelasIndex = array_search('Kelas', $header);
-        $emailIndex = array_search('Email', $header);
-        $prodiIndex = array_search('Prodi', $header);
+        $npmIndex = array_search('npm', $newHeader);
+        $namaIndex = array_search('nama', $newHeader);
+        $kelasIndex = array_search('kelas', $newHeader);
+        $emailIndex = array_search('email', $newHeader);
+        $prodiIndex = array_search('prodi', $newHeader);
+
+        $users = User::all();
 
         foreach ($data as $row) {
-            $user = new User();
 
             $fullName = $row[$namaIndex];
             $nameParts = explode(" ", $fullName);
@@ -190,22 +195,57 @@ class MahasiswaController extends Controller
             $firstName = $nameParts[0];
             $firstTwoLetters = substr($firstName, 0, 2);
 
-            $user->level_user = 'mahasiswa';
-            $user->status_user = false;
-            $user->name = $row[$namaIndex];
-            $user->username = $row[$npmIndex] . Str::lower($firstTwoLetters);
-            $user->password = Hash::make($row[$npmIndex]);
-            $user->save();
+            $username = $row[$npmIndex] . Str::lower($firstTwoLetters);
+            $npm = $row[$npmIndex];
 
-            Mahasiswa::create([
-                'user_id' => $user->id,
-                'level_user' => 'mahasiswa',
-                'npm' => $row[$npmIndex],
-                'nama' => $row[$namaIndex],
-                'kelas' => $row[$kelasIndex],
-                'email' => $row[$emailIndex],
-                'prodi' => $row[$prodiIndex],
-            ]);
+            if (!$users->contains('username', $username)) {
+
+                $user = new User();
+
+                $user->level_user = 'mahasiswa';
+                $user->status_user = false;
+                $user->name = $row[$namaIndex];
+                $user->username = $username;
+                $user->password = Hash::make($row[$npmIndex]);
+                $user->save();
+
+
+                // $user = User::create([
+                //     'level_user' => 'mahasiswa',
+                //     'status_user' => false,
+                //     'name' => $row[$namaIndex],
+                //     'username' => $username,
+                //     'password' => Hash::make($row[$npmIndex]),
+                // ]);
+
+                Mahasiswa::create([
+                    'user_id' => $user->id,
+                    'level_user' => $user->level_user,
+                    'status_user' => $user->status_user,
+                    'npm' => $row[$npmIndex],
+                    'nama' => $row[$namaIndex],
+                    'kelas' => $row[$kelasIndex],
+                    'email' => $row[$emailIndex],
+                    'prodi' => $row[$prodiIndex],
+                ]);
+            }else {
+                User::where('username', $username)->update([
+                    'name' => $row[$namaIndex],
+                    'username' => $username,
+                    'password' => Hash::make($row[$npmIndex]),
+                ]);
+
+                Mahasiswa::where('npm', $npm)->update([
+                    'level_user' => 'mahasiswa',
+                    'npm' => $row[$npmIndex],
+                    'nama' => $row[$namaIndex],
+                    'kelas' => $row[$kelasIndex],
+                    'email' => $row[$emailIndex],
+                    'prodi' => $row[$prodiIndex],
+                ]);
+            }
+
+            
         }
 
         if ($file->isValid()) {
@@ -266,5 +306,16 @@ class MahasiswaController extends Controller
         $xlsxWriter->save('mahasiswa_data.xlsx');
 
         return response()->download('mahasiswa_data.xlsx')->deleteFileAfterSend();
+    }
+
+    public function pencarian(Request $request)
+    {
+        $keyword = $request->input('keyword');
+        
+        $mahasiswas = Mahasiswa::where('nama', 'LIKE', "%$keyword%")
+                        ->orWhere('npm', 'LIKE', "%$keyword%")
+                        ->get();
+
+        return response()->json(['mahasiswas' => $mahasiswas]);
     }
 }

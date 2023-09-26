@@ -18,6 +18,7 @@ class ContactController extends Controller
 
         Mail::to($validatedData['email'])->send(new ContactMail($validatedData));
 
-        return redirect()->back()->with(['success' => 'Thank you for contact us!']);
+        return response()->json(['success' => 'Thank you for contacting us!']);
+        // return response()->json($validatedData);
     }
 }

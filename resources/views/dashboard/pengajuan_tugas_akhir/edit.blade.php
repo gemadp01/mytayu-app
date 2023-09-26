@@ -39,7 +39,7 @@
                         <li class="list-group-item">{{ $detailpengajuanta->kelas }}</li>
                         <li class="list-group-item">{{ $detailpengajuanta->nomor_telepon }}</li>
                         <li class="list-group-item">{{ $detailpengajuanta->email }}</li>
-                        <li class="list-group-item">Semester Ganjil - 2022/2023</li>
+                        <li class="list-group-item">{{ $detailpengajuanta->tahun_akademik }}</li>
                     </ul>
                     
                 </div>
@@ -352,7 +352,7 @@
                     </div>      
                 </div>
 
-                @if ($detailpengajuanta->suratketeranganta !== null)
+                @if ($detailpengajuanta->suratketeranganta !== null && $detailpengajuanta->suratketeranganta->sk_ta !== null)
                 <div class="col-12 col-lg-8 offset-lg-4">
                     <div class="card shadow mb-4 m-0">
                         <div class="card-header py-3">
@@ -365,39 +365,52 @@
                                 
 
                                 <div>
-                                    <label for="pembimbing_satu">Pembimbing 1</label>
+                                    <label for="pembimbing_satu">Pembimbing 1 (sebelumnya)</label>
                                 </div>
                                 <div class="input-group mb-3">
                                     <select class="form-select" name="usulan_pembimbing_mhs1_id" id="pembimbing_satu">
-                                      <option value="{{ $detailpengajuanta->detailpengajuantugasakhir->usulan_pembimbing_kaprodi1_id }}" selected>
-                                        {{ $detailpengajuanta->detailpengajuantugasakhir->usulanDospemKaprodiPertama->nama }}
-                                      </option>
-                                      @foreach ($dospems as $dospem)
-                                      
-                                        <option value="{{ $dospem->id }}">{{  "$dospem->singkatan --- $dospem->nama --- $dospem->keilmuan --- Kuota[$dospem->kuota_pembimbing]" }}</option>
-                                        {{-- @if ($dospem->kuota)
-                                            
-                                        @endif --}}
-                                      @endforeach
+                                        @if ($detailpengajuanta->status_pengajuan === 5)    
+                                        <option value="{{ $detailpengajuanta->detailpengajuantugasakhir->usulan_pembimbing_kaprodi1_id }}" selected>
+                                            {{  "$dospem_kaprodi1->singkatan --- $dospem_kaprodi1->nama --- $dospem_kaprodi1->keilmuan --- Kuota[$dospem_kaprodi1->kuota_pembimbing]" }}
+                                        </option>
+
+                                        @elseif ($detailpengajuanta->detailpengajuantugasakhir->usulan_pembimbing_kaprodi1_id !== null)
+                                        <option value="{{ $detailpengajuanta->detailpengajuantugasakhir->usulan_pembimbing_kaprodi1_id }}">
+                                            {{  "$dospem_kaprodi1->singkatan --- $dospem_kaprodi1->nama --- $dospem_kaprodi1->keilmuan --- Kuota[$dospem_kaprodi1->kuota_pembimbing]" }}
+                                        </option>
+                                        @endif
+
+                                    @foreach ($dospems as $dospem)
+                                        @if ($dospem->id !== $detailpengajuanta->detailpengajuantugasakhir->usulan_pembimbing_kaprodi1_id)
+                                            <option value="{{ $dospem->id }}">{{  "$dospem->singkatan --- $dospem->nama --- $dospem->keilmuan --- Kuota[$dospem->kuota_pembimbing]" }}</option>
+                                        @endif
+                                    @endforeach
+
                                     </select>
                                 </div>
                                 
                                 <div>
-                                    <label for="pembimbing_dua">Pembimbing 2</label>
+                                    <label for="pembimbing_dua">Pembimbing 2 (sebelumnya)</label>
                                 </div>
                                 <div class="input-group mb-3">
                                     <select class="form-select" name="usulan_pembimbing_mhs2_id" id="pembimbing_dua">
+                                        @if ($detailpengajuanta->status_pengajuan === 5)    
                                         <option value="{{ $detailpengajuanta->detailpengajuantugasakhir->usulan_pembimbing_kaprodi2_id }}" selected>
-                                            {{ $detailpengajuanta->detailpengajuantugasakhir->usulanDospemKaprodiKedua->nama }}
-                                          </option>
-                                      @foreach ($dospems as $dospem)
-                                        <option value="{{ $dospem->id }}">{{  "$dospem->singkatan --- $dospem->nama --- $dospem->keilmuan --- Kuota[$dospem->kuota_pembimbing]" }}</option>
-                                      @endforeach
+                                            {{  "$dospem_kaprodi2->singkatan --- $dospem_kaprodi2->nama --- $dospem_kaprodi2->keilmuan --- Kuota[$dospem_kaprodi2->kuota_pembimbing]" }}
+                                        </option>
+
+                                        @elseif ($detailpengajuanta->detailpengajuantugasakhir->usulan_pembimbing_kaprodi2_id !== null)
+                                        <option value="{{ $detailpengajuanta->detailpengajuantugasakhir->usulan_pembimbing_kaprodi2_id }}">
+                                            {{  "$dospem_kaprodi2->singkatan --- $dospem_kaprodi2->nama --- $dospem_kaprodi2->keilmuan --- Kuota[$dospem_kaprodi2->kuota_pembimbing]" }}
+                                        </option>
+                                        @endif
+
+                                        
                                     </select>
                                 </div>
 
                                 <div class="d-grid gap-2">
-                                    <button type="submit" class="btn btn-primary">Ajukan Revisi</button>
+                                    <button type="submit" class="btn btn-primary">Ajukan Pengajuan ulang</button>
                                 </div>
                             </form>
                         </div>
@@ -412,4 +425,38 @@
 
 @endcan
 
+@endsection
+
+@section('only-jquery')
+<script>
+    // Mendengarkan perubahan pada dropdown pertama
+    document.getElementById('pembimbing_satu').addEventListener('change', function () {
+        let selectedValuePertama = this.value;
+        let pembimbing_dua = document.getElementById('pembimbing_dua');
+        
+        $.ajax({
+            url: '/get-dospems/' + selectedValuePertama, // Mengirim selectedValuePertama sebagai parameter
+            method: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                pembimbing_dua.innerHTML = '';
+                
+                for (let i = 0; i < data.length; i++) {
+                    let option = data[i];
+                    
+                    // Periksa apakah dosen sudah dipilih pada dropdown pertama
+                    if (option['id'] !== selectedValuePertama) {
+                        // Create an option element
+                        let optionElement = document.createElement('option');
+                        optionElement.value = option['id'];
+                        optionElement.text = `${option['singkatan']} --- ${option['nama']} --- ${option['keilmuan']} --- Kuota[${option['kuota_pembimbing']}]`;
+
+                        // Append the option element to pembimbing_dua
+                        pembimbing_dua.appendChild(optionElement);
+                    }
+                }
+            }
+        });
+    });
+</script>
 @endsection

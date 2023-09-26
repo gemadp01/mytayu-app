@@ -106,6 +106,7 @@
             @elseif (auth()->user()->level_user === 'kaprodi')
             @php
                 $pengajuanTa = App\Models\PengajuanTugasAkhir::where('status_pengajuan', 2)->count();
+                $pengajuanUlangTa = App\Models\PengajuanTugasAkhir::where('status_pengajuan', 5)->count();
                 // $pengajuanSeminarTa = App\Models\PengajuanSeminarTugasAkhir::where('status_pengajuan_seminar', 1)->count();
                 $pengajuanSidangTa = App\Models\PengajuanSidangTugasAkhir::where('status_pengajuan_sidang', 2)->count();
             @endphp
@@ -124,6 +125,16 @@
                         <button type="button" class="btn btn-primary">
                             Sidang TA <span class="badge text-bg-secondary">
                                 {{ $pengajuanSidangTa }}
+                            </span>
+                        </button>
+                    </a>
+                </li>
+
+                <li class="nav-item dropdown no-arrow mx-1">
+                    <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button type="button" class="btn btn-primary">
+                           Pengajuan Ulang <span class="badge text-bg-secondary">
+                                {{ $pengajuanUlangTa }}
                             </span>
                         </button>
                     </a>
@@ -192,7 +203,7 @@
                 @if ($dateNow->year >= $dateSk->year && $dateNow->month >= $dateSk->month && $dateNow->day >= $dateSk->day)
                     <li class="nav-item dropdown no-arrow mx-1">
                         <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="badge text-bg-danger">Mohon daftar ulang TA!</span> 
+                            <span class="badge text-bg-danger">Mohon daftar ulang TA !</span> 
                         </a>
                     </li>
                 @else

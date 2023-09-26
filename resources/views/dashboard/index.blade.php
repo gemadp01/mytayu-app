@@ -1,6 +1,8 @@
 @extends('dashboard.layouts.main')
 
 @section('page-heading')
+
+
     <div class="d-sm-flex align-items-center mb-4">
 
         <img src="/img/unibi.png" alt="" width="50px">
@@ -19,6 +21,7 @@
     </div>
 
     @can('IsMahasiswa')
+
     <div class="row justify-content-center">
         <div class="col-6">
             <div class="card bg-primary text-white shadow">
@@ -225,3 +228,24 @@
 
     @endcan
 @endsection
+
+{{-- @if (session()->has('success'))
+    <script>
+        const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+        })
+
+        Toast.fire({
+        icon: 'success',
+        title: 'Signed in successfully'
+        })
+    </script>
+@endif --}}

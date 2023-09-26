@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('ket_lembar_bimbingan2')->nullable();
             $table->string('ket_sertifikat_kegiatan')->nullable();
             $table->string('tanggapan')->nullable();
+            $table->json('tanggapan_data')->nullable();
             $table->string('tanggal_penerimaan')->nullable();
             $table->unsignedInteger('status_approve')->length(1)->default(0);
             $table->timestamps();

@@ -1,9 +1,11 @@
 @extends('dashboard.layouts.main')
 
 @section('page-heading')
-    
+
     <h1 class="h3 mb-2 text-gray-800">Data Mahasiswa Bimbingan Tugas Akhir</h1>
-    <h1 class="h3 mb-2 text-gray-800">Tahun Akademik Semester Ganjil - 2022/2023</h1>
+    <h1 class="h3 mb-2 text-gray-800">
+        Tahun Akademik Semester {{ $tahunAkademik->semester }} - {{ $tahunAkademik->tahun_akademik }}
+    </h1>
 
     <div class="card shadow mb-4">
         @can('IsDospem')

@@ -6,6 +6,7 @@ use App\Models\PenjadwalanSeminarTugasAkhir;
 use App\Models\PenilaianSeminarTugasAkhir;
 use App\Models\PengajuanTugasAkhir;
 use App\Models\PengajuanSeminarTugasAkhir;
+use App\Models\TahunAkademik;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 
@@ -35,6 +36,7 @@ class PenjadwalanSeminarTugasAkhirController extends Controller
                 'jadwal_seminarta2' => PenjadwalanSeminarTugasAkhir::where('pembimbing_2', $dosen->singkatan)
                         ->orWhere('pembimbing_2', $dosen->singkatan)
                         ->paginate(5),
+                'tahunAkademik' => TahunAkademik::get()->first(),
             ]);
         }
         

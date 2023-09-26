@@ -45,12 +45,15 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">Status Pengajuan : 
                             @if ($detailpengajuan_seminarta->status_pengajuan_seminar === 0)
-                                <span class="badge text-bg-danger">revisi...</span>
+                                <span class="badge text-bg-danger text-start">revisi...</span>
                             @elseif ($detailpengajuan_seminarta->status_pengajuan_seminar === 1)
-                                <span class="badge text-bg-warning">belum diperiksa...</span>
+                                <span class="badge text-bg-warning text-start">belum diperiksa <div>oleh Koordinator...</div></span>
                             @elseif ($detailpengajuan_seminarta->status_pengajuan_seminar === 3)
-                                <span class="badge text-bg-success">diterima...</span>
+                                <span class="badge text-bg-warning text-start">belum diperiksa <div>oleh Dekan...</div></span>
+                            @elseif ($detailpengajuan_seminarta->status_pengajuan_seminar === 4)
+                                <span class="badge text-bg-success text-start">Pengajuan Diterima...</span>
                             @endif
+                            
                         </li>
                         
                     </ul>
@@ -244,7 +247,7 @@
                                             </p>
                                             @else
                                             <input type="file" class="form-control" name="draft_laporan" id="draft_laporan">
-                                            <small class="text-body-secondary">.pdf, maks:2mb</small>
+                                            <small class="text-body-secondary">.pdf, maks:5mb</small>
                                             @endif
                                         </div> 
         

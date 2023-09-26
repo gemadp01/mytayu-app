@@ -44,7 +44,7 @@
                     <li class="list-group-item">{{ $detailpengajuanta->kelas }}</li>
                     <li class="list-group-item">{{ $detailpengajuanta->nomor_telepon }}</li>
                     <li class="list-group-item">{{ $detailpengajuanta->email }}</li>
-                    <li class="list-group-item">Semester Ganjil - 2022/2023</li>
+                    <li class="list-group-item">{{ $detailpengajuanta->tahun_akademik }}</li>
                 </ul>
                 
             </div>
@@ -61,6 +61,8 @@
                             <span class="badge text-bg-warning">belum diperiksa oleh Dekan...</span>
                         @elseif ($detailpengajuanta->status_pengajuan === 4)
                             <span class="badge text-bg-success">Pengajuan Diterima...</span>
+                        @elseif ($detailpengajuanta->status_pengajuan === 5)
+                            <span class="badge text-bg-warning">Pengajuan ulang sedang diproses...</span>
                         @endif
                         
                     </li>

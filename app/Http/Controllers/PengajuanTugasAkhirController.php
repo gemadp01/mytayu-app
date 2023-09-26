@@ -95,6 +95,10 @@ class PengajuanTugasAkhirController extends Controller
         $validatedData['user_id'] = auth()->user()->id;
         $validatedData['nomor_pengajuan'] = 'TA' . rand(100000, 999999);
         $validatedData['tanggal_pengajuan'] = Carbon::now('Asia/Jakarta')->format('d-m-Y');
+
+        $tahunAkademik = TahunAkademik::get()->first();
+        
+        $validatedData['tahun_akademik'] = "Semester " . $tahunAkademik->semester . " - " . $tahunAkademik->tahun_akademik;
         $validatedData['status_pengajuan'] = 1;
 
         // dd($validatedData);
@@ -133,9 +137,18 @@ class PengajuanTugasAkhirController extends Controller
      */
     public function edit(PengajuanTugasAkhir $pengajuan_tum)
     {
+        if($pengajuan_tum->detailpengajuantugasakhir->usulan_pembimbing_kaprodi1_id !== null && $pengajuan_tum->detailpengajuantugasakhir->usulan_pembimbing_kaprodi2_id !== null) {
+            $dospem_kaprodi1 = Dosen::where('id', $pengajuan_tum->detailpengajuantugasakhir->usulan_pembimbing_kaprodi1_id)->get()->first();
+            $dospem_kaprodi2 = Dosen::where('id', $pengajuan_tum->detailpengajuantugasakhir->usulan_pembimbing_kaprodi2_id)->get()->first();
+        }else {
+            $dospem_kaprodi1 = "";
+            $dospem_kaprodi2 = "";
+        }
         return view('dashboard.pengajuan_tugas_akhir.edit', [
             'detailpengajuanta' => $pengajuan_tum->load(['user', 'usulanDospemPertama', 'usulanDospemKedua', 'detailpengajuantugasakhir']),
             'dospems' => Dosen::all(),
+            'dospem_kaprodi1' => $dospem_kaprodi1,
+            'dospem_kaprodi2' => $dospem_kaprodi2,
         ]);
     }
 
@@ -177,7 +190,7 @@ class PengajuanTugasAkhirController extends Controller
             $validatedData['foto_krs'] = $request->file('foto_krs')->store('pengajuan-ta-images');
         }
 
-        if ($pengajuan_tum->suratketeranganta !== null) {
+        if ($pengajuan_tum->suratketeranganta !== null && $pengajuan_tum->suratketeranganta->sk_ta !== null) {
             // if($pengajuan_tum->usulan_pembimbing_mhs1_id){
             //     $validatedData['usulan_pembimbing_mhs1_id'] = $pengajuan_tum->usulan_pembimbing_mhs1_id;
             // }else {
@@ -230,5 +243,9 @@ class PengajuanTugasAkhirController extends Controller
         $dospems = Dosen::where('id', '!=', $selectedId)->get();
 
         return response()->json($dospems);
+    }
+
+    public function getUbah(PengajuanTugasAkhir $id) {
+        return json_encode($id);
     }
 }

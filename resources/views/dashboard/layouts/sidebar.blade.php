@@ -2,7 +2,7 @@
 <!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
         <div class="sidebar-brand-icon">
             <img src="/img/unibi.png" alt="" width="25px">
         </div>
@@ -173,17 +173,25 @@
     <div class="sidebar-heading">Surat Pengantar</div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
+    <li class="nav-item
+    @if(Request::is('dashboard/pengantar-penelitian*'))
+        active
+    @endif
+    ">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSurat"
             aria-expanded="true" aria-controls="collapseSurat">
             <i class="fa fa-envelope" aria-hidden="true"></i>
             <span>Surat Pengantar TA</span>
         </a>
-        <div id="collapseSurat" class="collapse" aria-labelledby="headingSurat" data-parent="#accordionSidebar">
+        <div id="collapseSurat" class="collapse
+        @if(Request::is('dashboard/pengantar-penelitian*'))
+            show
+        @endif
+        " aria-labelledby="headingSurat" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Info Surat Pengantar:</h6>
-                <a class="collapse-item" href="login.html">Pengantar Penelitian</a>
-                <a class="collapse-item" href="register.html">Info SK Pengantar</a>
+                <a class="collapse-item {{ Request::is('dashboard/pengantar-penelitian*') ? 'active' : '' }}" href="/dashboard/pengantar-penelitian">Pengantar Penelitian</a>
+                {{-- <a class="collapse-item" href="register.html">Info SK Pengantar</a> --}}
             </div>
         </div>
     </li>
@@ -351,9 +359,9 @@
     <div class="sidebar-heading">Surat Pengantar</div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item {{ Request::is('dashboard/dosen*') ? 'active' : '' }}">
+    <li class="nav-item {{ Request::is('dashboard/pengantar-penelitian*') ? 'active' : '' }}">
         <a class="nav-link active"
-        href="/dashboard/dosen">
+        href="/dashboard/pengantar-penelitian">
         <i class="fa fa-envelope"></i>
         <span>Surat Pengantar Penelitian</span></a>
     </li>

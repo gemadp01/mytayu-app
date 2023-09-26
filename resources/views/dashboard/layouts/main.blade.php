@@ -50,6 +50,7 @@
     <link href="/css/sb-admin-2.min.css" rel="stylesheet">
 
     <script src="https://unpkg.com/feather-icons"></script>
+    @vite(['resources/js/app.js'])
 
 </head>
 
@@ -67,6 +68,7 @@
 
                 <div class="container-fluid">
                     <!-- Page Heading -->
+                    
                     @yield('page-heading')
 
                     <!-- Content Row -->

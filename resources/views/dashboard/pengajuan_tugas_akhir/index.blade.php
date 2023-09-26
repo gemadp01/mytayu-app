@@ -1,6 +1,7 @@
 @extends('dashboard.layouts.main')
 
 @section('page-heading')
+
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Data Pengajuan Mahasiswa Tugas Akhir</h1>
     <h1 class="h3 mb-2 text-gray-800">
@@ -75,7 +76,7 @@
                                     <span class="badge text-bg-success">Pengajuan Diterima...</span>    
                                     @endif
                                 @elseif ($pta->status_pengajuan === 5)
-                                    <span class="badge text-bg-warning text-start">Sedang diperiksa <div>Kaprodi...</div></span>
+                                    <span class="badge text-bg-warning text-start">Pengajuan ulang <div>sedang diproses...</div></span>
                                 @endif
 
                                 {{-- @if ($pta->status_pengajuan === 0)
@@ -149,7 +150,7 @@
         </div>
         <div class="card-body">
             <div class="row py-1">
-                <div class="col-12 col-md-6">
+                {{-- <div class="col-12 col-md-6">
                     <form action="/pengajuan-ta/import" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-2">
@@ -168,7 +169,7 @@
                         <span class="text">Import data pengajuan ta</span>
                     </button>
                     </form>
-                </div>
+                </div> --}}
                 <div class="col-12 col-md-6">
                     <a href="/pengajuan-ta/export-to-pdf" class="btn btn-primary btn-icon-split btn-sm">
                         <span class="icon text-white-50">
@@ -230,6 +231,8 @@
                                     <span class="badge text-bg-warning text-start">belum diperiksa <div>oleh Dekan...</div></span>
                                 @elseif ($pta->status_pengajuan === 4)
                                     <span class="badge text-bg-success">Pengajuan Diterima...</span>
+                                @elseif ($pta->status_pengajuan === 5)
+                                    <span class="badge text-bg-warning text-start">Pengajuan ulang <div>sedang diproses...</div></span>
                                 @endif
                             </td>
                             <td class="text-center">
@@ -342,7 +345,20 @@
                                 @endif
                             </td>
                             <td>
-                                @if ($pta->status_pengajuan === 0 || $pta->status_pengajuan === 1)
+                                @if ($pta->status_pengajuan === 0)
+                                    <span class="badge text-bg-danger">revisi...</span>
+                                @elseif ($pta->status_pengajuan === 1)
+                                    <span class="badge text-bg-warning">belum diperiksa...</span>
+                                @elseif ($pta->status_pengajuan === 2)
+                                    <span class="badge text-bg-warning text-start">belum diperiksa <div>oleh Kaprodi...</div></span>
+                                @elseif ($pta->status_pengajuan === 3)
+                                    <span class="badge text-bg-warning text-start">belum diperiksa <div>oleh Dekan...</div></span>
+                                @elseif ($pta->status_pengajuan === 4)
+                                    <span class="badge text-bg-success">Pengajuan Diterima...</span>
+                                @elseif ($pta->status_pengajuan === 5)
+                                    <span class="badge text-bg-warning text-start">Pengajuan ulang <div>sedang diproses...</div></span>
+                                @endif
+                                {{-- @if ($pta->status_pengajuan === 0 || $pta->status_pengajuan === 1)
                                     <span class="badge text-bg-danger text-start">sedang diproses <div>koordinator...</div></span>
                                 @elseif ($pta->status_pengajuan === 2)
                                     <span class="badge text-bg-warning">belum diperiksa...</span>
@@ -350,7 +366,7 @@
                                     <span class="badge text-bg-success">telah diperiksa...</span>
                                 @elseif ($pta->status_pengajuan === 5)
                                 <span class="badge text-bg-danger text-start">Pengajuan ulang <div>pembimbing...</div></span>
-                                @endif
+                                @endif --}}
                             </td>
                             <td class="text-center">
                                 
@@ -454,9 +470,9 @@
                             <td class="text-center">
                                 
                                 {{-- Button trigger to Approve --}}
-                                <button type="button" class="btn btn-success btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <a href="/dashboard/pengajuanta/getUbah/{{ $pta->id }}" class="btn btn-success btn-circle btn-sm tampilModalUbah" data-bs-toggle="modal" data-bs-target="#modal" data-id="{{ $pta->id }}">
                                     <i class="fas fa-check"></i>
-                                </button>
+                                </a>
 
                                 <form method="post" action="/dashboard/pengajuanta/{{ $pta->id }}/toggle-status" >
                                     @csrf
@@ -467,11 +483,11 @@
                                 </form>
 
                                 {{-- Modal --}}
-                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                       <div class="modal-content">
                                         <div class="modal-header">
-                                          <h1 class="modal-title fs-5" id="exampleModalLabel">Approve Mahasiswa</h1>
+                                          <h1 class="modal-title fs-5" id="formModalLabel">Approve Mahasiswa</h1>
                                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body text-start">
@@ -480,7 +496,7 @@
                                                 @csrf
                                                 <div class="mb-3">
                                                     <label for="nama" class="form-label">Nama Mahasiswa</label>
-                                                    <input type="email" class="form-control" name="nama" id="nama" value="{{ $pta->nama }}" readonly>
+                                                    <input type="text" class="form-control" name="nama" id="nama" readonly>
                                                 </div>
                                             
                                         </div>
@@ -521,4 +537,25 @@
             
     </div>
 
+@endsection
+
+@section('only-jquery')
+    <script>
+        $(document).ready(function() {
+            $('.tampilModalUbah').on('click', function() {
+                const id = $(this).data('id');
+                $('.modal-body form').attr('action', '/dashboard/detail-pengajuan-ta/' + id);
+
+                $.ajax({
+                    type: "GET",
+                    url: "/dashboard/pengajuanta/getUbah/" + id,
+                    // data: {id: id},
+                    dataType: "json",
+                    success: function (data) {
+                        $('#nama').val(data.nama);
+                    }
+                });
+            })
+        })
+    </script>
 @endsection

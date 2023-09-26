@@ -3,7 +3,7 @@
 @section('page-heading')
     
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Data Pengajuan Seminar Tugas Akhir Mahasiswa</h1>
+    <h1 class="h3 mb-2 text-gray-800">Data Pengajuan Sidang Tugas Akhir Mahasiswa</h1>
     <h1 class="h3 mb-2 text-gray-800">
         Tahun Akademik Semester {{ $tahunAkademik->semester }} - {{ $tahunAkademik->tahun_akademik }}
     </h1>
@@ -59,12 +59,25 @@
                             <td>{{ $psta->nama }}</td>
                             <td>{{ $psta->tanggal_pengajuan }}</td>
                             <td>
-                                @if ($psta->status_pengajuan_sidang === 0)
+                                {{-- @if ($psta->status_pengajuan_sidang === 0)
                                     <span class="badge text-bg-danger">direvisi...</span>
                                 @elseif ($psta->status_pengajuan_sidang === 1)
                                     <span class="badge text-bg-warning">diproses...</span>
                                 @else
                                     <span class="badge text-bg-success">diterima...</span>
+                                @endif --}}
+                                @if ($psta->status_pengajuan_sidang === 0)
+                                    <span class="badge text-bg-danger">revisi...</span>
+                                @elseif ($psta->status_pengajuan_sidang === 1)
+                                    <span class="badge text-bg-warning text-start">belum diperiksa <div>oleh Koordinator...</div></span>
+                                @elseif ($psta->status_pengajuan_sidang === 2)
+                                    <span class="badge text-bg-warning text-start">belum diperiksa <div>oleh Kaprodi...</div></span>
+                                @elseif ($psta->status_pengajuan_sidang === 3)
+                                    <span class="badge text-bg-warning text-start">belum diperiksa <div>oleh Dekan...</div></span>
+                                @elseif ($psta->status_pengajuan_sidang === 4)
+                                    <span class="badge text-bg-success">Pengajuan Diterima...</span>
+                                @elseif ($psta->status_pengajuan_sidang === 5)
+                                    <span class="badge text-bg-warning text-start">Pengajuan ulang <div>sedang diproses...</div></span>
                                 @endif
                             </td>
                             <td class="text-center">
@@ -104,7 +117,7 @@
 
         <div class="card-body">
             <div class="row py-1">
-                <div class="col-12 col-md-6">
+                {{-- <div class="col-12 col-md-6">
                     <form action="/pengajuan-ta/import" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-2">
@@ -123,7 +136,7 @@
                         <span class="text">Import data pengajuan sidang ta</span>
                     </button>
                     </form>
-                </div>
+                </div> --}}
                 <div class="col-12 col-md-6">
                     <a href="/pengajuan-ta/export-to-pdf" class="btn btn-primary btn-icon-split btn-sm">
                         <span class="icon text-white-50">
@@ -175,12 +188,25 @@
                             <td>{{ $psta->kelas }}</td>
                             <td>{{ $psta->email }}</td>
                             <td>
-                                @if ($psta->status_pengajuan_sidang === 0)
+                                {{-- @if ($psta->status_pengajuan_sidang === 0)
                                     <span class="badge text-bg-danger">revisi...</span>
                                 @elseif ($psta->status_pengajuan_sidang === 1)
                                     <span class="badge text-bg-warning">belum diperiksa...</span>
                                 @else
                                     <span class="badge text-bg-success">diterima...</span>
+                                @endif --}}
+                                @if ($psta->status_pengajuan_sidang === 0)
+                                    <span class="badge text-bg-danger">revisi...</span>
+                                @elseif ($psta->status_pengajuan_sidang === 1)
+                                    <span class="badge text-bg-warning text-start">belum diperiksa <div>oleh Koordinator...</div></span>
+                                @elseif ($psta->status_pengajuan_sidang === 2)
+                                    <span class="badge text-bg-warning text-start">belum diperiksa <div>oleh Kaprodi...</div></span>
+                                @elseif ($psta->status_pengajuan_sidang === 3)
+                                    <span class="badge text-bg-warning text-start">belum diperiksa <div>oleh Dekan...</div></span>
+                                @elseif ($psta->status_pengajuan_sidang === 4)
+                                    <span class="badge text-bg-success">Pengajuan Diterima...</span>
+                                @elseif ($psta->status_pengajuan_sidang === 5)
+                                    <span class="badge text-bg-warning text-start">Pengajuan ulang <div>sedang diproses...</div></span>
                                 @endif
                             </td>
                             <td class="text-center">

@@ -10,17 +10,6 @@
         <div class="card-body">
             <div class="row py-1">
                 <div class="col-12 col-md-6">
-                    <form action="/pengajuan-ta/import" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="mb-2">
-                            @error('excel_file')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
-                            <input type="file" name="excel_file" class="form-control">
-                            <small class="text-body-secondary">.xlsx(excel)</small>
-                        </div>
-                    </div>
-                <div class="col-12 col-md-6">
                     <a href="/pengajuan-ta/export-to-pdf" class="btn btn-primary btn-icon-split btn-sm">
                         <span class="icon text-white-50">
                             <i class="fa fa-download" aria-hidden="true"></i>

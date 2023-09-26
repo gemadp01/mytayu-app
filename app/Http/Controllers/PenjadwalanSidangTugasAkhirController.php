@@ -7,6 +7,7 @@ use App\Models\PenilaianSidangTugasAkhir;
 use App\Models\PengajuanTugasAkhir;
 use App\Models\PengajuanSidangTugasAkhir;
 use App\Models\Dosen;
+use App\Models\TahunAkademik;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 
@@ -55,6 +56,7 @@ class PenjadwalanSidangTugasAkhirController extends Controller
                 'jadwal_sidangta4' => PenjadwalanSidangTugasAkhir::where('uji3_id', $dosen->id)
                         ->orWhere('uji3_id', $dosen->id)
                         ->paginate(5),
+                'tahunAkademik' => TahunAkademik::get()->first(),
             ]);
         }
     }
