@@ -232,7 +232,6 @@ class MahasiswaController extends Controller
                 User::where('username', $username)->update([
                     'name' => $row[$namaIndex],
                     'username' => $username,
-                    'password' => Hash::make($row[$npmIndex]),
                 ]);
 
                 Mahasiswa::where('npm', $npm)->update([

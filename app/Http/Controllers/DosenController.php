@@ -251,7 +251,6 @@ class DosenController extends Controller
                 User::where('username', $username)->update([
                     'name' => $row[$namaIndex],
                     'username' => $row[$nidnIndex] . Str::lower($row[$singkatanIndex]),
-                    'password' => Hash::make($row[$nidnIndex]),
                 ]);
 
                 Dosen::where('nidn', $nidn)->update([
