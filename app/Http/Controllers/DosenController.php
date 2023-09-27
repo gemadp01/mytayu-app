@@ -243,9 +243,10 @@ class DosenController extends Controller
                     'nidn' => $row[$nidnIndex],
                     'nama' => $row[$namaIndex],
                     'singkatan' => Str::upper($row[$singkatanIndex]),
-                    'nomor_telepon' => $row[$nomorTeleponIndex],
-                    'kuota_pembimbing' => $row[$kuotaPembimbingIndex],
-                    'keilmuan' => $row[$keilmuanIndex],
+                    // 'email' => $row[$emailIndex],
+                    // 'nomor_telepon' => $row[$nomorTeleponIndex],
+                    // 'kuota_pembimbing' => $row[$kuotaPembimbingIndex],
+                    // 'keilmuan' => $row[$keilmuanIndex],
                 ]);
             }else {
                 User::where('username', $username)->update([
@@ -257,9 +258,10 @@ class DosenController extends Controller
                     'nidn' => $row[$nidnIndex],
                     'nama' => $row[$namaIndex],
                     'singkatan' => Str::upper($row[$singkatanIndex]),
-                    'nomor_telepon' => $row[$nomorTeleponIndex],
-                    'kuota_pembimbing' => $row[$kuotaPembimbingIndex],
-                    'keilmuan' => $row[$keilmuanIndex],
+                    // 'email' => $row[$emailIndex],
+                    // 'nomor_telepon' => $row[$nomorTeleponIndex],
+                    // 'kuota_pembimbing' => $row[$kuotaPembimbingIndex],
+                    // 'keilmuan' => $row[$keilmuanIndex],
                 ]);
             }
 

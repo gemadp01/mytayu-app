@@ -180,8 +180,12 @@
                                         '<button type="submit" class="btn btn-success btn-circle btn-sm"><i class="fas fa-check"></i></button>'
                                     ) +
                                 '</form>' +
-                            '</td>'
 
+                                '<a href="/dashboard/mahasiswa/' + mahasiswa.id + ' /edit" class="btn btn-warning btn-circle btn-sm">'
+                                    + '<i class="fas fa-edit"></i>' +
+                                '</a>'
+                            '</td>'
+                                
                             '</tr>';
 
                         tbody.append(row);
