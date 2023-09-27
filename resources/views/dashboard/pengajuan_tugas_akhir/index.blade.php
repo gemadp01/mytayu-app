@@ -118,7 +118,7 @@
 
                                 @endif
 
-                                @if ($pta->suratketeranganta->sk_ta !== null)
+                                @if ($pta->suratketeranganta->sk_ta !== "")
                                     <a href="{{ asset('storage/' . $pta->suratketeranganta->sk_ta) }}" class="btn btn-primary btn-circle btn-sm" download>
                                         <i class="fa fa-download"></i>
                                     </a>

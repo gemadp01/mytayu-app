@@ -94,7 +94,7 @@
                                     </div>
                                 @enderror
                                 <div class="d-grid gap-2">
-                                    <button type="submit" class="btn btn-primary">Upload Yudisium</button>
+                                    <button type="submit" class="btn btn-primary">Upload SK Pengantar</button>
                                 </div>
                             </form>
                             
