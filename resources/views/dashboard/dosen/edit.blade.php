@@ -64,7 +64,7 @@
                             @foreach ($keilmuanDosen as $keilmuan)
                             <div class="col">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="keilmuan[]" id="{{ $loop->iteration }}" value="{{ $keilmuan }}" @if(is_array(old('keilmuan')) && in_array($keilmuan, old('keilmuan'))) checked @endif>
+                                    <input class="form-check-input" type="checkbox" name="keilmuan" id="{{ $loop->iteration }}" value="{{ $keilmuan }}" @if(is_array(old('keilmuan')) && in_array($keilmuan, old('keilmuan'))) checked @endif>
                                     
                                     <label class="form-check-label" for="{{ $loop->iteration }}">{{ $keilmuan }}</label>
                                 </div>

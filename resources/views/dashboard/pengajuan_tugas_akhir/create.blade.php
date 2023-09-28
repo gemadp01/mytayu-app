@@ -133,7 +133,7 @@
                                   <option value="">Choose...</option>
                                   @foreach ($dospems as $dospem)
                                   
-                                    <option value="{{ $dospem->id }}">{{  "$dospem->singkatan --- $dospem->nama --- $dospem->keilmuan --- Kuota[$dospem->kuota_pembimbing]" }}</option>
+                                    <option value="{{ $dospem->id }}" data-keilmuan="{{ $dospem->keilmuan }}" data-kuotapembimbing="{{ $dospem->kuota_pembimbing }}">{{  "$dospem->singkatan --- $dospem->nama" }}</option>
                                   @endforeach
                                 </select>
                             </div>
@@ -255,12 +255,10 @@
     $(document).ready(function() {
         document.getElementById('pembimbing_satu').addEventListener('change', function () {
             let selectedValuePertama = this.value;
+            // let pembimbing_satu = document.getElementById('pembimbing_satu');
             let pembimbing_dua = document.getElementById('pembimbing_dua');
-            let pembimbing_satu = document.getElementById('pembimbing_satu');
-            let keilmuanSatu = document.getElementById('keilmuan1');
-            let kuotaSatu = document.getElementById('kuota1');
-            let keilmuanDua = document.getElementById('keilmuan2');
-            let kuotaDua = document.getElementById('kuota2');
+            // let keilmuanDua = document.getElementById('keilmuan2');
+            // let kuotaDua = document.getElementById('kuota2');
 
             $.ajax({
                 url: '/get-dospems/' + selectedValuePertama, // Mengirim selectedValuePertama sebagai parameter
@@ -271,22 +269,53 @@
                     
                     for (let i = 0; i < data.length; i++) {
                         let option = data[i];
-                        
+
                         // Periksa apakah dosen sudah dipilih pada dropdown pertama
                         if (option['id'] !== selectedValuePertama) {
                             // Create an option element
                             let optionElement = document.createElement('option');
                             optionElement.value = option['id'];
-                            optionElement.text = `${option['singkatan']} --- ${option['nama']} --- ${option['keilmuan']} --- Kuota[${option['kuota_pembimbing']}]`;
+                            optionElement.text = `${option['singkatan']} --- ${option['nama']}`;
 
+                            // Tambahkan data attributes untuk keilmuan dan kuota_pembimbing
+                            optionElement.setAttribute('data-keilmuan', option['keilmuan']);
+                            optionElement.setAttribute('data-kuotapembimbing', option['kuota_pembimbing']);
+                            
                             // console.log(pembimbing_dua);
                             // Append the option element to pembimbing_dua
                             pembimbing_dua.appendChild(optionElement);
                         }
+                        
                     }
+
+                    $('#pembimbing_dua').on('input', function() {
+                        let pembimbingDuaId = this.value;
+                        var optionElement = document.querySelector('option[value="' + pembimbingDuaId + '"]');
+
+                        var keilmuan = optionElement.getAttribute('data-keilmuan');
+                        var kuotaPembimbing = optionElement.getAttribute('data-kuotapembimbing');
+
+                        $('#keilmuan2').html(keilmuan);
+                        $('#kuota2').html(kuotaPembimbing);
+
+                    })
+                    
                 }
             });
+
+            
         });
+    })
+
+    $('#pembimbing_satu').on('change', function() {
+        let pembimbingSatuId = this.value;
+        let optionElement = document.querySelector('option[value="' + pembimbingSatuId + '"]');
+
+        let keilmuan = optionElement.getAttribute('data-keilmuan');
+        let kuotaPembimbing = optionElement.getAttribute('data-kuotapembimbing');
+
+        $('#keilmuan1').html(keilmuan);
+        $('#kuota1').html(kuotaPembimbing);
     })
 </script>
 

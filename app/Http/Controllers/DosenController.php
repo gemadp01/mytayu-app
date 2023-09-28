@@ -131,6 +131,12 @@ class DosenController extends Controller
         ]);
 
         $validatedData['singkatan'] = Str::upper($validatedData['singkatan']);
+
+        $selectedKeilmuan = $request->input('keilmuan', []);
+
+        $keilmuanString = implode(', ', $selectedKeilmuan);
+        $validatedData['keilmuan'] = $keilmuanString;
+        
         // Dosen::where('id', $dosen->id)->update($validatedData);
         $dosen->update($validatedData);
 

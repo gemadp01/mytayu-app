@@ -49,9 +49,11 @@ class ProfileController extends Controller
 
         $selectedKeilmuan = $request->input('keilmuan', []);
 
+        $keilmuanString = implode(', ', $selectedKeilmuan);
+
         // $selectedKeilmuanString = implode(', ', $selectedKeilmuan);
         // $validatedData['keilmuan'] = $selectedKeilmuanString;
-        $validatedData['keilmuan'] = $selectedKeilmuan;
+        $validatedData['keilmuan'] = $keilmuanString;
         if (!empty($request->input('current_password')) && !empty($request->input('new_password'))) {
             $user = Auth::user();
             $currentPassword = $user->password;
